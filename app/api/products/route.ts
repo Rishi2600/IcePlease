@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 
 export async function POST (req: NextRequest, res: NextResponse) {
     try {
-        const username = await req.json()
-        const password = await req.json()
+        const {username, password} = await req.json()
         
         console.log(username, password)
 
