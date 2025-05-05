@@ -24,10 +24,18 @@ export async function POST (req: NextRequest, res: NextResponse) {
 export async function GET() {
     try {
         return NextResponse.json({
-            message: "hey therre"
+            message: "Hi there"
+        }, {
+            status: 200
         })
     } catch(e) {
         console.log(e)
+
+        return NextResponse.json({
+            message: "unable to GET request"
+        }, {
+            status: 404
+        })
     }
 
 }
