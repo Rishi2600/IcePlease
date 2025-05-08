@@ -9,6 +9,8 @@ export async function POST (req: NextRequest, res: NextResponse) {
         return NextResponse.json({
             username: username,
             password: password
+        }, {
+            status: 200
         })
     } catch(e) {
         console.log(e)
@@ -32,7 +34,7 @@ export async function GET() {
         console.log(e)
 
         return NextResponse.json({
-            message: "unable to GET request"
+            message: "cannot GET"
         }, {
             status: 404
         })
