@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST (req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
     try {
         const {username, password} = await req.json()
-        
+
         console.log(username, password)
 
         return NextResponse.json({
@@ -16,7 +16,7 @@ export async function POST (req: NextRequest, res: NextResponse) {
         console.log(e)
 
         return NextResponse.json({
-            message: "Request cannot be processed"
+            error: "there was an error processing this http POST request"
         }, {
             status: 404
         })
@@ -34,10 +34,9 @@ export async function GET() {
         console.log(e)
 
         return NextResponse.json({
-            message: "cannot GET"
+            error: "cannot GET"
         }, {
             status: 404
         })
     }
-
 }
