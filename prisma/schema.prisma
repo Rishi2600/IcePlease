@@ -21,6 +21,6 @@ model User {
 }
 
 model Products {
-  id String @id @default(uuid())
+  id        String @id @default(uuid())
   ProductId String
 }
