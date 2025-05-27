@@ -1,11 +1,13 @@
-"use client"
+"use client";
 
-import { ShoppingCart, User, Moon, Sun } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ShoppingCart, User, Moon, Sun } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function Navbar() {
+  const session = useSession();
 
-
+  console.log(session);
 
   return (
     <nav className="bg-amber-50 border-b border-gray-200 px-4 py-3 shadow-sm">
@@ -19,9 +21,12 @@ export default function Navbar() {
 
         {/* Right side - Cart and Auth */}
         <div className="flex items-center space-x-4">
-
           {/* Cart Icon */}
-          <Button variant="ghost" size="icon" className="relative text-gray-700 hover:text-gray-900 hover:bg-gray-100 hover:cursor-pointer">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="relative text-gray-700 hover:text-gray-900 hover:bg-gray-100 hover:cursor-pointer"
+          >
             <ShoppingCart className="h-5 w-5" />
             {/* Cart badge - you can make this dynamic */}
             <span className="absolute -top-1 -right-1 bg-gray-900 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -39,12 +44,31 @@ export default function Navbar() {
           </Button>
 
           {/* Authentication Button */}
-          <Button variant="outline" className="text-gray-700 border-gray-300 hover:bg-gray-100 hover:text-gray-900 hover:cursor-pointer">
-            <User className="h-4 w-4 mr-2" />
-            Sign In
-          </Button>
+          {session.status === "authenticated" && (
+            <Button
+              onClick={() => {
+                signIn();
+              }}
+              variant="outline"
+              className="text-gray-700 border-gray-300 hover:bg-gray-100 hover:text-gray-900 hover:cursor-pointer"
+            >
+              <User className="h-4 w-4 mr-2" />
+              Sign Out
+            </Button>
+          )}
+
+          {session.status === "unauthenticated" && (
+            <Button
+              onClick={() => signOut()}
+              variant="outline"
+              className="text-gray-700 border-gray-300 hover:bg-gray-100 hover:text-gray-900 hover:cursor-pointer"
+            >
+              <User className="h-4 w-4 mr-2" />
+              Sign In
+            </Button>
+          )}
         </div>
       </div>
     </nav>
-  )
+  );
 }
