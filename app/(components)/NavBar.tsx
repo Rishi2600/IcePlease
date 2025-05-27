@@ -47,7 +47,7 @@ export default function Navbar() {
           {session.status === "authenticated" && (
             <Button
               onClick={() => {
-                signIn();
+                signOut();
               }}
               variant="outline"
               className="text-gray-700 border-gray-300 hover:bg-gray-100 hover:text-gray-900 hover:cursor-pointer"
@@ -59,7 +59,7 @@ export default function Navbar() {
 
           {session.status === "unauthenticated" && (
             <Button
-              onClick={() => signOut()}
+              onClick={() => signIn()}
               variant="outline"
               className="text-gray-700 border-gray-300 hover:bg-gray-100 hover:text-gray-900 hover:cursor-pointer"
             >
@@ -67,6 +67,18 @@ export default function Navbar() {
               Sign In
             </Button>
           )}
+
+          {session.status === "loading" && (
+            <Button
+              onClick={() => signIn()}
+              variant="outline"
+              className="text-gray-700 border-gray-300 hover:bg-gray-100 hover:text-gray-900 hover:cursor-pointer"
+            >
+              <User className="h-4 w-4 mr-2" />
+              Sign In
+            </Button>
+          )}
+          
         </div>
       </div>
     </nav>
