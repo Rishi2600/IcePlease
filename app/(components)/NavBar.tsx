@@ -21,7 +21,7 @@ export default function Navbar() {
         <div className="flex items-center space-x-4">
 
           {/* Cart Icon */}
-          <Button variant="ghost" size="icon" className="relative text-gray-700 hover:text-gray-900 hover:bg-gray-100">
+          <Button variant="ghost" size="icon" className="relative text-gray-700 hover:text-gray-900 hover:bg-gray-100 hover:cursor-pointer">
             <ShoppingCart className="h-5 w-5" />
             {/* Cart badge - you can make this dynamic */}
             <span className="absolute -top-1 -right-1 bg-gray-900 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -33,13 +33,13 @@ export default function Navbar() {
           <Button
             variant="ghost"
             size="icon"
-            className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 hover:cursor-pointer"
           >
             <Moon className="h-5 w-5" />
           </Button>
 
           {/* Authentication Button */}
-          <Button variant="outline" className="text-gray-700 border-gray-300 hover:bg-gray-100 hover:text-gray-900">
+          <Button variant="outline" className="text-gray-700 border-gray-300 hover:bg-gray-100 hover:text-gray-900 hover:cursor-pointer">
             <User className="h-4 w-4 mr-2" />
             Sign In
           </Button>
