@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { Role } from "@prisma/client";
 import { authOptions } from "@/lib/auth";
+import { AuthorizationError } from "@/lib/server/errors";
 
 /**
  * Authorization. Every admin page and every admin mutation calls through here.
@@ -50,14 +51,6 @@ export async function requireAdminPage(returnTo: string): Promise<SessionUser> {
   if (!user) redirect(`/login?callbackUrl=${encodeURIComponent(returnTo)}`);
   if (user.role !== Role.ADMIN) redirect("/");
   return user;
-}
-
-/** Thrown by `requireAdminAction`; server actions convert it to a result. */
-export class AuthorizationError extends Error {
-  constructor(message = "You are not allowed to do that.") {
-    super(message);
-    this.name = "AuthorizationError";
-  }
 }
 
 /** For server actions and route handlers. Throws rather than redirecting. */

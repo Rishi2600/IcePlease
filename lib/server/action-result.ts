@@ -1,7 +1,7 @@
 import "server-only";
 import { ZodError } from "zod";
 import { Prisma } from "@prisma/client";
-import { AuthorizationError } from "@/lib/server/session";
+import { AuthorizationError, BusinessRuleError } from "@/lib/server/errors";
 
 /**
  * One shape for every server-action outcome, so forms handle results the same
@@ -64,18 +64,4 @@ export function toActionError(error: unknown): ActionResult<never> {
 
   console.error("[action]", error);
   return fail("Something went wrong on our side. Please try again.");
-}
-
-/**
- * A rule the business defines, phrased for the customer — "Only 3 trays left",
- * not a stack trace. Safe to show as-is.
- */
-export class BusinessRuleError extends Error {
-  readonly fieldErrors?: FieldErrors;
-
-  constructor(message: string, fieldErrors?: FieldErrors) {
-    super(message);
-    this.name = "BusinessRuleError";
-    this.fieldErrors = fieldErrors;
-  }
 }
