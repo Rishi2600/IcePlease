@@ -67,7 +67,7 @@ export function Select({
   );
 }
 
-export function FieldError({ id, children }: { id: string; children?: string }) {
+function FieldError({ id, children }: { id: string; children?: string }) {
   if (!children) return null;
   return (
     <p id={id} className="mt-1.5 text-sm text-danger">

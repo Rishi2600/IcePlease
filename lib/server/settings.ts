@@ -27,7 +27,7 @@ export const DELIVERY_FEE_MINOR = intEnv("DELIVERY_FEE_MINOR", 4900);
  * Subtotal at or above which delivery is free. `null` disables the threshold
  * entirely, which is the honest default before the business has decided.
  */
-export const FREE_DELIVERY_THRESHOLD_MINOR: number | null =
+const FREE_DELIVERY_THRESHOLD_MINOR: number | null =
   process.env.FREE_DELIVERY_THRESHOLD_MINOR?.trim()
     ? intEnv("FREE_DELIVERY_THRESHOLD_MINOR", 0)
     : null;

@@ -14,7 +14,3 @@ export function generateOrderNumber(): string {
   }
   return `IP-${code}`;
 }
-
-export function isOrderNumber(value: string): boolean {
-  return new RegExp(`^IP-[${ALPHABET}]{6}$`).test(value);
-}

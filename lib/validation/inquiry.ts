@@ -39,11 +39,3 @@ export const inquirySchema = z.object({
 });
 
 export type InquiryInput = z.infer<typeof inquirySchema>;
-
-export const inquiryStatusSchema = z.enum([
-  "NEW",
-  "CONTACTED",
-  "QUOTED",
-  "CONVERTED",
-  "CLOSED",
-]);

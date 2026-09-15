@@ -6,7 +6,7 @@
  * no float arithmetic on money anywhere, by design.
  */
 
-export const CURRENCY = "INR";
+const CURRENCY = "INR";
 
 const rupeeFormatter = new Intl.NumberFormat("en-IN", {
   style: "currency",

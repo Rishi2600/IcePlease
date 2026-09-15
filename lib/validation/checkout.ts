@@ -40,12 +40,3 @@ export const checkoutSchema = z.object({
 });
 
 export type CheckoutInput = z.infer<typeof checkoutSchema>;
-
-/** The delivery fields only, for the address step's own validation. */
-export const deliveryFields = [
-  "addressLine1",
-  "addressLine2",
-  "city",
-  "postalCode",
-  "deliveryNotes",
-] as const;

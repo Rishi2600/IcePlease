@@ -37,10 +37,6 @@ export function listInquiries(status?: InquiryStatus) {
   });
 }
 
-export function getInquiry(id: string) {
-  return prisma.b2BInquiry.findUnique({ where: { id } });
-}
-
 export function updateInquiry(
   id: string,
   data: Prisma.B2BInquiryUpdateInput,

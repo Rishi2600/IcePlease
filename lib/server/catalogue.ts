@@ -66,7 +66,3 @@ export async function listActiveFlavors(): Promise<string[]> {
   });
   return rows.map((row) => row.flavor);
 }
-
-export function isInStock(product: { stock: number }): boolean {
-  return product.stock > 0;
-}

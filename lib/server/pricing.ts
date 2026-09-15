@@ -1,6 +1,5 @@
 import "server-only";
 import { prisma } from "@/lib/prisma";
-import { formatMinor } from "@/lib/money";
 import type { CartLineInput } from "@/lib/validation/cart";
 import type {
   CartIssue,
@@ -129,12 +128,4 @@ export async function priceCart(input: CartLineInput[]): Promise<PricedCart> {
     itemCount: lines.reduce((sum, line) => sum + line.quantity, 0),
     isEmpty: lines.length === 0,
   };
-}
-
-/** Delivery messaging for the cart, derived from the same rule as the fee. */
-export function deliveryNote(cart: PricedCart): string {
-  if (cart.isEmpty) return "";
-  return cart.deliveryFeeMinor === 0
-    ? "Delivery included"
-    : `${formatMinor(cart.deliveryFeeMinor)} delivery`;
 }

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const emailSchema = z
+const emailSchema = z
   .string()
   .trim()
   .min(1, "Email is required")
@@ -8,7 +8,7 @@ export const emailSchema = z
   .email("Enter a valid email address")
   .transform((value) => value.toLowerCase());
 
-export const passwordSchema = z
+const passwordSchema = z
   .string()
   .min(8, "Password must be at least 8 characters")
   .max(200, "Password is too long");
