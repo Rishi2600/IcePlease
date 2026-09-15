@@ -1,16 +1,6 @@
 import { z } from "zod";
 import { phoneSchema } from "@/lib/validation/auth";
-
-export const BUSINESS_TYPES = [
-  { value: "CAFE", label: "Café / coffee bar" },
-  { value: "RESTAURANT", label: "Restaurant" },
-  { value: "BAR", label: "Bar / cocktail bar" },
-  { value: "CLOUD_KITCHEN", label: "Cloud kitchen" },
-  { value: "CATERER", label: "Caterer" },
-  { value: "EVENTS", label: "Events" },
-  { value: "RETAIL", label: "Retail / store" },
-  { value: "OTHER", label: "Something else" },
-] as const;
+import { BUSINESS_TYPE_VALUES } from "@/lib/business-types";
 
 export const inquirySchema = z.object({
   businessName: z
@@ -18,16 +8,7 @@ export const inquirySchema = z.object({
     .trim()
     .min(2, "Enter your business name")
     .max(150, "That name is too long"),
-  businessType: z.enum([
-    "CAFE",
-    "RESTAURANT",
-    "BAR",
-    "CLOUD_KITCHEN",
-    "CATERER",
-    "EVENTS",
-    "RETAIL",
-    "OTHER",
-  ]),
+  businessType: z.enum(BUSINESS_TYPE_VALUES),
   contactPerson: z
     .string()
     .trim()

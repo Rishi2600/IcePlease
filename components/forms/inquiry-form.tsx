@@ -6,7 +6,7 @@ import { Alert } from "@/components/ui/alert";
 import { Field, Input, Select, Textarea } from "@/components/ui/field";
 import { useFormAction } from "@/components/forms/use-form-action";
 import { submitInquiryAction } from "@/app/(site)/b2b/actions";
-import { BUSINESS_TYPES } from "@/lib/validation/inquiry";
+import { BUSINESS_TYPES } from "@/lib/business-types";
 
 export function InquiryForm() {
   const form = useFormAction(submitInquiryAction);
