@@ -1,196 +1,205 @@
 # PROJECT STATE
 
 > Living document. Update whenever the project meaningfully changes.
-> Last updated: 2026-09-15 — commit `3690d3f`
+> Last updated: 2026-09-15 — MVP build complete.
 
 ---
 
 ## 1. Current status
 
-**Clean slate.** The repository was deliberately reduced to a bare Next.js
-skeleton so IcePlease could be rebuilt against the product scope.
+**Built and running.** The application covers the full MVP: public brand site,
+database-backed catalogue, cart, checkout and order creation, customer
+accounts, B2B enquiry capture, and an admin dashboard for products, orders,
+customers, enquiries and messages.
 
-Nothing of the application exists yet. No database, no auth, no catalogue,
-no cart, no checkout, no admin, no B2B flow.
+`npm run lint`, `npm run typecheck`, `npm run build` and `npm run smoke` all
+pass. Verified against a running production build, not only by inspection —
+see §12.
 
-What is present:
-
-```text
-app/layout.tsx       minimal root layout
-app/page.tsx         placeholder
-app/globals.css      Tailwind import only
-eslint.config.mjs    next/core-web-vitals + next/typescript
-next.config.ts       defaults
-postcss.config.mjs   @tailwindcss/postcss
-tsconfig.json        strict, @/* path alias
-```
-
-Dependencies are `next` / `react` / `react-dom` plus the TypeScript, ESLint
-and Tailwind toolchain. Nothing else.
-
-`npm run lint`, `npm run typecheck` and `npm run build` pass.
+Superseded: the "clean slate" status recorded before this build.
 
 ---
 
-## 2. History worth knowing
+## 2. Stack
 
-The repository previously contained a partial foundation: a Prisma schema
-(User, Product, Order, OrderItem, Address, plus the NextAuth models), NextAuth
-wired with the Prisma adapter and a credentials provider, a `/api/register`
-route, a Prisma client singleton, and a shadcn `button`.
+Next.js 15 (App Router) · React 19 · TypeScript 5 · Tailwind CSS 4 ·
+Prisma 6 · PostgreSQL 16 · NextAuth 4 · Zod 4 · bcryptjs · lucide-react ·
+Radix primitives.
 
-That work was removed in the clean slate but is **not lost**:
-
-| What | Where |
-| --- | --- |
-| Full previous foundation | commit `211976a`, branch `chore/fresh-start` |
-| Prisma schema | `git checkout 211976a -- prisma/schema.prisma` |
-| IcePlease design tokens | `git checkout 211976a -- app/globals.css` |
-| IcePlease metadata | `git checkout 211976a -- app/layout.tsx` |
-
-The old schema is a reasonable starting point for the data layer but is **not
-sufficient as-is** — see §5.
+`bcryptjs` rather than `bcrypt`: same algorithm, no native compile step, so
+`npm install` works without build tooling on the host.
 
 ---
 
 ## 3. Source of truth
 
-Two documents define this project. They currently exist only in conversation
-history, **not in the repository**, which is a risk for future sessions:
-
-1. `IcePlease_Critical_Project_Rules.md` — guardrails. Highest priority.
-2. `IcePlease_Web_Application_Scope.md` — product context and web-app scope.
-
-Where the two conflict, the rules document wins (its §31 handoff order).
-
-**Open action:** commit both into `docs/` so they survive independently of
-any chat session.
+Product and business context live in the founder's brief. Engineering
+decisions live in `DECISIONS.md`. Where they conflict, the business context
+wins, and an unknown business fact stays configurable rather than invented.
 
 ---
 
-## 4. Architecture (intended)
+## 4. Architecture
 
 ```text
 Browser
    ↓
 Next.js App Router (server components by default)
    ↓
-Server Actions / Route Handlers
+Server actions / route handlers      ← validation, authorization
    ↓
-Business logic  (pricing, order creation, authorization)
+lib/server/*                         ← business logic
    ↓
 Prisma
    ↓
 PostgreSQL
 ```
 
-No separate backend service. No microservices. No queues.
+No separate backend service, no microservices, no queues.
 
 ---
 
-## 5. Database entities (intended)
+## 5. Database entities
 
-Not yet implemented. Target set:
+Implemented in `prisma/schema.prisma`, migration `20260915090817_init`.
 
 | Entity | Purpose |
 | --- | --- |
-| `User` | customers and admin; role-bearing |
-| `Account` / `Session` / `VerificationToken` | NextAuth |
-| `Product` | catalogue; flavor, pack size, price, stock, availability |
-| `Order` | totals, order status, payment status, address snapshot |
-| `OrderItem` | purchase-time price preserved |
-| `Address` | saved customer addresses |
+| `User` | customers and admins; role, phone, default delivery address |
+| `Account` / `Session` / `VerificationToken` | NextAuth adapter models |
+| `Product` | catalogue: flavor, pack size, price, stock, active, featured, seed flag |
+| `Order` | totals, order status, payment status and method, delivery snapshot |
+| `OrderItem` | purchase-time snapshot of name, flavor, pack size and unit price |
 | `B2BInquiry` | enquiry-first B2B pipeline |
+| `ContactMessage` | contact-form inbox, with a handled flag |
 
-Deltas the old schema does **not** yet cover:
+A separate `Address` model was considered and dropped: the order carries its
+own delivery snapshot, and one default address on `User` covers prefilling
+checkout. Multiple saved addresses can be added later without touching orders.
 
-- `Product`: `flavor`, `packSize`, `isActive`
-- `Order`: `subtotal`, `deliveryFee`, `paymentStatus` (separate from `status`)
-- `User`: `phone`, `role`
-- `B2BInquiry`: entire model missing
+Money is integer paise throughout, on fields suffixed `Minor`.
 
 ---
 
 ## 6. Authentication and authorization
 
-Not yet implemented. Intended:
+NextAuth with a credentials provider, bcrypt hashing and JWT sessions. The
+Prisma adapter is retained so an OAuth provider can be added without a
+migration.
 
-- NextAuth with a credentials provider; GitHub optional and only if it earns
-  its place for a consumer brand.
-- Roles: `CUSTOMER`, `ADMIN`. `B2B_CUSTOMER` deferred until a real workflow
-  needs it.
-- Authorization enforced server-side on every admin route and mutation.
-  Hiding a button is not authorization.
+Roles: `CUSTOMER`, `ADMIN`. Role is re-read on session refresh, so a revoked
+admin loses access without waiting for token expiry.
+
+Three layers, all present:
+
+1. `middleware.ts` over `/admin` and `/account`.
+2. `requireAdminPage` in every admin page.
+3. `requireAdminAction` in every admin mutation.
 
 ---
 
 ## 7. Environment variables
 
-None required by the current skeleton. `.env.example` is intentionally empty
-apart from a header comment.
+Documented in `.env.example`. Required: `DATABASE_URL`, `NEXTAUTH_SECRET`,
+`NEXTAUTH_URL`, `NEXT_PUBLIC_SITE_URL`. The app throws at import time in
+production if `NEXTAUTH_SECRET` is missing.
 
-Expected as the build proceeds:
-
-| Variable | Needed for |
-| --- | --- |
-| `DATABASE_URL` | Prisma / PostgreSQL |
-| `NEXTAUTH_URL` | NextAuth |
-| `NEXTAUTH_SECRET` | NextAuth |
-| `NEXT_PUBLIC_SITE_URL` | metadata, canonical URLs, Open Graph |
+Business settings (`DELIVERY_FEE_MINOR`, `FREE_DELIVERY_THRESHOLD_MINOR`,
+`MAX_QUANTITY_PER_ITEM`) and contact channels are configurable. An unset
+contact channel is hidden in the UI rather than rendered as a placeholder.
 
 ---
 
 ## 8. Implemented features
 
-None.
+**Public** — homepage, shop with flavor filter, product detail, how it works,
+about, B2B, contact, 404 and error boundaries, robots and a catalogue-driven
+sitemap.
+
+**Commerce** — cart with server-side pricing and reconciliation, checkout with
+server-side validation, transactional order creation with conditional stock
+decrements, order confirmation reachable by reference.
+
+**Accounts** — registration, sign-in, order history, editable profile and
+default address.
+
+**B2B** — segment-specific positioning and an enquiry form persisted to the
+database, with an admin pipeline.
+
+**Admin** — dashboard metrics, product CRUD with inline stock editing, order
+management with validated status transitions and manual payment bookkeeping,
+customers split into registered and guest, B2B pipeline, message inbox.
 
 ---
 
 ## 9. Deferred features
 
-Per rules §14 and scope §39 — deliberately not built:
-
-loyalty, referrals, coupons, subscriptions, delivery tracking, recommendation
-engine, advanced CRM, demand forecasting, production planning, multi-city
-inventory, notification infrastructure, custom payment abstraction layers,
-large analytics dashboards, complex role hierarchies.
+Subscriptions, loyalty, referrals, coupons, delivery zones and tracking,
+cold-chain logistics, multi-location inventory, a B2B self-serve portal,
+notification infrastructure, and any payment gateway.
 
 ---
 
 ## 10. Known limitations
 
-- No database is provisioned. A PostgreSQL instance is required before any
-  data work can begin.
-- No payment provider is configured, and none will be faked.
-- No real product photography exists. Image slots must be drop-in
-  replaceable (rules §19).
-- No finalized product facts exist — no flavors, pack sizes, prices, shelf
-  life or claims. Nothing of the sort may be published (rules §2, §3, §22).
+- **No payment provider.** Checkout records payment intent. `paymentStatus` is
+  set by hand in admin, and both the customer view and the dashboard say so.
+- **No email or WhatsApp integration.** The contact form and B2B form say the
+  message was recorded, never that it was sent. Messages live in the admin
+  inbox.
+- **No product photography.** Products with no `imageUrl` render a generated
+  ice treatment tinted by the product's accent colour. Setting `imageUrl`
+  swaps in a photograph at the same aspect ratio with no layout change.
+- **Seed data is demo content.** Flavors, prices, pack sizes and descriptions
+  in `prisma/seed.ts` are placeholders, flagged `isSeedData` and badged "Demo"
+  in admin. They are not finalized IcePlease product facts.
+- **No delivery serviceability.** Any address is accepted. The rule lives in
+  one function (`calculateDeliveryFeeMinor`) ready to become zone-based.
+- **Admin lists are capped** at 100–500 rows with no pagination. Fine at
+  current volume; pagination is the obvious next step.
 
 ---
 
 ## 11. Important assumptions
 
-Each of these is a real assumption, not a validated fact. Revisit when the
-business supplies truth.
-
 | # | Assumption | Consequence |
 | --- | --- | --- |
-| A-1 | Online payment is not configured for MVP | Checkout creates an order with `paymentStatus = PENDING`; the founder confirms payment manually |
-| A-2 | Currency is INR, stored as integer paise | `₹199.00` is stored as `19900`; no floating-point money anywhere |
-| A-3 | The founder is the sole operator initially | One `ADMIN` role is enough; no permission hierarchy |
-| A-4 | Delivery is local and manually fulfilled | Address capture plus a simple delivery fee; no routing, zones or tracking |
-| A-5 | B2B begins as enquiry-first | No B2B self-serve checkout or portal |
-| A-6 | Any product data present during development is seed data | Must be clearly marked and trivially replaceable |
+| A-1 | Online payment is not configured | Orders are created with `paymentStatus = PENDING` and confirmed manually |
+| A-2 | Currency is INR, stored as integer paise | `₹199.00` is `19900`; no float money anywhere |
+| A-3 | The founder is the sole operator | One `ADMIN` role; no permission hierarchy |
+| A-4 | Delivery is local and manually fulfilled | Address capture plus a flat fee; no routing or tracking |
+| A-5 | B2B begins enquiry-first | No B2B self-serve checkout or portal |
+| A-6 | Development product data is seed data | Flagged and badged; trivially replaceable |
+| A-7 | Guests may order without an account | Orders carry contact details independently of `User` |
 
 ---
 
-## 12. Future integration points
+## 12. Verification performed
+
+Against a running production build:
+
+- Every public route returns 200; unknown routes 404.
+- `/admin` and `/account` redirect correctly: signed out to sign-in with a
+  callback, signed-in non-admin to the homepage.
+- Wrong-password sign-in yields an empty session.
+- `/api/cart` prices from the database and ignores a forged `unitPriceMinor`
+  in the request body.
+- The B2B server action persists an enquiry and returns per-field errors on
+  invalid input.
+- All five admin product actions are refused for a customer session and
+  succeed for an admin; delete correctly refuses a product with order history.
+- `npm run smoke`: 19 assertions covering cart pricing, stock clamping,
+  duplicate-line collapsing, order totals, price snapshotting, stock
+  decrementing and the concurrent stock race, all passing.
+
+---
+
+## 13. Future integration points
 
 Kept as clean boundaries, not built:
 
-- **Payment** — a provider slots in behind `paymentStatus` without touching
-  order state.
-- **Messaging** — WhatsApp/email notifications on order events.
-- **Delivery** — serviceability and zone checks at address entry.
-- **Analytics** — derived from real order data only; never fabricated.
+- **Payment** — a provider writes `paymentStatus` without touching fulfilment.
+- **Messaging** — WhatsApp/email on order and enquiry events.
+- **Delivery** — `calculateDeliveryFeeMinor` becomes zone- or distance-based.
+- **Analytics** — extend `lib/server/analytics.ts`; add cost fields to
+  `Product` before claiming margin.

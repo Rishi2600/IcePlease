@@ -176,3 +176,132 @@ later, but is never a demo that cannot take an order.
 
 **Consequences.** Every phase ends with something that genuinely works against
 the database, satisfying rules §15 continuously rather than at the end.
+
+---
+
+## ADR-008 — Vertical slices, not layers
+
+**Status:** Accepted · superseding the earlier `Proposed` record
+
+**Context.** The scope document's build order front-loaded a brand website and
+reached the database in a later phase. The rules forbid fake checkouts and
+UI-only CRUD.
+
+**Decision.** Build the data layer and server logic first, then the screens on
+top of them, so no screen is ever a mock.
+
+**Outcome.** Every feature shipped in this build reads and writes real rows.
+There is no placeholder button and no hardcoded product anywhere in the UI.
+
+---
+
+## ADR-009 — The browser never sets a price
+
+**Status:** Accepted
+
+**Context.** A cart has to be readable and editable offline-ish in the browser,
+but anything the browser stores is editable by its owner.
+
+**Decision.** `localStorage` holds product ids and quantities only — no price,
+no name, no availability. `lib/server/pricing.ts` turns that into names,
+prices and totals, and is used by both the cart display and order creation.
+
+**Consequences.** The number on screen and the number recorded on the order
+come from one code path, so they cannot disagree. A forged `unitPriceMinor` in
+a request body is ignored, which is verified. The cost is a server round trip
+whenever the cart changes; at this scale that is the right trade.
+
+---
+
+## ADR-010 — Stock is claimed with a conditional update
+
+**Status:** Accepted
+
+**Context.** Two customers can check out for the last tray at the same moment.
+Read-then-write would let both succeed and drive stock negative.
+
+**Decision.** Inside the order transaction, each line runs
+`updateMany({ where: { id, isActive: true, stock: { gte: quantity } }, data: { stock: { decrement: quantity } } })`
+and requires `count === 1`. A miss aborts the whole transaction.
+
+**Consequences.** Correct under concurrency without table locks or a
+reservation system. Covered by a test in `npm run smoke` that fires two
+simultaneous orders at a one-unit product and asserts exactly one succeeds and
+stock lands at zero.
+
+**Also:** cancelling an order returns its items to stock in the same
+transaction, so cancelled goods do not stay reserved.
+
+---
+
+## ADR-011 — Order status transitions are validated server-side
+
+**Status:** Accepted
+
+**Context.** A status dropdown that accepts any value lets an order jump from
+PENDING to DELIVERED, or come back from CANCELLED, corrupting the operational
+picture the dashboard is built on.
+
+**Decision.** `NEXT_STATUSES` declares the legal transitions from each state.
+The server checks against it; the admin UI renders only the transitions the
+server would accept.
+
+**Consequences.** The UI cannot offer an action that will be refused, and the
+guard still holds if the action is invoked directly.
+
+---
+
+## ADR-012 — No separate Address model
+
+**Status:** Accepted · refines ADR-002
+
+**Context.** Earlier planning listed an `Address` entity for saved customer
+addresses.
+
+**Decision.** One default address on `User`, which prefills checkout, plus the
+delivery snapshot every `Order` already carries.
+
+**Why.** Multiple saved addresses is not an MVP need, and a second model would
+have brought its own CRUD screens for no current benefit. The order snapshot —
+not the user record — is what delivery history actually depends on, so adding
+an `Address` model later changes nothing about existing orders.
+
+---
+
+## ADR-013 — Honest gaps over plausible numbers
+
+**Status:** Accepted · implements ADR-007
+
+**Context.** A dashboard with empty spaces looks unfinished, which is a strong
+pull toward filling it with something.
+
+**Decision.** Three concrete rules, all now implemented:
+
+1. Order value and money marked paid are separate figures with separate
+   labels. With no payment provider, an order total is what was agreed, not
+   what was received, and the dashboard says so.
+2. Metrics that cannot be honestly derived — gross margin, acquisition cost,
+   wastage, settled revenue — are listed by name in a "Not calculated yet"
+   panel with what each one needs, rather than estimated.
+3. A rate with nothing to divide by renders as "—" or "no data", never 0%.
+
+**Consequences.** The dashboard is less impressive and more useful. The same
+rule governs the public site: no testimonials, no partner logos, and contact
+channels that are not configured are hidden rather than faked.
+
+---
+
+## ADR-014 — bcryptjs rather than bcrypt
+
+**Status:** Accepted
+
+**Context.** Earlier planning named `bcrypt`, which is a native addon and
+requires a working C++ toolchain wherever `npm install` runs.
+
+**Decision.** `bcryptjs`, pure JavaScript, same algorithm and same cost factor
+(12 rounds).
+
+**Consequences.** `npm install` works on any machine and in any CI image
+without build tooling. Hashing is slower in absolute terms, which is
+immaterial at sign-in frequency. Existing hashes are interchangeable between
+the two libraries if this is ever revisited.
