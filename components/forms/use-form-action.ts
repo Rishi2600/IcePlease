@@ -13,7 +13,16 @@ type Status = "idle" | "pending" | "success" | "error";
  */
 export function useFormAction<T>(
   action: (payload: Record<string, string>) => Promise<ActionResult<T>>,
+  options: {
+    /**
+     * Clear the fields after a successful submit. Right for forms that create
+     * something new; wrong for forms that edit an existing record, where
+     * clearing would show stale defaults.
+     */
+     clearOnSuccess?: boolean;
+  } = {},
 ) {
+  const { clearOnSuccess = true } = options;
   const [status, setStatus] = React.useState<Status>("idle");
   const [message, setMessage] = React.useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = React.useState<Record<string, string>>(
@@ -43,14 +52,14 @@ export function useFormAction<T>(
       if (result.ok) {
         setData(result.data);
         setStatus("success");
-        form.reset();
+        if (clearOnSuccess) form.reset();
       } else {
         setMessage(result.message);
         setFieldErrors(result.fieldErrors ?? {});
         setStatus("error");
       }
     },
-    [action, status],
+    [action, status, clearOnSuccess],
   );
 
   return {
