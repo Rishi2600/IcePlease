@@ -5,9 +5,8 @@ Architectural and business decisions for IcePlease, newest last.
 Each record states the decision, why it was made, and what it rules out.
 These exist so a future session does not silently undo a good decision.
 
-**Status values:** `Accepted` — decided and binding. `Accepted (not yet
-implemented)` — binding, but no code exists yet. `Proposed` — needs founder
-confirmation before it becomes binding.
+**Status values:** `Accepted` — decided and binding. `Proposed` — needs
+founder confirmation before it becomes binding.
 
 ---
 
@@ -32,7 +31,7 @@ re-adopted unchanged — see ADR-006.
 
 ## ADR-002 — PostgreSQL via Prisma
 
-**Status:** Accepted (not yet implemented)
+**Status:** Accepted · implemented
 
 **Context.** IcePlease needs products, orders, order items, customers and B2B
 enquiries with real relational integrity. Order totals and stock must be
@@ -53,7 +52,7 @@ use transactions. Rules §26: data stays clean and portable, no lock-in.
 
 ## ADR-003 — Money is stored as integer minor units
 
-**Status:** Accepted (not yet implemented)
+**Status:** Accepted · implemented
 
 **Context.** Floating-point arithmetic silently corrupts financial totals.
 
@@ -68,7 +67,7 @@ money columns, and no float arithmetic anywhere in pricing.
 
 ## ADR-004 — Order status and payment status are separate fields
 
-**Status:** Accepted (not yet implemented)
+**Status:** Accepted · implemented
 
 **Context.** The scope document (§28) left two competing status sets
 unreconciled: a database set (`PENDING / PROCESSING / SHIPPED / DELIVERED /
@@ -103,13 +102,15 @@ logic (rules §11, §23).
 
 ## ADR-005 — B2B is enquiry-first
 
-**Status:** Accepted (not yet implemented)
+**Status:** Accepted · implemented
 
 **Context.** B2B buyers need quantities, quotes, trials and recurring terms.
 None of that is consumer checkout with a bigger number in the cart.
 
 **Decision.** B2B starts as a structured enquiry captured to the database, with
-a founder-managed pipeline: `NEW → CONTACTED → QUOTED → CONVERTED → LOST`.
+a founder-managed pipeline: `NEW → CONTACTED → QUOTED → CONVERTED | CLOSED`.
+(`CLOSED` rather than `LOST`: an enquiry also closes when it simply goes quiet,
+which is not the same as being lost to a competitor.)
 Quotation and negotiation stay manual.
 
 **Consequences.** No B2B self-serve checkout, pricing tiers, contract terms or
@@ -120,7 +121,7 @@ must capture enough to answer "are B2B leads converting?" (rules §6).
 
 ## ADR-006 — Product data is database-driven, never hardcoded
 
-**Status:** Accepted (not yet implemented)
+**Status:** Accepted · implemented
 
 **Context.** The physical product is unvalidated. Flavors, pack sizes, prices,
 descriptions and availability will all change repeatedly.
@@ -158,30 +159,7 @@ never presented as evidence (rules §2, §3, §7, §8, §22).
 
 ## ADR-008 — Vertical slices, not layers
 
-**Status:** Proposed
-
-**Context.** The scope document's build order (§37) front-loads a brand website
-and reaches the database in Phase 3. The rules document (§15) forbids fake
-checkouts and UI-only CRUD, and its final engineering test (§29) is a list of
-end-to-end questions.
-
-**Decision.** Build one thin end-to-end slice at a time — schema, server logic,
-admin, then public UI — rather than completing a presentation layer first. The
-first slice is the product catalogue: `Product` in the database, admin CRUD,
-public listing reading real rows.
-
-**Why it is Proposed.** It reorders the scope document's stated phases, so it
-needs founder confirmation. The tradeoff: the site looks like a real brand
-later, but is never a demo that cannot take an order.
-
-**Consequences.** Every phase ends with something that genuinely works against
-the database, satisfying rules §15 continuously rather than at the end.
-
----
-
-## ADR-008 — Vertical slices, not layers
-
-**Status:** Accepted · superseding the earlier `Proposed` record
+**Status:** Accepted · was `Proposed`, confirmed by the completed build
 
 **Context.** The scope document's build order front-loaded a brand website and
 reached the database in a later phase. The rules forbid fake checkouts and
