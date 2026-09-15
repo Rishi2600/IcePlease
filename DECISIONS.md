@@ -1,0 +1,178 @@
+# DECISIONS
+
+Architectural and business decisions for IcePlease, newest last.
+
+Each record states the decision, why it was made, and what it rules out.
+These exist so a future session does not silently undo a good decision.
+
+**Status values:** `Accepted` — decided and binding. `Accepted (not yet
+implemented)` — binding, but no code exists yet. `Proposed` — needs founder
+confirmation before it becomes binding.
+
+---
+
+## ADR-001 — Reset the repository to a clean slate
+
+**Status:** Accepted · commit `3690d3f`
+
+**Context.** The repository held a partial foundation built before the product
+scope existed: a Prisma schema, NextAuth wiring, a register route and a stub
+navbar, mixed with untouched `create-next-app` boilerplate. Rebuilding around
+it meant inheriting decisions nobody had actually made.
+
+**Decision.** Reduce the repository to a bare Next.js + TypeScript + Tailwind
+skeleton and rebuild against the scope, preserving git history so nothing is
+destroyed.
+
+**Consequences.** The previous foundation stays recoverable at `211976a` and on
+`chore/fresh-start`. The old Prisma schema is a useful reference but is not
+re-adopted unchanged — see ADR-006.
+
+---
+
+## ADR-002 — PostgreSQL via Prisma
+
+**Status:** Accepted (not yet implemented)
+
+**Context.** IcePlease needs products, orders, order items, customers and B2B
+enquiries with real relational integrity. Order totals and stock must be
+correct under concurrent writes.
+
+**Decision.** PostgreSQL as the database, Prisma as the ORM and migration tool.
+All database access is server-side through a single client singleton.
+
+**Why not the alternatives.** A document store would make order/product/customer
+relations and transactional stock handling harder for no gain. Raw SQL costs
+migration tooling and type safety.
+
+**Consequences.** Schema evolves through committed migrations. Multi-write
+operations that must stay consistent — order plus order items plus stock —
+use transactions. Rules §26: data stays clean and portable, no lock-in.
+
+---
+
+## ADR-003 — Money is stored as integer minor units
+
+**Status:** Accepted (not yet implemented)
+
+**Context.** Floating-point arithmetic silently corrupts financial totals.
+
+**Decision.** Every monetary value is an integer in paise. `₹199.00` is stored
+as `19900`. This applies to product price, order item price, subtotal,
+delivery fee and total. Formatting to rupees happens only at the display edge.
+
+**Consequences.** Initial currency is INR (rules §17). No `Float` or `Decimal`
+money columns, and no float arithmetic anywhere in pricing.
+
+---
+
+## ADR-004 — Order status and payment status are separate fields
+
+**Status:** Accepted (not yet implemented)
+
+**Context.** The scope document (§28) left two competing status sets
+unreconciled: a database set (`PENDING / PROCESSING / SHIPPED / DELIVERED /
+CANCELED`) and a business set (`New / Confirmed / Preparing / Ready /
+Dispatched / Delivered / Cancelled`). The rules document (§11) additionally
+requires payment state to be independent of fulfilment state.
+
+**Decision.** Two independent fields.
+
+```text
+orderStatus    PENDING → CONFIRMED → PREPARING → READY → DISPATCHED → DELIVERED
+                                                                    → CANCELLED
+paymentStatus  PENDING → PAID | FAILED | REFUNDED
+```
+
+**Why fulfilment uses the business vocabulary.** These are the states the
+founder physically acts on, and they are what the admin dashboard must surface
+(rules §25: "5 Orders Need Confirmation", "3 Orders Ready for Dispatch").
+`SHIPPED` is a parcel-logistics concept that does not describe frozen goods
+delivered within a local radius. Mapping business language onto a mismatched
+database enum would push a translation layer into every query and report.
+
+**Supersedes.** An earlier suggestion in this project to keep the compact
+database set and relabel it in the UI. The rules document outranks it.
+
+**Consequences.** An unpaid order can still be confirmed and prepared, which is
+what manual/offline payment during validation actually requires (A-1). A real
+payment provider later writes `paymentStatus` without touching fulfilment
+logic (rules §11, §23).
+
+---
+
+## ADR-005 — B2B is enquiry-first
+
+**Status:** Accepted (not yet implemented)
+
+**Context.** B2B buyers need quantities, quotes, trials and recurring terms.
+None of that is consumer checkout with a bigger number in the cart.
+
+**Decision.** B2B starts as a structured enquiry captured to the database, with
+a founder-managed pipeline: `NEW → CONTACTED → QUOTED → CONVERTED → LOST`.
+Quotation and negotiation stay manual.
+
+**Consequences.** No B2B self-serve checkout, pricing tiers, contract terms or
+portal until real enquiries prove the need (rules §12, §14). The enquiry record
+must capture enough to answer "are B2B leads converting?" (rules §6).
+
+---
+
+## ADR-006 — Product data is database-driven, never hardcoded
+
+**Status:** Accepted (not yet implemented)
+
+**Context.** The physical product is unvalidated. Flavors, pack sizes, prices,
+descriptions and availability will all change repeatedly.
+
+**Decision.** Product information lives in the database and flows through the
+server layer to the UI. No component hardcodes a product name, flavor, price,
+pack size or image. The founder changes the catalogue through admin screens,
+never by editing frontend code.
+
+**Consequences.** The old Prisma schema is insufficient: `Product` gains
+`flavor`, `packSize` and `isActive`. Any product data used during development
+is clearly marked seed data and is trivially replaceable (rules §8, §10).
+
+---
+
+## ADR-007 — No invented product facts, no fabricated metrics
+
+**Status:** Accepted
+
+**Context.** It is easy to make a site look finished by inventing flavors and a
+dashboard look impressive by inventing numbers. Both actively harm a business
+in validation, and some would be false public claims.
+
+**Decision.** The application publishes no flavor, ingredient, pack size,
+price, shelf life, melting behaviour, certification, partnership, testimonial
+or availability claim that the business has not finalized. Any metric that
+cannot be honestly computed from real data is not displayed, or is labelled
+unavailable — never estimated, never filled with plausible-looking numbers.
+
+**Consequences.** Placeholder UI states say "not configured yet" rather than
+showing a convincing fake. Development seed data is visibly marked as such and
+never presented as evidence (rules §2, §3, §7, §8, §22).
+
+---
+
+## ADR-008 — Vertical slices, not layers
+
+**Status:** Proposed
+
+**Context.** The scope document's build order (§37) front-loads a brand website
+and reaches the database in Phase 3. The rules document (§15) forbids fake
+checkouts and UI-only CRUD, and its final engineering test (§29) is a list of
+end-to-end questions.
+
+**Decision.** Build one thin end-to-end slice at a time — schema, server logic,
+admin, then public UI — rather than completing a presentation layer first. The
+first slice is the product catalogue: `Product` in the database, admin CRUD,
+public listing reading real rows.
+
+**Why it is Proposed.** It reorders the scope document's stated phases, so it
+needs founder confirmation. The tradeoff: the site looks like a real brand
+later, but is never a demo that cannot take an order.
+
+**Consequences.** Every phase ends with something that genuinely works against
+the database, satisfying rules §15 continuously rather than at the end.
