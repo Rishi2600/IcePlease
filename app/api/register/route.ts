@@ -29,10 +29,16 @@ export async function POST(request: Request) {
       },
     });
 
-    // Do not return the password hash
-    const { hashedPassword: _, ...userWithoutPassword } = user;
-
-    return NextResponse.json(userWithoutPassword, { status: 201 }); // 201 Created
+    // Return an explicit allow-list so the password hash can never leak.
+    return NextResponse.json(
+      {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        createdAt: user.createdAt,
+      },
+      { status: 201 },
+    );
   } catch (error) {
     console.error("[REGISTER_POST]", error);
     return new NextResponse("Internal Server Error", { status: 500 });
