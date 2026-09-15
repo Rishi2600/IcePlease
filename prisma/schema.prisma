@@ -1,0 +1,305 @@
+// IcePlease data model.
+//
+// Conventions that apply throughout this schema:
+//   * Money is ALWAYS an integer in paise (minor units). 199.00 is 19900.
+//     Fields carrying money are suffixed `Minor` so this is impossible to miss.
+//   * Fulfilment state (`status`) and payment state (`paymentStatus`) are
+//     independent. An order can be CONFIRMED while payment is still PENDING,
+//     which is exactly what manual/offline payment requires.
+//   * Orders snapshot what was bought. They never read live Product rows.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+/// Fulfilment lifecycle. These are states the operator physically acts on.
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PREPARING
+  READY
+  DISPATCHED
+  DELIVERED
+  CANCELLED
+}
+
+/// Payment lifecycle, deliberately independent of fulfilment.
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+/// No online payment provider is configured. Both values below settle
+/// off-platform; a gateway later adds its own value without changing
+/// order state handling.
+enum PaymentMethod {
+  CASH_ON_DELIVERY
+  MANUAL_TRANSFER
+}
+
+enum InquiryStatus {
+  NEW
+  CONTACTED
+  QUOTED
+  CONVERTED
+  CLOSED
+}
+
+enum BusinessType {
+  CAFE
+  RESTAURANT
+  BAR
+  CLOUD_KITCHEN
+  CATERER
+  EVENTS
+  RETAIL
+  OTHER
+}
+
+// ---------------------------------------------------------------------------
+// People
+// ---------------------------------------------------------------------------
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  phone         String?
+  passwordHash  String?
+  role          Role      @default(CUSTOMER)
+
+  // Default delivery address. Prefills checkout only — every order keeps its
+  // own snapshot, so editing this never rewrites delivery history.
+  addressLine1 String?
+  addressLine2 String?
+  city         String?
+  postalCode   String?
+
+  accounts Account[]
+  sessions Session[]
+  orders   Order[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([role])
+}
+
+// NextAuth adapter models.
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ---------------------------------------------------------------------------
+// Catalogue
+// ---------------------------------------------------------------------------
+
+model Product {
+  id          String  @id @default(cuid())
+  slug        String  @unique
+  name        String
+  flavor      String
+  tagline     String?
+  description String  @db.Text
+
+  priceMinor Int
+  packSize   String
+  cubeCount  Int?
+
+  /// Replaceable image reference. Null renders the built-in ice treatment, so
+  /// real photography drops in later without a UI change.
+  imageUrl String?
+  /// Drives the product's tint in the ice treatment. CSS colour value.
+  accentColor String @default("#7fd4ea")
+
+  stock      Int     @default(0)
+  isActive   Boolean @default(true)
+  isFeatured Boolean @default(false)
+  sortOrder  Int     @default(0)
+
+  /// True for rows created by `prisma/seed.ts`. Surfaced in admin so demo
+  /// content is never mistaken for finalized product facts.
+  isSeedData Boolean @default(false)
+
+  orderItems OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isActive, sortOrder])
+  @@index([isFeatured])
+}
+
+// ---------------------------------------------------------------------------
+// Orders
+// ---------------------------------------------------------------------------
+
+model Order {
+  /// Human-readable reference shown to the customer, e.g. IP-7Q4M2K.
+  orderNumber String @id
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  // Contact + delivery snapshot, captured at checkout.
+  customerName  String
+  customerEmail String
+  customerPhone String
+  addressLine1  String
+  addressLine2  String?
+  city          String
+  postalCode    String
+  deliveryNotes String? @db.Text
+
+  // Server-calculated. subtotalMinor + deliveryFeeMinor = totalMinor.
+  subtotalMinor    Int
+  deliveryFeeMinor Int
+  totalMinor       Int
+
+  status        OrderStatus   @default(PENDING)
+  paymentStatus PaymentStatus @default(PENDING)
+  paymentMethod PaymentMethod @default(CASH_ON_DELIVERY)
+
+  adminNotes String? @db.Text
+
+  items OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([userId])
+  @@index([customerEmail])
+}
+
+model OrderItem {
+  id String @id @default(cuid())
+
+  orderNumber String
+  order       Order  @relation(fields: [orderNumber], references: [orderNumber], onDelete: Cascade)
+
+  /// Kept for reporting. Nulled rather than cascading if a product is deleted,
+  /// because the snapshot fields below are what the order actually means.
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  // Purchase-time snapshot.
+  productName   String
+  productFlavor String
+  packSize      String
+
+  unitPriceMinor Int
+  quantity       Int
+  lineTotalMinor Int
+
+  createdAt DateTime @default(now())
+
+  @@index([orderNumber])
+  @@index([productId])
+}
+
+// ---------------------------------------------------------------------------
+// B2B
+// ---------------------------------------------------------------------------
+
+model B2BInquiry {
+  id String @id @default(cuid())
+
+  businessName  String
+  businessType  BusinessType @default(OTHER)
+  contactPerson String
+  phone         String
+  email         String
+  city          String
+  location      String?
+
+  /// Free text: B2B volumes are described in the buyer's own units
+  /// ("~200 cubes a week", "3 trays a day"), not a number we can impose.
+  estimatedQuantity String
+  preferredFlavors  String?
+  message           String? @db.Text
+
+  status     InquiryStatus @default(NEW)
+  adminNotes String?       @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+// ---------------------------------------------------------------------------
+// Contact
+// ---------------------------------------------------------------------------
+
+model ContactMessage {
+  id      String  @id @default(cuid())
+  name    String
+  email   String
+  phone   String?
+  subject String?
+  message String  @db.Text
+
+  handled Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@index([handled])
+  @@index([createdAt])
+}
