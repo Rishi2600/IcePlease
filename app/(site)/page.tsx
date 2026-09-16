@@ -9,6 +9,16 @@ import { HeroGlass } from "@/components/site/hero-glass";
 import { ProductCard } from "@/components/product/product-card";
 import { EmptyState } from "@/components/ui/empty-state";
 
+/**
+ * Rendered per request rather than prerendered at build.
+ *
+ * The featured flavors carry live stock badges, so a cached homepage can
+ * advertise a tray that sold out minutes ago. Rendering on demand also means
+ * the build never opens a database connection, which keeps deployments and
+ * preview builds independent of database availability.
+ */
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const featured = await listFeaturedProducts(3);
 
