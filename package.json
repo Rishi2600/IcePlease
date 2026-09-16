@@ -14,7 +14,8 @@
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
     "postinstall": "prisma generate",
-    "smoke": "node --conditions=react-server --import tsx scripts/smoke.ts"
+    "smoke": "node --conditions=react-server --import tsx scripts/smoke.ts",
+    "create-admin": "tsx scripts/create-admin.ts"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",
