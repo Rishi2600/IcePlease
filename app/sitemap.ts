@@ -20,7 +20,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Product pages come from the catalogue, so a new flavor is indexable
   // without anyone remembering to edit this file.
-  const products = await listActiveProducts();
+  //
+  // A sitemap is an SEO convenience, not part of the product. If the database
+  // is unreachable it is better to publish the static routes and pick the
+  // products up on the next revalidation than to fail the whole deployment
+  // over it. The error is logged rather than swallowed.
+  let products: Awaited<ReturnType<typeof listActiveProducts>> = [];
+  try {
+    products = await listActiveProducts();
+  } catch (error) {
+    console.error("[sitemap] could not read the catalogue:", error);
+  }
 
   return [
     ...staticRoutes,
