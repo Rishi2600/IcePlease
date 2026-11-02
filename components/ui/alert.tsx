@@ -7,7 +7,7 @@ const TONES = {
     Icon: AlertCircle,
   },
   success: {
-    wrapper: "border-ok-strong/25 bg-ok/15 text-ok-strong",
+    wrapper: "border-ok-strong/25 bg-ok/15 text-fg",
     Icon: CheckCircle2,
   },
   info: {

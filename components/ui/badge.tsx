@@ -9,10 +9,10 @@ const badgeVariants = cva(
       tone: {
         neutral: "bg-raised text-fg-soft",
         ice: "bg-tint text-link-strong",
-        mint: "bg-ok/25 text-ok-strong",
-        citrus: "bg-warn/30 text-warn-strong",
+        mint: "bg-ok/15 text-ok-strong",
+        citrus: "bg-warn/20 text-warn-strong",
         danger: "bg-danger-soft text-danger",
-        solid: "bg-fg text-white",
+        solid: "bg-fg text-page",
       },
     },
     defaultVariants: { tone: "neutral" },
