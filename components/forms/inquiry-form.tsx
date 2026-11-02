@@ -13,15 +13,15 @@ export function InquiryForm() {
 
   if (form.status === "success") {
     return (
-      <div className="rounded-card border border-mint-deep/25 bg-mint/10 p-8 text-center">
+      <div className="rounded-card border border-ok-strong/25 bg-ok/10 p-8 text-center">
         <CheckCircle2
-          className="mx-auto size-8 text-mint-deep"
+          className="mx-auto size-8 text-ok-strong"
           aria-hidden
         />
         <h3 className="mt-4 text-xl font-semibold">Enquiry received</h3>
         {/* We record it. We do not claim an email went anywhere, because no
             messaging integration is configured. */}
-        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-ink-soft">
+        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-fg-soft">
           Your enquiry is logged and someone from IcePlease will get back to you
           on the phone number or email you gave us.
         </p>

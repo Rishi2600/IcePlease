@@ -38,7 +38,7 @@ export default async function HomePage() {
               <br />
               Better ice.
             </h1>
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-ink-soft">
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-fg-soft">
               {BRAND.description} No syrups, no stirring, no extra step at the
               counter — you drop it in and the drink does the rest.
             </p>
@@ -57,19 +57,19 @@ export default async function HomePage() {
 
             <dl className="mt-10 grid max-w-md grid-cols-3 gap-6 border-t border-line pt-6">
               <div>
-                <dt className="text-xs uppercase tracking-wider text-ink-muted">
+                <dt className="text-xs uppercase tracking-wider text-fg-muted">
                   Prep time
                 </dt>
                 <dd className="mt-1 font-display text-xl font-semibold">None</dd>
               </div>
               <div>
-                <dt className="text-xs uppercase tracking-wider text-ink-muted">
+                <dt className="text-xs uppercase tracking-wider text-fg-muted">
                   Steps
                 </dt>
                 <dd className="mt-1 font-display text-xl font-semibold">One</dd>
               </div>
               <div>
-                <dt className="text-xs uppercase tracking-wider text-ink-muted">
+                <dt className="text-xs uppercase tracking-wider text-fg-muted">
                   Works in
                 </dt>
                 <dd className="mt-1 font-display text-xl font-semibold">
@@ -86,7 +86,7 @@ export default async function HomePage() {
       </section>
 
       {/* ------------------------------------------------- Product experience */}
-      <Section className="bg-surface">
+      <Section className="bg-panel">
         <div className="container-page">
           <SectionHeading
             eyebrow="How it works"
@@ -146,16 +146,16 @@ export default async function HomePage() {
       </Section>
 
       {/* ------------------------------------------------------ Why IcePlease */}
-      <Section className="bg-ink text-white">
+      <Section className="bg-fg text-white">
         <div className="container-page">
           <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ice">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-link">
               Why bother
             </p>
             <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
               Ordinary ice has one job and it does it badly.
             </h2>
-            <p className="mt-4 text-lg leading-relaxed text-ice-light/80">
+            <p className="mt-4 text-lg leading-relaxed text-tint/80">
               It cools your drink and then quietly waters it down. Flavored ice
               spends the same time in the glass doing something useful.
             </p>
@@ -183,9 +183,9 @@ export default async function HomePage() {
                 key={item.title}
                 className="rounded-card border border-white/10 bg-white/5 p-6"
               >
-                <item.icon className="size-5 text-ice" aria-hidden />
+                <item.icon className="size-5 text-link" aria-hidden />
                 <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ice-light/75">
+                <p className="mt-2 text-sm leading-relaxed text-tint/75">
                   {item.body}
                 </p>
               </div>
@@ -197,14 +197,14 @@ export default async function HomePage() {
       {/* ---------------------------------------------------------------- B2B */}
       <Section>
         <div className="container-page">
-          <div className="overflow-hidden rounded-card border border-line bg-surface">
+          <div className="overflow-hidden rounded-card border border-line bg-panel">
             <div className="grid gap-8 p-8 sm:p-12 lg:grid-cols-2 lg:items-center">
               <div>
                 <Eyebrow>For cafés, bars and caterers</Eyebrow>
                 <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
                   A different drink without a different workflow.
                 </h2>
-                <p className="mt-4 text-base leading-relaxed text-ink-muted">
+                <p className="mt-4 text-base leading-relaxed text-fg-muted">
                   Flavored ice changes what comes out of your bar without adding
                   a step at the moment of service. Tell us what you pour and how
                   much you get through, and we will come back with specifics.
@@ -233,7 +233,7 @@ export default async function HomePage() {
                 ].map((item) => (
                   <li
                     key={item}
-                    className="rounded-xl bg-surface-sunken px-4 py-3 text-sm font-medium text-ink-soft"
+                    className="rounded-xl bg-raised px-4 py-3 text-sm font-medium text-fg-soft"
                   >
                     {item}
                   </li>
@@ -247,14 +247,14 @@ export default async function HomePage() {
       {/* ------------------------------------------------------------ Honest CTA */}
       <Section className="pt-0">
         <div className="container-page">
-          <div className="rounded-card border border-line bg-surface-sunken px-8 py-12 text-center sm:px-12">
+          <div className="rounded-card border border-line bg-raised px-8 py-12 text-center sm:px-12">
             <Eyebrow>Early days</Eyebrow>
             <h2 className="mx-auto mt-3 max-w-xl text-3xl font-semibold sm:text-4xl">
               IcePlease is just getting started.
             </h2>
             {/* No testimonials, ratings or partner logos: there are no real ones
                 yet, and inventing them would be lying to customers. */}
-            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-ink-muted">
+            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-fg-muted">
               We would rather show you the product than a wall of reviews we have
               not earned. Order a tray, or tell us what you would want in one.
             </p>

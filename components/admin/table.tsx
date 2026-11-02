@@ -18,7 +18,7 @@ export function TableWrap({
   return (
     <div
       className={cn(
-        "overflow-x-auto rounded-card border border-line bg-surface",
+        "overflow-x-auto rounded-card border border-line bg-panel",
         className,
       )}
     >
@@ -44,7 +44,7 @@ export function Th({
     <th
       scope="col"
       className={cn(
-        "border-b border-line px-4 py-3 text-xs font-semibold uppercase tracking-wider text-ink-muted",
+        "border-b border-line px-4 py-3 text-xs font-semibold uppercase tracking-wider text-fg-muted",
         align === "right" ? "text-right" : "text-left",
         className,
       )}
@@ -77,5 +77,5 @@ export function Td({
 }
 
 export function Tr({ children }: { children: React.ReactNode }) {
-  return <tr className="transition-colors hover:bg-frost">{children}</tr>;
+  return <tr className="transition-colors hover:bg-page">{children}</tr>;
 }

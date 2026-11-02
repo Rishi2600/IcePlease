@@ -30,7 +30,7 @@ export function ProductVisual({
   return (
     <div
       className={cn(
-        "relative aspect-square w-full max-w-full overflow-hidden rounded-card bg-surface-sunken",
+        "relative aspect-square w-full max-w-full overflow-hidden rounded-card bg-raised",
         className,
       )}
       style={{

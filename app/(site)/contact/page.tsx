@@ -18,7 +18,7 @@ export default function ContactPage() {
     <div className="container-page py-12 sm:py-16">
       <header className="max-w-2xl">
         <h1 className="text-4xl font-semibold sm:text-5xl">Contact</h1>
-        <p className="mt-4 text-lg leading-relaxed text-ink-muted">
+        <p className="mt-4 text-lg leading-relaxed text-fg-muted">
           Questions about an order, a flavor, or supplying your business — this
           reaches us either way.
         </p>
@@ -34,11 +34,11 @@ export default function ContactPage() {
                   <li>
                     <a
                       href={`mailto:${CONTACT.email}`}
-                      className="flex items-start gap-3 text-sm text-ink-soft hover:text-ice-deep"
+                      className="flex items-start gap-3 text-sm text-fg-soft hover:text-link"
                     >
                       <Mail className="mt-0.5 size-4 shrink-0" aria-hidden />
                       <span>
-                        <span className="block font-medium text-ink">Email</span>
+                        <span className="block font-medium text-fg">Email</span>
                         {CONTACT.email}
                       </span>
                     </a>
@@ -48,11 +48,11 @@ export default function ContactPage() {
                   <li>
                     <a
                       href={`tel:${CONTACT.phone.replace(/\s/g, "")}`}
-                      className="flex items-start gap-3 text-sm text-ink-soft hover:text-ice-deep"
+                      className="flex items-start gap-3 text-sm text-fg-soft hover:text-link"
                     >
                       <Phone className="mt-0.5 size-4 shrink-0" aria-hidden />
                       <span>
-                        <span className="block font-medium text-ink">Phone</span>
+                        <span className="block font-medium text-fg">Phone</span>
                         {CONTACT.phone}
                       </span>
                     </a>
@@ -64,21 +64,21 @@ export default function ContactPage() {
                       href={whatsapp}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="flex items-start gap-3 text-sm text-ink-soft hover:text-ice-deep"
+                      className="flex items-start gap-3 text-sm text-fg-soft hover:text-link"
                     >
                       <MessageCircle className="mt-0.5 size-4 shrink-0" aria-hidden />
                       <span>
-                        <span className="block font-medium text-ink">WhatsApp</span>
+                        <span className="block font-medium text-fg">WhatsApp</span>
                         Message us
                       </span>
                     </a>
                   </li>
                 ) : null}
                 {CONTACT.serviceArea ? (
-                  <li className="flex items-start gap-3 text-sm text-ink-soft">
+                  <li className="flex items-start gap-3 text-sm text-fg-soft">
                     <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden />
                     <span>
-                      <span className="block font-medium text-ink">
+                      <span className="block font-medium text-fg">
                         Delivering in
                       </span>
                       {CONTACT.serviceArea}
@@ -90,9 +90,9 @@ export default function ContactPage() {
           ) : (
             /* No channel is configured yet. Rather than printing a fake phone
                number, the form is offered as the one that genuinely works. */
-            <div className="rounded-card border border-line bg-surface p-6">
+            <div className="rounded-card border border-line bg-panel p-6">
               <h2 className="text-lg font-semibold">Direct channels</h2>
-              <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+              <p className="mt-2 text-sm leading-relaxed text-fg-muted">
                 We have not published a phone number or email address yet. The
                 form here is the reliable way to reach us — it goes straight to
                 the people running IcePlease.
@@ -100,9 +100,9 @@ export default function ContactPage() {
             </div>
           )}
 
-          <div className="rounded-card border border-line bg-surface p-6">
+          <div className="rounded-card border border-line bg-panel p-6">
             <h2 className="text-lg font-semibold">Supplying your business?</h2>
-            <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+            <p className="mt-2 text-sm leading-relaxed text-fg-muted">
               Bulk and recurring supply has its own form, which asks the things
               we would need to quote properly.
             </p>
@@ -112,7 +112,7 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <div className="rounded-card border border-line bg-surface p-6 sm:p-8">
+        <div className="rounded-card border border-line bg-panel p-6 sm:p-8">
           <h2 className="text-xl font-semibold">Send a message</h2>
           <div className="mt-6">
             <ContactForm />

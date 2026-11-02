@@ -38,7 +38,7 @@ export default async function ShopPage({
     <div className="container-page py-12 sm:py-16">
       <header className="max-w-2xl">
         <h1 className="text-4xl font-semibold sm:text-5xl">Shop</h1>
-        <p className="mt-4 text-lg leading-relaxed text-ink-muted">
+        <p className="mt-4 text-lg leading-relaxed text-fg-muted">
           Each flavor is built around one kind of drink it makes better. Pick
           the one that matches what you actually pour.
         </p>
@@ -121,8 +121,8 @@ function FilterLink({
       className={cn(
         "inline-flex h-9 items-center rounded-full border px-4 text-sm font-medium transition-colors",
         active
-          ? "border-ink bg-ink text-white"
-          : "border-line bg-surface text-ink-soft hover:border-line-strong hover:text-ink",
+          ? "border-fg bg-fg text-white"
+          : "border-line bg-panel text-fg-soft hover:border-line-strong hover:text-fg",
       )}
     >
       {children}

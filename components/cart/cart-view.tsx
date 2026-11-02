@@ -97,7 +97,7 @@ export function CartView({ maxPerOrder }: { maxPerOrder: number }) {
               <ArrowRight aria-hidden />
             </Link>
           </Button>
-          <p className="mt-3 text-center text-xs text-ink-muted">
+          <p className="mt-3 text-center text-xs text-fg-muted">
             Prices are confirmed against the catalogue when your order is placed.
           </p>
         </OrderSummary>
@@ -116,16 +116,16 @@ function CartSkeleton() {
       >
         {[0, 1].map((row) => (
           <div key={row} className="flex animate-pulse gap-4">
-            <div className="size-20 shrink-0 rounded-card bg-surface-sunken sm:size-24" />
+            <div className="size-20 shrink-0 rounded-card bg-raised sm:size-24" />
             <div className="flex-1 space-y-2.5 py-1">
-              <div className="h-4 w-2/5 rounded bg-surface-sunken" />
-              <div className="h-3 w-3/5 rounded bg-surface-sunken" />
-              <div className="h-8 w-28 rounded-full bg-surface-sunken" />
+              <div className="h-4 w-2/5 rounded bg-raised" />
+              <div className="h-3 w-3/5 rounded bg-raised" />
+              <div className="h-8 w-28 rounded-full bg-raised" />
             </div>
           </div>
         ))}
       </div>
-      <div className="h-56 animate-pulse rounded-card bg-surface-sunken" />
+      <div className="h-56 animate-pulse rounded-card bg-raised" />
     </div>
   );
 }

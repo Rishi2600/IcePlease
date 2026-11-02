@@ -9,14 +9,14 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-ice-deep text-white hover:bg-ice-deeper active:bg-ice-deeper",
+          "bg-link text-white hover:bg-link-strong active:bg-link-strong",
         secondary:
-          "bg-ink text-white hover:bg-ink-soft",
+          "bg-fg text-white hover:bg-fg-soft",
         outline:
-          "border border-line-strong bg-surface text-ink hover:bg-surface-sunken",
-        ghost: "text-ink hover:bg-surface-sunken",
+          "border border-line-strong bg-panel text-fg hover:bg-raised",
+        ghost: "text-fg hover:bg-raised",
         danger: "bg-danger text-white hover:bg-danger/90",
-        link: "text-ice-deep underline underline-offset-4 hover:text-ice-deeper rounded-none",
+        link: "text-link underline underline-offset-4 hover:text-link-strong rounded-none",
       },
       size: {
         sm: "h-9 px-4 text-sm [&_svg]:size-4",

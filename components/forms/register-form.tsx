@@ -126,11 +126,11 @@ export function RegisterForm() {
         )}
       </Button>
 
-      <p className="text-center text-sm text-ink-muted">
+      <p className="text-center text-sm text-fg-muted">
         Already have an account?{" "}
         <Link
           href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`}
-          className="font-medium text-ice-deep underline underline-offset-2"
+          className="font-medium text-link underline underline-offset-2"
         >
           Sign in
         </Link>

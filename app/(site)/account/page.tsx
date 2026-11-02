@@ -45,7 +45,7 @@ export default async function AccountPage() {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-4xl font-semibold sm:text-5xl">Your account</h1>
-          <p className="mt-2 text-ink-muted">{account.email}</p>
+          <p className="mt-2 text-fg-muted">{account.email}</p>
         </div>
         <SignOutButton />
       </div>
@@ -78,12 +78,12 @@ export default async function AccountPage() {
                         <CardTitle>
                           <Link
                             href={`/order/${order.orderNumber}`}
-                            className="hover:text-ice-deep"
+                            className="hover:text-link"
                           >
                             {order.orderNumber}
                           </Link>
                         </CardTitle>
-                        <p className="mt-1 text-sm text-ink-muted">
+                        <p className="mt-1 text-sm text-fg-muted">
                           {formatDateTime(order.createdAt)}
                         </p>
                       </div>
@@ -93,7 +93,7 @@ export default async function AccountPage() {
                       </div>
                     </CardHeader>
                     <CardBody className="flex flex-wrap items-center justify-between gap-4">
-                      <p className="text-sm text-ink-soft">
+                      <p className="text-sm text-fg-soft">
                         {order.items
                           .map((item) => `${item.quantity} × ${item.productName}`)
                           .join(", ")}
@@ -113,7 +113,7 @@ export default async function AccountPage() {
           <h2 id="details-heading" className="text-2xl font-semibold">
             Your details
           </h2>
-          <div className="mt-6 rounded-card border border-line bg-surface p-6">
+          <div className="mt-6 rounded-card border border-line bg-panel p-6">
             <ProfileForm
               values={{
                 name: account.name ?? "",

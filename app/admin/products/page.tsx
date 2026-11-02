@@ -41,7 +41,7 @@ export default async function AdminProductsPage() {
       />
 
       {seedCount > 0 ? (
-        <div className="mb-6 rounded-xl border border-citrus/40 bg-citrus/15 px-4 py-3 text-sm text-citrus-deep">
+        <div className="mb-6 rounded-xl border border-warn/40 bg-warn/15 px-4 py-3 text-sm text-warn-strong">
           <strong className="font-semibold">
             {seedCount} demo {seedCount === 1 ? "product" : "products"}.
           </strong>{" "}
@@ -94,18 +94,18 @@ export default async function AdminProductsPage() {
                       <div className="min-w-0">
                         <Link
                           href={`/admin/products/${product.id}`}
-                          className="block truncate font-medium hover:text-ice-deep"
+                          className="block truncate font-medium hover:text-link"
                         >
                           {product.name}
                         </Link>
-                        <span className="block truncate text-xs text-ink-muted">
+                        <span className="block truncate text-xs text-fg-muted">
                           /{product.slug}
                         </span>
                       </div>
                     </div>
                   </Td>
                   <Td>
-                    <span className="text-ink-soft">{product.flavor}</span>
+                    <span className="text-fg-soft">{product.flavor}</span>
                   </Td>
                   <Td align="right">{formatMinor(product.priceMinor)}</Td>
                   <Td align="right">
@@ -131,7 +131,7 @@ export default async function AdminProductsPage() {
                     </div>
                   </Td>
                   <Td align="right">
-                    <span className="text-ink-muted">
+                    <span className="text-fg-muted">
                       {product._count.orderItems}
                     </span>
                   </Td>

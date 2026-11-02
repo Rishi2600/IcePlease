@@ -10,23 +10,22 @@
 --------------------------------------------------------------------------- */
 
 @theme {
-  --color-frost: #f2f8fb;
-  --color-surface: #ffffff;
-  --color-surface-sunken: #e8f2f7;
+  --color-page: #f2f8fb;
+  --color-panel: #ffffff;
+  --color-raised: #e8f2f7;
 
-  --color-ink: #06202b;
-  --color-ink-soft: #2c4b58;
-  --color-ink-muted: #5d7a86;
+  --color-fg: #06202b;
+  --color-fg-soft: #2c4b58;
+  --color-fg-muted: #5d7a86;
 
-  --color-ice: #8fd8ee;
-  --color-ice-light: #d6eef8;
-  --color-ice-deep: #0b7ea3;
-  --color-ice-deeper: #075d79;
+  --color-tint: #d6eef8;
+  --color-link: #0b7ea3;
+  --color-link-strong: #075d79;
 
-  --color-mint: #6fe0be;
-  --color-mint-deep: #0d8f6d;
-  --color-citrus: #f3d74c;
-  --color-citrus-deep: #9a7c05;
+  --color-ok: #6fe0be;
+  --color-ok-strong: #0d8f6d;
+  --color-warn: #f3d74c;
+  --color-warn-strong: #9a7c05;
   --color-berry: #e4739b;
 
   --color-line: #d7e6ed;
@@ -76,8 +75,8 @@
   }
 
   body {
-    background-color: var(--color-frost);
-    color: var(--color-ink);
+    background-color: var(--color-page);
+    color: var(--color-fg);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
@@ -93,14 +92,14 @@
 
   /* A visible, high-contrast focus ring everywhere. Never remove this. */
   :focus-visible {
-    outline: 2px solid var(--color-ice-deep);
+    outline: 2px solid var(--color-link);
     outline-offset: 2px;
     border-radius: 4px;
   }
 
   ::selection {
-    background-color: var(--color-ice);
-    color: var(--color-ink);
+    background-color: var(--color-link);
+    color: var(--color-fg);
   }
 }
 

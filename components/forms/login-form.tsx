@@ -86,11 +86,11 @@ export function LoginForm() {
         )}
       </Button>
 
-      <p className="text-center text-sm text-ink-muted">
+      <p className="text-center text-sm text-fg-muted">
         No account yet?{" "}
         <Link
           href={`/register?callbackUrl=${encodeURIComponent(callbackUrl)}`}
-          className="font-medium text-ice-deep underline underline-offset-2"
+          className="font-medium text-link underline underline-offset-2"
         >
           Create one
         </Link>

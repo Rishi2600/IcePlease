@@ -64,7 +64,7 @@ export default function B2BPage() {
             <h1 className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
               A different drink without a different workflow.
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-fg-soft">
               Flavored ice changes what comes out of your bar without adding a
               step at the moment of service. It arrives frozen, it goes in the
               glass, and the drink does the rest.
@@ -72,7 +72,7 @@ export default function B2BPage() {
             <div className="mt-8">
               <a
                 href="#enquiry"
-                className="inline-flex h-13 items-center rounded-full bg-ice-deep px-7 text-base font-medium text-white transition-colors hover:bg-ice-deeper"
+                className="inline-flex h-13 items-center rounded-full bg-link px-7 text-base font-medium text-white transition-colors hover:bg-link-strong"
               >
                 Start a bulk enquiry
               </a>
@@ -91,11 +91,11 @@ export default function B2BPage() {
             {SEGMENTS.map((segment) => (
               <div
                 key={segment.title}
-                className="rounded-card border border-line bg-surface p-6"
+                className="rounded-card border border-line bg-panel p-6"
               >
-                <segment.icon className="size-5 text-ice-deep" aria-hidden />
+                <segment.icon className="size-5 text-link" aria-hidden />
                 <h3 className="mt-4 text-lg font-semibold">{segment.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+                <p className="mt-2 text-sm leading-relaxed text-fg-muted">
                   {segment.body}
                 </p>
               </div>
@@ -104,7 +104,7 @@ export default function B2BPage() {
         </div>
       </Section>
 
-      <Section className="bg-surface" id="events">
+      <Section className="bg-panel" id="events">
         <div className="container-page">
           <SectionHeading
             eyebrow="Why it works commercially"
@@ -115,11 +115,11 @@ export default function B2BPage() {
             {REASONS.map((reason) => (
               <div
                 key={reason.title}
-                className="rounded-card border border-line bg-frost p-6"
+                className="rounded-card border border-line bg-page p-6"
               >
-                <reason.icon className="size-5 text-ice-deep" aria-hidden />
+                <reason.icon className="size-5 text-link" aria-hidden />
                 <h3 className="mt-4 text-lg font-semibold">{reason.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+                <p className="mt-2 text-sm leading-relaxed text-fg-muted">
                   {reason.body}
                 </p>
               </div>
@@ -146,19 +146,19 @@ export default function B2BPage() {
                   <li key={step} className="flex gap-3">
                     <span
                       aria-hidden
-                      className="grid size-6 shrink-0 place-items-center rounded-full bg-ice-light text-xs font-semibold text-ice-deeper"
+                      className="grid size-6 shrink-0 place-items-center rounded-full bg-tint text-xs font-semibold text-link-strong"
                     >
                       {index + 1}
                     </span>
-                    <span className="text-ink-soft">{step}</span>
+                    <span className="text-fg-soft">{step}</span>
                   </li>
                 ))}
               </ol>
             </div>
 
-            <div className="rounded-card border border-line bg-surface p-6 sm:p-8">
+            <div className="rounded-card border border-line bg-panel p-6 sm:p-8">
               <h2 className="text-xl font-semibold">Bulk enquiry</h2>
-              <p className="mt-1.5 text-sm text-ink-muted">
+              <p className="mt-1.5 text-sm text-fg-muted">
                 Nothing is committed by sending this.
               </p>
               <div className="mt-6">

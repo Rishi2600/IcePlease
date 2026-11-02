@@ -22,11 +22,11 @@ export default async function RegisterPage() {
         <h1 className="mt-8 text-center text-3xl font-semibold">
           Create an account
         </h1>
-        <p className="mt-2 text-center text-sm text-ink-muted">
+        <p className="mt-2 text-center text-sm text-fg-muted">
           You can also order as a guest — an account just keeps your history.
         </p>
 
-        <div className="mt-8 rounded-card border border-line bg-surface p-6">
+        <div className="mt-8 rounded-card border border-line bg-panel p-6">
           <Suspense fallback={<div className="h-96" />}>
             <RegisterForm />
           </Suspense>

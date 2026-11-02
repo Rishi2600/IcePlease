@@ -19,7 +19,7 @@ export default function AboutPage() {
             <h1 className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
               We started with a small complaint about ice.
             </h1>
-            <p className="mt-6 text-lg leading-relaxed text-ink-soft">
+            <p className="mt-6 text-lg leading-relaxed text-fg-soft">
               Every cold drink has the same flaw. The thing keeping it cold is
               also the thing ruining it. Ice does one job and then quietly
               undoes the drink you paid for.
@@ -35,7 +35,7 @@ export default function AboutPage() {
               eyebrow="The idea"
               title="Make the ice part of the drink."
             />
-            <div className="space-y-5 text-base leading-relaxed text-ink-soft">
+            <div className="space-y-5 text-base leading-relaxed text-fg-soft">
               <p>
                 If a cube is going to spend twenty minutes in a glass melting,
                 it may as well contribute something on the way. That is the
@@ -58,16 +58,16 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section className="bg-ink text-white">
+      <Section className="bg-fg text-white">
         <div className="container-page">
           <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ice">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-link">
               Where we are
             </p>
             <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
               Early, and saying so.
             </h2>
-            <div className="mt-6 space-y-4 text-lg leading-relaxed text-ice-light/80">
+            <div className="mt-6 space-y-4 text-lg leading-relaxed text-tint/80">
               <p>
                 IcePlease is at the beginning. We are working out which flavors
                 earn a place in someone&apos;s freezer, what a pack should
@@ -90,7 +90,7 @@ export default function AboutPage() {
               eyebrow="What we will and will not say"
               title="Product claims, honestly."
             />
-            <div className="space-y-5 text-base leading-relaxed text-ink-soft">
+            <div className="space-y-5 text-base leading-relaxed text-fg-soft">
               <p>
                 Flavored ice sits in food, and food claims matter. We publish
                 ingredients, shelf life, storage guidance and certification only
@@ -114,7 +114,7 @@ export default function AboutPage() {
 
       <Section className="pt-0">
         <div className="container-page">
-          <div className="rounded-card border border-line bg-surface px-8 py-12 text-center sm:px-12">
+          <div className="rounded-card border border-line bg-panel px-8 py-12 text-center sm:px-12">
             <h2 className="mx-auto max-w-xl text-3xl font-semibold sm:text-4xl">
               Try it, or tell us what would make you try it.
             </h2>

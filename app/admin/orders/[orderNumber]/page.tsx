@@ -91,12 +91,12 @@ export default async function AdminOrderPage({
                           <span className="block font-medium">
                             {item.productName}
                           </span>
-                          <span className="block text-xs text-ink-muted">
+                          <span className="block text-xs text-fg-muted">
                             {item.productFlavor}
                           </span>
                         </Td>
                         <Td>
-                          <span className="text-ink-muted">{item.packSize}</span>
+                          <span className="text-fg-muted">{item.packSize}</span>
                         </Td>
                         <Td align="right">{formatMinor(item.unitPriceMinor)}</Td>
                         <Td align="right">{item.quantity}</Td>
@@ -111,13 +111,13 @@ export default async function AdminOrderPage({
                   customer actually agreed to. */}
               <dl className="space-y-2.5 px-5 py-5 text-sm sm:px-6">
                 <div className="flex justify-between gap-4">
-                  <dt className="text-ink-muted">Subtotal</dt>
+                  <dt className="text-fg-muted">Subtotal</dt>
                   <dd className="tabular-nums">
                     {formatMinor(order.subtotalMinor)}
                   </dd>
                 </div>
                 <div className="flex justify-between gap-4">
-                  <dt className="text-ink-muted">Delivery</dt>
+                  <dt className="text-fg-muted">Delivery</dt>
                   <dd className="tabular-nums">
                     {order.deliveryFeeMinor === 0
                       ? "Free"
@@ -167,7 +167,7 @@ export default async function AdminOrderPage({
             </CardHeader>
             <CardBody className="space-y-4">
               <p className="text-sm">
-                <span className="text-ink-muted">Method: </span>
+                <span className="text-fg-muted">Method: </span>
                 <span className="font-medium">
                   {PAYMENT_METHOD_LABEL[order.paymentMethod]}
                 </span>
@@ -186,11 +186,11 @@ export default async function AdminOrderPage({
             <CardBody className="space-y-4 text-sm">
               <div>
                 <p className="font-medium">{order.customerName}</p>
-                <p className="text-ink-muted">
+                <p className="text-fg-muted">
                   {order.userId ? (
                     <Link
                       href={`/admin/customers?q=${encodeURIComponent(order.customerEmail)}`}
-                      className="hover:text-ice-deep"
+                      className="hover:text-link"
                     >
                       Registered customer
                     </Link>
@@ -202,19 +202,19 @@ export default async function AdminOrderPage({
               <div className="space-y-1">
                 <a
                   href={`mailto:${order.customerEmail}`}
-                  className="block text-ink-soft hover:text-ice-deep"
+                  className="block text-fg-soft hover:text-link"
                 >
                   {order.customerEmail}
                 </a>
                 <a
                   href={`tel:${order.customerPhone.replace(/\s/g, "")}`}
-                  className="block text-ink-soft hover:text-ice-deep"
+                  className="block text-fg-soft hover:text-link"
                 >
                   {order.customerPhone}
                 </a>
               </div>
-              <div className="border-t border-line pt-4 leading-relaxed text-ink-soft">
-                <p className="mb-1 font-medium text-ink">Delivery address</p>
+              <div className="border-t border-line pt-4 leading-relaxed text-fg-soft">
+                <p className="mb-1 font-medium text-fg">Delivery address</p>
                 <p>{order.addressLine1}</p>
                 {order.addressLine2 ? <p>{order.addressLine2}</p> : null}
                 <p>
@@ -224,7 +224,7 @@ export default async function AdminOrderPage({
               {order.deliveryNotes ? (
                 <div className="border-t border-line pt-4">
                   <p className="mb-1 font-medium">Delivery notes</p>
-                  <p className="text-ink-soft">{order.deliveryNotes}</p>
+                  <p className="text-fg-soft">{order.deliveryNotes}</p>
                 </div>
               ) : null}
             </CardBody>

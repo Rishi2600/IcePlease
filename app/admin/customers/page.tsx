@@ -63,7 +63,7 @@ export default async function AdminCustomersPage({
           <h2 id="registered-heading" className="text-lg font-semibold">
             Registered accounts
           </h2>
-          <p className="text-sm text-ink-muted">
+          <p className="text-sm text-fg-muted">
             {registered.length} shown · {repeatCount} with more than one order
           </p>
         </div>
@@ -108,18 +108,18 @@ export default async function AdminCustomersPage({
                     <Td>
                       <a
                         href={`mailto:${customer.email}`}
-                        className="block text-ink-soft hover:text-ice-deep"
+                        className="block text-fg-soft hover:text-link"
                       >
                         {customer.email}
                       </a>
                       {customer.phone ? (
-                        <span className="block text-xs text-ink-muted">
+                        <span className="block text-xs text-fg-muted">
                           {customer.phone}
                         </span>
                       ) : null}
                     </Td>
                     <Td>
-                      <span className="text-ink-muted">
+                      <span className="text-fg-muted">
                         {customer.city ?? "—"}
                       </span>
                     </Td>
@@ -127,26 +127,26 @@ export default async function AdminCustomersPage({
                       {customer.orderCount > 0 ? (
                         <Link
                           href={`/admin/orders?q=${encodeURIComponent(customer.email)}`}
-                          className="font-medium hover:text-ice-deep"
+                          className="font-medium hover:text-link"
                         >
                           {customer.orderCount}
                         </Link>
                       ) : (
-                        <span className="text-ink-muted">0</span>
+                        <span className="text-fg-muted">0</span>
                       )}
                     </Td>
                     <Td align="right">
                       {formatMinor(customer.totalSpentMinor)}
                     </Td>
                     <Td>
-                      <span className="whitespace-nowrap text-ink-muted">
+                      <span className="whitespace-nowrap text-fg-muted">
                         {customer.lastOrderAt
                           ? formatDate(customer.lastOrderAt)
                           : "—"}
                       </span>
                     </Td>
                     <Td>
-                      <span className="whitespace-nowrap text-ink-muted">
+                      <span className="whitespace-nowrap text-fg-muted">
                         {formatDate(customer.createdAt)}
                       </span>
                     </Td>
@@ -163,7 +163,7 @@ export default async function AdminCustomersPage({
           <h2 id="guests-heading" className="text-lg font-semibold">
             Guest orders
           </h2>
-          <p className="text-sm text-ink-muted">
+          <p className="text-sm text-fg-muted">
             Grouped by the email given at checkout
           </p>
         </div>
@@ -204,25 +204,25 @@ export default async function AdminCustomersPage({
                     <Td>
                       <a
                         href={`mailto:${guest.email}`}
-                        className="block text-ink-soft hover:text-ice-deep"
+                        className="block text-fg-soft hover:text-link"
                       >
                         {guest.email}
                       </a>
-                      <span className="block text-xs text-ink-muted">
+                      <span className="block text-xs text-fg-muted">
                         {guest.phone}
                       </span>
                     </Td>
                     <Td align="right">
                       <Link
                         href={`/admin/orders?q=${encodeURIComponent(guest.email)}`}
-                        className="font-medium hover:text-ice-deep"
+                        className="font-medium hover:text-link"
                       >
                         {guest.orderCount}
                       </Link>
                     </Td>
                     <Td align="right">{formatMinor(guest.totalSpentMinor)}</Td>
                     <Td>
-                      <span className="whitespace-nowrap text-ink-muted">
+                      <span className="whitespace-nowrap text-fg-muted">
                         {formatDate(guest.lastOrderAt)}
                       </span>
                     </Td>

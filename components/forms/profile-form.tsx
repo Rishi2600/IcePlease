@@ -41,9 +41,9 @@ export function ProfileForm({ values }: { values: ProfileValues }) {
       </Field>
 
       <fieldset className="space-y-5">
-        <legend className="text-sm font-medium text-ink">
+        <legend className="text-sm font-medium text-fg">
           Default delivery address
-          <span className="ml-1.5 font-normal text-ink-muted">
+          <span className="ml-1.5 font-normal text-fg-muted">
             prefills checkout
           </span>
         </legend>

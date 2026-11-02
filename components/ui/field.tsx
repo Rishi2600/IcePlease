@@ -17,19 +17,19 @@ export function Label({
 }: React.LabelHTMLAttributes<HTMLLabelElement> & { hint?: string }) {
   return (
     <label
-      className={cn("block text-sm font-medium text-ink", className)}
+      className={cn("block text-sm font-medium text-fg", className)}
       {...props}
     >
       {children}
       {hint ? (
-        <span className="ml-1.5 font-normal text-ink-muted">{hint}</span>
+        <span className="ml-1.5 font-normal text-fg-muted">{hint}</span>
       ) : null}
     </label>
   );
 }
 
 const controlStyles =
-  "w-full rounded-xl border border-line bg-surface px-3.5 py-2.5 text-sm text-ink transition-colors placeholder:text-ink-muted/70 hover:border-line-strong focus:border-ice-deep disabled:cursor-not-allowed disabled:bg-surface-sunken aria-[invalid=true]:border-danger";
+  "w-full rounded-xl border border-line bg-panel px-3.5 py-2.5 text-sm text-fg transition-colors placeholder:text-fg-muted/70 hover:border-line-strong focus:border-link disabled:cursor-not-allowed disabled:bg-raised aria-[invalid=true]:border-danger";
 
 export function Input({
   className,

@@ -13,16 +13,16 @@ export function ExperienceSteps({ className }: { className?: string }) {
       {EXPERIENCE_STEPS.map((item, index) => (
         <li
           key={item.step}
-          className="relative rounded-card border border-line bg-surface p-6"
+          className="relative rounded-card border border-line bg-panel p-6"
         >
           <span
             aria-hidden
-            className="font-display text-4xl font-semibold text-ice-light"
+            className="font-display text-4xl font-semibold text-tint"
           >
             {String(index + 1).padStart(2, "0")}
           </span>
           <h3 className="mt-2 text-lg font-semibold">{item.step}</h3>
-          <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">
+          <p className="mt-1.5 text-sm leading-relaxed text-fg-muted">
             {item.detail}
           </p>
         </li>

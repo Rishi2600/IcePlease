@@ -42,11 +42,11 @@ export default async function CheckoutPage() {
 
       <h1 className="mt-6 text-4xl font-semibold sm:text-5xl">Checkout</h1>
       {!user ? (
-        <p className="mt-3 text-sm text-ink-muted">
+        <p className="mt-3 text-sm text-fg-muted">
           Ordering as a guest.{" "}
           <Link
             href="/login?callbackUrl=%2Fcheckout"
-            className="font-medium text-ice-deep underline underline-offset-2"
+            className="font-medium text-link underline underline-offset-2"
           >
             Sign in
           </Link>{" "}

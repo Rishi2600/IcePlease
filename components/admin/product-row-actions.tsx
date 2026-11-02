@@ -67,9 +67,9 @@ export function StockControl({
       />
       <span aria-live="polite" className="w-4">
         {state === "saving" ? (
-          <Loader2 className="size-3.5 animate-spin text-ink-muted" aria-hidden />
+          <Loader2 className="size-3.5 animate-spin text-fg-muted" aria-hidden />
         ) : state === "saved" ? (
-          <Check className="size-3.5 text-mint-deep" aria-hidden />
+          <Check className="size-3.5 text-ok-strong" aria-hidden />
         ) : state === "error" ? (
           <span className="text-xs font-semibold text-danger">!</span>
         ) : null}

@@ -7,11 +7,11 @@ const TONES = {
     Icon: AlertCircle,
   },
   success: {
-    wrapper: "border-mint-deep/25 bg-mint/15 text-mint-deep",
+    wrapper: "border-ok-strong/25 bg-ok/15 text-ok-strong",
     Icon: CheckCircle2,
   },
   info: {
-    wrapper: "border-line bg-surface-sunken text-ink-soft",
+    wrapper: "border-line bg-raised text-fg-soft",
     Icon: Info,
   },
 } as const;

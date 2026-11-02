@@ -30,7 +30,7 @@ export function Navbar() {
   const isAdmin = session?.user?.role === "ADMIN";
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line/70 bg-frost/85 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-line/70 bg-page/85 backdrop-blur-md">
       <div className="container-page flex h-16 items-center justify-between gap-4">
         <Logo />
 
@@ -49,8 +49,8 @@ export function Navbar() {
                 className={cn(
                   "rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
                   active
-                    ? "bg-surface-sunken text-ink"
-                    : "text-ink-soft hover:bg-surface-sunken hover:text-ink",
+                    ? "bg-raised text-fg"
+                    : "text-fg-soft hover:bg-raised hover:text-fg",
                 )}
               >
                 {link.label}
@@ -72,7 +72,7 @@ export function Navbar() {
           <Link
             href={session ? "/account" : "/login"}
             aria-label={session ? "Your account" : "Sign in"}
-            className="hidden size-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-surface-sunken sm:inline-flex"
+            className="hidden size-10 items-center justify-center rounded-full text-fg transition-colors hover:bg-raised sm:inline-flex"
           >
             <User className="size-5" aria-hidden />
           </Link>
@@ -88,7 +88,7 @@ export function Navbar() {
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-controls="mobile-nav"
-            className="inline-flex size-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-surface-sunken lg:hidden"
+            className="inline-flex size-10 items-center justify-center rounded-full text-fg transition-colors hover:bg-raised lg:hidden"
           >
             {open ? (
               <X className="size-5" aria-hidden />
@@ -103,7 +103,7 @@ export function Navbar() {
       {open ? (
         <div
           id="mobile-nav"
-          className="fixed inset-x-0 bottom-0 top-16 z-50 overflow-y-auto border-t border-line bg-frost lg:hidden"
+          className="fixed inset-x-0 bottom-0 top-16 z-50 overflow-y-auto border-t border-line bg-page lg:hidden"
         >
           <nav aria-label="Main" className="container-page py-6">
             <ul className="space-y-1">
@@ -118,8 +118,8 @@ export function Navbar() {
                       className={cn(
                         "block rounded-xl px-4 py-3.5 text-lg font-medium transition-colors",
                         active
-                          ? "bg-surface text-ink"
-                          : "text-ink-soft hover:bg-surface",
+                          ? "bg-panel text-fg"
+                          : "text-fg-soft hover:bg-panel",
                       )}
                     >
                       {link.label}

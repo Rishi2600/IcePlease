@@ -8,11 +8,11 @@ export default function NotFound() {
     <div className="flex min-h-dvh flex-col">
       <Navbar />
       <main className="container-page flex flex-1 flex-col items-center justify-center py-24 text-center">
-        <p className="font-display text-7xl font-semibold text-ice-light">404</p>
+        <p className="font-display text-7xl font-semibold text-tint">404</p>
         <h1 className="mt-4 text-3xl font-semibold sm:text-4xl">
           This page has melted.
         </h1>
-        <p className="mt-4 max-w-md text-ink-muted">
+        <p className="mt-4 max-w-md text-fg-muted">
           The page you were after does not exist, or it moved. The shop is still
           where you left it.
         </p>

@@ -15,7 +15,7 @@ export function ProductCard({
   const lowStock = !outOfStock && product.stock <= 5;
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-card border border-line bg-surface transition-colors hover:border-line-strong">
+    <article className="group relative flex flex-col overflow-hidden rounded-card border border-line bg-panel transition-colors hover:border-line-strong">
       <div className="relative p-3 pb-0">
         <ProductVisual
           name={product.name}
@@ -49,17 +49,17 @@ export function ProductCard({
           </p>
         </div>
 
-        <p className="mt-1 text-sm text-ink-muted">
+        <p className="mt-1 text-sm text-fg-muted">
           {product.flavor} · {product.packSize}
         </p>
 
         {product.tagline ? (
-          <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+          <p className="mt-3 text-sm leading-relaxed text-fg-soft">
             {product.tagline}
           </p>
         ) : null}
 
-        <p className="mt-auto pt-4 text-sm font-medium text-ice-deep">
+        <p className="mt-auto pt-4 text-sm font-medium text-link">
           View flavor
           <span aria-hidden className="ml-1 inline-block transition-transform group-hover:translate-x-0.5">
             →

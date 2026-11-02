@@ -18,12 +18,12 @@ export function OrderSummary({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="rounded-card border border-line bg-surface p-6">
+    <div className="rounded-card border border-line bg-panel p-6">
       <h2 className="text-lg font-semibold">Order summary</h2>
 
       <dl className="mt-5 space-y-3 text-sm">
         <div className="flex justify-between gap-4">
-          <dt className="text-ink-muted">
+          <dt className="text-fg-muted">
             Subtotal
             <span className="ml-1">
               ({itemCount} {itemCount === 1 ? "item" : "items"})
@@ -34,7 +34,7 @@ export function OrderSummary({
           </dd>
         </div>
         <div className="flex justify-between gap-4">
-          <dt className="text-ink-muted">Delivery</dt>
+          <dt className="text-fg-muted">Delivery</dt>
           <dd className="font-medium tabular-nums">
             {deliveryFeeMinor === 0 ? "Free" : formatMinor(deliveryFeeMinor)}
           </dd>

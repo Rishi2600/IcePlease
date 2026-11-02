@@ -85,13 +85,13 @@ export default async function ProductPage({ params }: Params) {
           </h1>
 
           {product.tagline ? (
-            <p className="mt-3 text-lg text-ink-soft">{product.tagline}</p>
+            <p className="mt-3 text-lg text-fg-soft">{product.tagline}</p>
           ) : null}
 
           <p className="mt-6 font-display text-3xl font-semibold">
             {formatMinor(product.priceMinor)}
           </p>
-          <p className="mt-1 text-sm text-ink-muted">
+          <p className="mt-1 text-sm text-fg-muted">
             {product.packSize}
             {product.cubeCount
               ? ` · ${formatMinor(
@@ -111,7 +111,7 @@ export default async function ProductPage({ params }: Params) {
 
           <div className="mt-10 border-t border-line pt-8">
             <h2 className="text-lg font-semibold">About this flavor</h2>
-            <p className="mt-3 leading-relaxed text-ink-soft">
+            <p className="mt-3 leading-relaxed text-fg-soft">
               {product.description}
             </p>
           </div>
@@ -122,11 +122,11 @@ export default async function ProductPage({ params }: Params) {
               {EXPERIENCE_STEPS.map((step) => (
                 <li key={step.step} className="flex gap-3">
                   <Check
-                    className="mt-0.5 size-4 shrink-0 text-ice-deep"
+                    className="mt-0.5 size-4 shrink-0 text-link"
                     aria-hidden
                   />
-                  <p className="text-sm leading-relaxed text-ink-soft">
-                    <span className="font-medium text-ink">{step.step}.</span>{" "}
+                  <p className="text-sm leading-relaxed text-fg-soft">
+                    <span className="font-medium text-fg">{step.step}.</span>{" "}
                     {step.detail}
                   </p>
                 </li>
@@ -135,14 +135,14 @@ export default async function ProductPage({ params }: Params) {
           </div>
 
           <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-card border border-line bg-line">
-            <div className="bg-surface p-5">
-              <dt className="text-xs uppercase tracking-wider text-ink-muted">
+            <div className="bg-panel p-5">
+              <dt className="text-xs uppercase tracking-wider text-fg-muted">
                 Flavor
               </dt>
               <dd className="mt-1 font-medium">{product.flavor}</dd>
             </div>
-            <div className="bg-surface p-5">
-              <dt className="text-xs uppercase tracking-wider text-ink-muted">
+            <div className="bg-panel p-5">
+              <dt className="text-xs uppercase tracking-wider text-fg-muted">
                 Pack
               </dt>
               <dd className="mt-1 font-medium">{product.packSize}</dd>
@@ -154,7 +154,7 @@ export default async function ProductPage({ params }: Params) {
       {related.length > 0 ? (
         <section className="mt-20 border-t border-line pt-12">
           <div className="flex items-center gap-2">
-            <Snowflake className="size-4 text-ice-deep" aria-hidden />
+            <Snowflake className="size-4 text-link" aria-hidden />
             <h2 className="text-2xl font-semibold">Other flavors</h2>
           </div>
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

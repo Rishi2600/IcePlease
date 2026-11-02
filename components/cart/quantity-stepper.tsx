@@ -29,7 +29,7 @@ export function QuantityStepper({
   return (
     <div
       className={cn(
-        "inline-flex items-center rounded-full border border-line bg-surface",
+        "inline-flex items-center rounded-full border border-line bg-panel",
         className,
       )}
     >
@@ -39,7 +39,7 @@ export function QuantityStepper({
         disabled={value <= min}
         aria-label={`Decrease quantity of ${label}`}
         className={cn(
-          "grid place-items-center rounded-full text-ink transition-colors hover:bg-surface-sunken disabled:pointer-events-none disabled:opacity-40",
+          "grid place-items-center rounded-full text-fg transition-colors hover:bg-raised disabled:pointer-events-none disabled:opacity-40",
           button,
         )}
       >
@@ -62,7 +62,7 @@ export function QuantityStepper({
         disabled={value >= max}
         aria-label={`Increase quantity of ${label}`}
         className={cn(
-          "grid place-items-center rounded-full text-ink transition-colors hover:bg-surface-sunken disabled:pointer-events-none disabled:opacity-40",
+          "grid place-items-center rounded-full text-fg transition-colors hover:bg-raised disabled:pointer-events-none disabled:opacity-40",
           button,
         )}
       >

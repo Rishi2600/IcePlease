@@ -14,7 +14,7 @@ export function Section({
 
 export function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ice-deep">
+    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-link">
       {children}
     </p>
   );
@@ -51,7 +51,7 @@ export function SectionHeading({
         {title}
       </h2>
       {description ? (
-        <p className="mt-4 text-base leading-relaxed text-ink-muted sm:text-lg">
+        <p className="mt-4 text-base leading-relaxed text-fg-muted sm:text-lg">
           {description}
         </p>
       ) : null}

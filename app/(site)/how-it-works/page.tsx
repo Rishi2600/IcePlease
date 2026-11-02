@@ -22,7 +22,7 @@ export default function HowItWorksPage() {
             <h1 className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl">
               It is ice. That is the whole trick.
             </h1>
-            <p className="mt-6 text-lg leading-relaxed text-ink-soft">
+            <p className="mt-6 text-lg leading-relaxed text-fg-soft">
               There is nothing to mix, nothing to measure and nothing to learn.
               You put a cube in a glass the way you already do, and the drink
               gets better instead of weaker.
@@ -42,17 +42,17 @@ export default function HowItWorksPage() {
             {EXPERIENCE_STEPS.map((step, index) => (
               <li
                 key={step.step}
-                className="grid gap-4 bg-surface p-6 sm:grid-cols-[6rem_1fr] sm:gap-8 sm:p-8"
+                className="grid gap-4 bg-panel p-6 sm:grid-cols-[6rem_1fr] sm:gap-8 sm:p-8"
               >
                 <span
                   aria-hidden
-                  className="font-display text-5xl font-semibold text-ice-light"
+                  className="font-display text-5xl font-semibold text-tint"
                 >
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <div>
                   <h2 className="text-2xl font-semibold">{step.step}</h2>
-                  <p className="mt-2 max-w-xl leading-relaxed text-ink-muted">
+                  <p className="mt-2 max-w-xl leading-relaxed text-fg-muted">
                     {step.detail}
                   </p>
                 </div>
@@ -62,7 +62,7 @@ export default function HowItWorksPage() {
         </div>
       </Section>
 
-      <Section className="bg-surface">
+      <Section className="bg-panel">
         <div className="container-page">
           <SectionHeading
             eyebrow="The difference"
@@ -70,20 +70,20 @@ export default function HowItWorksPage() {
           />
 
           <div className="mt-10 grid gap-5 lg:grid-cols-2">
-            <div className="rounded-card border border-line bg-frost p-8">
-              <Droplets className="size-5 text-ink-muted" aria-hidden />
+            <div className="rounded-card border border-line bg-page p-8">
+              <Droplets className="size-5 text-fg-muted" aria-hidden />
               <h3 className="mt-4 text-xl font-semibold">Ordinary ice</h3>
-              <ul className="mt-4 space-y-3 text-sm leading-relaxed text-ink-muted">
+              <ul className="mt-4 space-y-3 text-sm leading-relaxed text-fg-muted">
                 <li>Cools the drink, then dilutes it.</li>
                 <li>The last mouthful is the weakest one.</li>
                 <li>Adds nothing to how the glass looks.</li>
               </ul>
             </div>
 
-            <div className="rounded-card border border-ice-deep/25 bg-ice-light/40 p-8">
-              <Snowflake className="size-5 text-ice-deep" aria-hidden />
+            <div className="rounded-card border border-link/25 bg-tint/40 p-8">
+              <Snowflake className="size-5 text-link" aria-hidden />
               <h3 className="mt-4 text-xl font-semibold">IcePlease</h3>
-              <ul className="mt-4 space-y-3 text-sm leading-relaxed text-ink-soft">
+              <ul className="mt-4 space-y-3 text-sm leading-relaxed text-fg-soft">
                 <li>Cools the drink and adds flavor as it goes.</li>
                 <li>The drink changes between the first sip and the last.</li>
                 <li>Colour moves through the glass while it melts.</li>
@@ -120,7 +120,7 @@ export default function HowItWorksPage() {
             ].map((item) => (
               <div key={item.q} className="py-6">
                 <dt className="text-lg font-semibold">{item.q}</dt>
-                <dd className="mt-2 max-w-2xl leading-relaxed text-ink-muted">
+                <dd className="mt-2 max-w-2xl leading-relaxed text-fg-muted">
                   {item.a}
                 </dd>
               </div>

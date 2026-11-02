@@ -37,7 +37,7 @@ export function CartLineItem({
       <div className="flex min-w-0 flex-1 flex-col">
         <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
           <h3 className="font-semibold">
-            <Link href={`/shop/${line.slug}`} className="hover:text-ice-deep">
+            <Link href={`/shop/${line.slug}`} className="hover:text-link">
               {line.name}
             </Link>
           </h3>
@@ -46,7 +46,7 @@ export function CartLineItem({
           </p>
         </div>
 
-        <p className="mt-0.5 text-sm text-ink-muted">
+        <p className="mt-0.5 text-sm text-fg-muted">
           {line.packSize} · {formatMinor(line.unitPriceMinor)} each
         </p>
 
@@ -61,7 +61,7 @@ export function CartLineItem({
           <button
             type="button"
             onClick={onRemove}
-            className="inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-sm text-ink-muted transition-colors hover:text-danger"
+            className="inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-sm text-fg-muted transition-colors hover:text-danger"
           >
             <Trash2 className="size-4" aria-hidden />
             Remove

@@ -53,13 +53,13 @@ export default async function OrderPage({ params, searchParams }: Params) {
   return (
     <div className="container-page max-w-3xl py-12 sm:py-16">
       {justPlaced ? (
-        <div className="mb-8 flex items-start gap-3 rounded-card border border-mint-deep/25 bg-mint/15 p-5">
-          <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-mint-deep" aria-hidden />
+        <div className="mb-8 flex items-start gap-3 rounded-card border border-ok-strong/25 bg-ok/15 p-5">
+          <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-ok-strong" aria-hidden />
           <div>
-            <h1 className="text-xl font-semibold text-mint-deep">
+            <h1 className="text-xl font-semibold text-ok-strong">
               Order placed
             </h1>
-            <p className="mt-1 text-sm text-ink-soft">
+            <p className="mt-1 text-sm text-fg-soft">
               We have your order. Nothing has been charged yet — we will contact
               you to confirm the details and arrange payment.
             </p>
@@ -73,7 +73,7 @@ export default async function OrderPage({ params, searchParams }: Params) {
         <CardHeader className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <CardTitle>{order.orderNumber}</CardTitle>
-            <p className="mt-1 text-sm text-ink-muted">
+            <p className="mt-1 text-sm text-fg-muted">
               Placed {formatDateTime(order.createdAt)}
             </p>
           </div>
@@ -89,7 +89,7 @@ export default async function OrderPage({ params, searchParams }: Params) {
               <li key={item.id} className="flex justify-between gap-4 py-3 first:pt-0">
                 <div className="min-w-0">
                   <p className="font-medium">{item.productName}</p>
-                  <p className="text-sm text-ink-muted">
+                  <p className="text-sm text-fg-muted">
                     {item.packSize} · {item.quantity} ×{" "}
                     {formatMinor(item.unitPriceMinor)}
                   </p>
@@ -103,11 +103,11 @@ export default async function OrderPage({ params, searchParams }: Params) {
 
           <dl className="mt-5 space-y-2.5 border-t border-line pt-5 text-sm">
             <div className="flex justify-between gap-4">
-              <dt className="text-ink-muted">Subtotal</dt>
+              <dt className="text-fg-muted">Subtotal</dt>
               <dd className="tabular-nums">{formatMinor(order.subtotalMinor)}</dd>
             </div>
             <div className="flex justify-between gap-4">
-              <dt className="text-ink-muted">Delivery</dt>
+              <dt className="text-fg-muted">Delivery</dt>
               <dd className="tabular-nums">
                 {order.deliveryFeeMinor === 0
                   ? "Free"
@@ -129,8 +129,8 @@ export default async function OrderPage({ params, searchParams }: Params) {
           <CardHeader>
             <CardTitle>Delivering to</CardTitle>
           </CardHeader>
-          <CardBody className="text-sm leading-relaxed text-ink-soft">
-            <p className="font-medium text-ink">{order.customerName}</p>
+          <CardBody className="text-sm leading-relaxed text-fg-soft">
+            <p className="font-medium text-fg">{order.customerName}</p>
             <p>{order.addressLine1}</p>
             {order.addressLine2 ? <p>{order.addressLine2}</p> : null}
             <p>
@@ -139,7 +139,7 @@ export default async function OrderPage({ params, searchParams }: Params) {
             <p className="mt-2">{order.customerPhone}</p>
             <p>{order.customerEmail}</p>
             {order.deliveryNotes ? (
-              <p className="mt-3 border-t border-line pt-3 text-ink-muted">
+              <p className="mt-3 border-t border-line pt-3 text-fg-muted">
                 {order.deliveryNotes}
               </p>
             ) : null}
@@ -150,9 +150,9 @@ export default async function OrderPage({ params, searchParams }: Params) {
           <CardHeader>
             <CardTitle>Payment</CardTitle>
           </CardHeader>
-          <CardBody className="space-y-3 text-sm text-ink-soft">
+          <CardBody className="space-y-3 text-sm text-fg-soft">
             <p>
-              <span className="font-medium text-ink">
+              <span className="font-medium text-fg">
                 {PAYMENT_METHOD_LABEL[order.paymentMethod]}
               </span>
             </p>
@@ -166,13 +166,13 @@ export default async function OrderPage({ params, searchParams }: Params) {
         </Card>
       </div>
 
-      <div className="mt-8 rounded-card border border-line bg-surface p-6">
+      <div className="mt-8 rounded-card border border-line bg-panel p-6">
         <div className="flex items-start gap-3">
-          <Package className="mt-0.5 size-5 shrink-0 text-ice-deep" aria-hidden />
+          <Package className="mt-0.5 size-5 shrink-0 text-link" aria-hidden />
           <div>
             <h2 className="font-semibold">Keep this reference</h2>
-            <p className="mt-1 text-sm text-ink-muted">
-              Quote <span className="font-semibold text-ink">{order.orderNumber}</span>{" "}
+            <p className="mt-1 text-sm text-fg-muted">
+              Quote <span className="font-semibold text-fg">{order.orderNumber}</span>{" "}
               in any message about this order.
             </p>
           </div>

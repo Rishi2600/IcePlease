@@ -18,20 +18,20 @@ export function StatCard({
   return (
     <div
       className={cn(
-        "rounded-card border border-line bg-surface p-5",
+        "rounded-card border border-line bg-panel p-5",
         className,
       )}
     >
       <div className="flex items-start justify-between gap-3">
-        <p className="text-sm text-ink-muted">{label}</p>
+        <p className="text-sm text-fg-muted">{label}</p>
         {Icon ? (
-          <Icon className="size-4 shrink-0 text-ice-deep" aria-hidden />
+          <Icon className="size-4 shrink-0 text-link" aria-hidden />
         ) : null}
       </div>
       <p className="mt-2 font-display text-3xl font-semibold tabular-nums">
         {value}
       </p>
-      {hint ? <p className="mt-1.5 text-xs text-ink-muted">{hint}</p> : null}
+      {hint ? <p className="mt-1.5 text-xs text-fg-muted">{hint}</p> : null}
     </div>
   );
 }

@@ -12,10 +12,10 @@ export function ContactForm() {
 
   if (form.status === "success") {
     return (
-      <div className="rounded-card border border-mint-deep/25 bg-mint/10 p-8 text-center">
-        <CheckCircle2 className="mx-auto size-8 text-mint-deep" aria-hidden />
+      <div className="rounded-card border border-ok-strong/25 bg-ok/10 p-8 text-center">
+        <CheckCircle2 className="mx-auto size-8 text-ok-strong" aria-hidden />
         <h3 className="mt-4 text-xl font-semibold">Message received</h3>
-        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-ink-soft">
+        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-fg-soft">
           Your message is with us and we will reply to the email address you
           gave.
         </p>

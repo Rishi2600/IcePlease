@@ -47,7 +47,7 @@ export function OrderStatusControls({
 
   if (nextStatuses.length === 0) {
     return (
-      <p className="text-sm text-ink-muted">
+      <p className="text-sm text-fg-muted">
         This order is {orderStatusLabel(status).toLowerCase()}. There is nothing
         further to change.
       </p>
@@ -75,7 +75,7 @@ export function OrderStatusControls({
           </Button>
         ))}
       </div>
-      <p className="text-xs text-ink-muted">
+      <p className="text-xs text-fg-muted">
         Cancelling returns the items to stock.
       </p>
     </div>
@@ -131,11 +131,11 @@ export function PaymentStatusControl({
           ))}
         </Select>
         {pending ? (
-          <Loader2 className="size-4 animate-spin text-ink-muted" aria-hidden />
+          <Loader2 className="size-4 animate-spin text-fg-muted" aria-hidden />
         ) : null}
       </div>
       {error ? <Alert tone="error">{error}</Alert> : null}
-      <p className="text-xs text-ink-muted">
+      <p className="text-xs text-fg-muted">
         Set by hand. No payment provider is connected, so this records your
         bookkeeping rather than a confirmed settlement.
       </p>
@@ -193,7 +193,7 @@ export function OrderNotes({
         </Button>
         <span aria-live="polite" className="text-sm">
           {state === "saved" ? (
-            <span className="text-mint-deep">Saved</span>
+            <span className="text-ok-strong">Saved</span>
           ) : state === "error" ? (
             <span className="text-danger">Could not save</span>
           ) : null}

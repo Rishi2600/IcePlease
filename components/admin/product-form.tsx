@@ -236,7 +236,7 @@ export function ProductForm({
                 )}
               </Field>
             </div>
-            <p className="text-xs text-ink-muted">
+            <p className="text-xs text-fg-muted">
               Price is stored in paise. Cubes per pack is only used to show a
               per-cube price.
             </p>
@@ -262,7 +262,7 @@ export function ProductForm({
                 />
               )}
             </Field>
-            <p className="-mt-2 text-xs text-ink-muted">
+            <p className="-mt-2 text-xs text-fg-muted">
               With no image, the generated ice treatment is used and tinted with
               the accent colour below.
             </p>
@@ -278,7 +278,7 @@ export function ProductForm({
                     value={accentColor}
                     onChange={(event) => setAccentColor(event.target.value)}
                     aria-invalid={Boolean(fieldErrors.accentColor)}
-                    className="size-10 shrink-0 cursor-pointer rounded-lg border border-line bg-surface p-1"
+                    className="size-10 shrink-0 cursor-pointer rounded-lg border border-line bg-panel p-1"
                   />
                   <Input
                     value={accentColor}
@@ -325,7 +325,7 @@ export function ProductForm({
             <p className="mt-3 truncate text-sm font-medium">
               {name || "Untitled product"}
             </p>
-            <p className="truncate text-xs text-ink-muted">/shop/{slug || "…"}</p>
+            <p className="truncate text-xs text-fg-muted">/shop/{slug || "…"}</p>
           </CardBody>
         </Card>
 
@@ -339,11 +339,11 @@ export function ProductForm({
                 type="checkbox"
                 name="isActive"
                 defaultChecked={values.isActive}
-                className="mt-0.5 size-4 accent-[var(--color-ice-deep)]"
+                className="mt-0.5 size-4 accent-[var(--color-link)]"
               />
               <span className="text-sm">
                 <span className="block font-medium">Active</span>
-                <span className="text-ink-muted">Visible in the shop.</span>
+                <span className="text-fg-muted">Visible in the shop.</span>
               </span>
             </label>
             <label className="flex cursor-pointer items-start gap-3">
@@ -351,11 +351,11 @@ export function ProductForm({
                 type="checkbox"
                 name="isFeatured"
                 defaultChecked={values.isFeatured}
-                className="mt-0.5 size-4 accent-[var(--color-ice-deep)]"
+                className="mt-0.5 size-4 accent-[var(--color-link)]"
               />
               <span className="text-sm">
                 <span className="block font-medium">Featured</span>
-                <span className="text-ink-muted">Shown on the homepage.</span>
+                <span className="text-fg-muted">Shown on the homepage.</span>
               </span>
             </label>
           </CardBody>

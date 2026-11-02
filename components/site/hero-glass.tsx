@@ -9,7 +9,7 @@ export function HeroGlass() {
     <div className="relative mx-auto aspect-4/5 w-full max-w-md">
       <div
         aria-hidden
-        className="absolute inset-0 rounded-[3rem] bg-linear-to-b from-ice-light/70 to-transparent"
+        className="absolute inset-0 rounded-[3rem] bg-linear-to-b from-tint/70 to-transparent"
       />
       <svg
         viewBox="0 0 320 400"

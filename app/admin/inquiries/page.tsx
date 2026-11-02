@@ -129,12 +129,12 @@ function FilterChip({
       className={cn(
         "inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-xs font-medium transition-colors",
         active
-          ? "border-ink bg-ink text-white"
-          : "border-line bg-surface text-ink-soft hover:border-line-strong hover:text-ink",
+          ? "border-fg bg-fg text-white"
+          : "border-line bg-panel text-fg-soft hover:border-line-strong hover:text-fg",
       )}
     >
       {children}
-      <span className={cn("tabular-nums", active ? "text-white/70" : "text-ink-muted")}>
+      <span className={cn("tabular-nums", active ? "text-white/70" : "text-fg-muted")}>
         {count}
       </span>
     </Link>

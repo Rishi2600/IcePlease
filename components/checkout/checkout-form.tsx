@@ -99,7 +99,7 @@ export function CheckoutForm({ prefill }: { prefill: Prefill }) {
       <div
         role="status"
         aria-label="Loading checkout"
-        className="h-96 animate-pulse rounded-card bg-surface-sunken"
+        className="h-96 animate-pulse rounded-card bg-raised"
       />
     );
   }
@@ -254,7 +254,7 @@ export function CheckoutForm({ prefill }: { prefill: Prefill }) {
 
         <fieldset className="space-y-3">
           <legend className="text-lg font-semibold">Payment</legend>
-          <p className="text-sm text-ink-muted">
+          <p className="text-sm text-fg-muted">
             Online payment is not available yet. Choose how you would like to
             settle and we will confirm the order with you.
           </p>
@@ -262,7 +262,7 @@ export function CheckoutForm({ prefill }: { prefill: Prefill }) {
             {PAYMENT_OPTIONS.map((option) => (
               <label
                 key={option.value}
-                className="flex cursor-pointer items-start gap-3 rounded-xl border border-line bg-surface p-4 transition-colors has-checked:border-ice-deep has-checked:bg-ice-light/30"
+                className="flex cursor-pointer items-start gap-3 rounded-xl border border-line bg-panel p-4 transition-colors has-checked:border-link has-checked:bg-tint/30"
               >
                 <input
                   type="radio"
@@ -270,11 +270,11 @@ export function CheckoutForm({ prefill }: { prefill: Prefill }) {
                   value={option.value}
                   checked={paymentMethod === option.value}
                   onChange={() => setPaymentMethod(option.value)}
-                  className="mt-1 size-4 accent-[var(--color-ice-deep)]"
+                  className="mt-1 size-4 accent-[var(--color-link)]"
                 />
                 <span>
                   <span className="block text-sm font-medium">{option.label}</span>
-                  <span className="mt-0.5 block text-sm text-ink-muted">
+                  <span className="mt-0.5 block text-sm text-fg-muted">
                     {option.detail}
                   </span>
                 </span>
@@ -285,14 +285,14 @@ export function CheckoutForm({ prefill }: { prefill: Prefill }) {
       </div>
 
       <div className="lg:sticky lg:top-24 lg:self-start">
-        <div className="rounded-card border border-line bg-surface p-6">
+        <div className="rounded-card border border-line bg-panel p-6">
           <h2 className="text-lg font-semibold">Review</h2>
           <ul className="mt-4 space-y-3 text-sm">
             {cart.lines.map((line) => (
               <li key={line.productId} className="flex justify-between gap-3">
                 <span className="min-w-0">
                   <span className="block truncate font-medium">{line.name}</span>
-                  <span className="text-ink-muted">
+                  <span className="text-fg-muted">
                     {line.quantity} × {formatMinor(line.unitPriceMinor)}
                   </span>
                 </span>
@@ -324,7 +324,7 @@ export function CheckoutForm({ prefill }: { prefill: Prefill }) {
                 </>
               )}
             </Button>
-            <p className="mt-3 text-center text-xs text-ink-muted">
+            <p className="mt-3 text-center text-xs text-fg-muted">
               Totals are recalculated on our server before the order is saved.
             </p>
           </OrderSummary>

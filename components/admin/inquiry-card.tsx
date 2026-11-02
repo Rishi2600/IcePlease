@@ -46,7 +46,7 @@ export function InquiryCard({ inquiry }: { inquiry: B2BInquiry }) {
           <h3 className="truncate text-base font-semibold">
             {inquiry.businessName}
           </h3>
-          <p className="mt-0.5 text-sm text-ink-muted">
+          <p className="mt-0.5 text-sm text-fg-muted">
             {BUSINESS_TYPE_LABELS[inquiry.businessType as BusinessTypeValue]} ·{" "}
             {inquiry.city}
             {inquiry.location ? `, ${inquiry.location}` : ""}
@@ -54,7 +54,7 @@ export function InquiryCard({ inquiry }: { inquiry: B2BInquiry }) {
         </div>
         <div className="flex items-center gap-2">
           <InquiryStatusBadge status={inquiry.status} />
-          <span className="text-xs text-ink-muted">
+          <span className="text-xs text-fg-muted">
             {formatDateTime(inquiry.createdAt)}
           </span>
         </div>
@@ -68,20 +68,20 @@ export function InquiryCard({ inquiry }: { inquiry: B2BInquiry }) {
             <p className="font-medium">{inquiry.contactPerson}</p>
             <a
               href={`mailto:${inquiry.email}`}
-              className="flex items-center gap-2 text-ink-soft hover:text-ice-deep"
+              className="flex items-center gap-2 text-fg-soft hover:text-link"
             >
               <Mail className="size-3.5 shrink-0" aria-hidden />
               {inquiry.email}
             </a>
             <a
               href={`tel:${inquiry.phone.replace(/\s/g, "")}`}
-              className="flex items-center gap-2 text-ink-soft hover:text-ice-deep"
+              className="flex items-center gap-2 text-fg-soft hover:text-link"
             >
               <Phone className="size-3.5 shrink-0" aria-hidden />
               {inquiry.phone}
             </a>
             {inquiry.location ? (
-              <p className="flex items-center gap-2 text-ink-muted">
+              <p className="flex items-center gap-2 text-fg-muted">
                 <MapPin className="size-3.5 shrink-0" aria-hidden />
                 {inquiry.location}
               </p>
@@ -90,14 +90,14 @@ export function InquiryCard({ inquiry }: { inquiry: B2BInquiry }) {
 
           <dl className="space-y-2 text-sm">
             <div>
-              <dt className="text-xs uppercase tracking-wider text-ink-muted">
+              <dt className="text-xs uppercase tracking-wider text-fg-muted">
                 Estimated quantity
               </dt>
               <dd className="mt-0.5 font-medium">{inquiry.estimatedQuantity}</dd>
             </div>
             {inquiry.preferredFlavors ? (
               <div>
-                <dt className="text-xs uppercase tracking-wider text-ink-muted">
+                <dt className="text-xs uppercase tracking-wider text-fg-muted">
                   Flavors
                 </dt>
                 <dd className="mt-0.5">{inquiry.preferredFlavors}</dd>
@@ -107,7 +107,7 @@ export function InquiryCard({ inquiry }: { inquiry: B2BInquiry }) {
         </div>
 
         {inquiry.message ? (
-          <blockquote className="rounded-xl bg-surface-sunken p-4 text-sm leading-relaxed text-ink-soft">
+          <blockquote className="rounded-xl bg-raised p-4 text-sm leading-relaxed text-fg-soft">
             {inquiry.message}
           </blockquote>
         ) : null}
@@ -142,7 +142,7 @@ export function InquiryCard({ inquiry }: { inquiry: B2BInquiry }) {
                 ))}
               </Select>
               {statusPending ? (
-                <Loader2 className="size-4 animate-spin text-ink-muted" aria-hidden />
+                <Loader2 className="size-4 animate-spin text-fg-muted" aria-hidden />
               ) : null}
             </div>
           </div>
@@ -182,7 +182,7 @@ export function InquiryCard({ inquiry }: { inquiry: B2BInquiry }) {
               </Button>
               <span aria-live="polite" className="text-sm">
                 {notesState === "saved" ? (
-                  <span className="text-mint-deep">Saved</span>
+                  <span className="text-ok-strong">Saved</span>
                 ) : notesState === "error" ? (
                   <span className="text-danger">Could not save</span>
                 ) : null}

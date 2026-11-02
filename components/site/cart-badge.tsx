@@ -17,10 +17,10 @@ export function CartBadge({ className }: { className?: string }) {
           : "Cart"
       }
     >
-      <span className="relative inline-flex size-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-surface-sunken">
+      <span className="relative inline-flex size-10 items-center justify-center rounded-full text-fg transition-colors hover:bg-raised">
         <ShoppingBag className="size-5" aria-hidden />
         {hydrated && itemCount > 0 ? (
-          <span className="absolute -right-0.5 -top-0.5 grid min-w-5 place-items-center rounded-full bg-ice-deep px-1 text-[11px] font-semibold leading-5 text-white">
+          <span className="absolute -right-0.5 -top-0.5 grid min-w-5 place-items-center rounded-full bg-link px-1 text-[11px] font-semibold leading-5 text-white">
             {itemCount > 99 ? "99+" : itemCount}
           </span>
         ) : null}

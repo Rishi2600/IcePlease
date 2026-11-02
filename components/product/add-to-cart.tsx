@@ -39,8 +39,8 @@ export function AddToCart({
 
   if (stock <= 0) {
     return (
-      <div className="rounded-xl border border-line bg-surface-sunken px-4 py-4 text-sm text-ink-soft">
-        <p className="font-medium text-ink">Out of stock</p>
+      <div className="rounded-xl border border-line bg-raised px-4 py-4 text-sm text-fg-soft">
+        <p className="font-medium text-fg">Out of stock</p>
         <p className="mt-1">
           This flavor is not available right now. Everything else in the shop
           is ready to ship.
@@ -52,8 +52,8 @@ export function AddToCart({
   if (hydrated && limit <= 0) {
     return (
       <div className="space-y-3">
-        <div className="rounded-xl border border-line bg-surface-sunken px-4 py-4 text-sm text-ink-soft">
-          <p className="font-medium text-ink">
+        <div className="rounded-xl border border-line bg-raised px-4 py-4 text-sm text-fg-soft">
+          <p className="font-medium text-fg">
             All {inCart} available in your cart
           </p>
           <p className="mt-1">
@@ -94,7 +94,7 @@ export function AddToCart({
 
       <p aria-live="polite" className="min-h-6 text-sm">
         {justAdded ? (
-          <span className="inline-flex items-center gap-1.5 text-mint-deep">
+          <span className="inline-flex items-center gap-1.5 text-ok-strong">
             <Check className="size-4" aria-hidden />
             Added.{" "}
             <Link href="/cart" className="underline underline-offset-2">
@@ -102,7 +102,7 @@ export function AddToCart({
             </Link>
           </span>
         ) : inCart > 0 ? (
-          <span className="text-ink-muted">{inCart} already in your cart</span>
+          <span className="text-fg-muted">{inCart} already in your cart</span>
         ) : null}
       </p>
     </div>

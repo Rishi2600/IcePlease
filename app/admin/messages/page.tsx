@@ -37,7 +37,7 @@ export default async function AdminMessagesPage() {
         />
       ) : (
         <>
-          <p className="mb-4 text-sm text-ink-muted">
+          <p className="mb-4 text-sm text-fg-muted">
             {unhandled} unread of {messages.length}
           </p>
           <div className="space-y-4">
@@ -48,11 +48,11 @@ export default async function AdminMessagesPage() {
                     <h2 className="truncate text-base font-semibold">
                       {message.subject || "No subject"}
                     </h2>
-                    <p className="mt-0.5 text-sm text-ink-muted">
+                    <p className="mt-0.5 text-sm text-fg-muted">
                       {message.name} ·{" "}
                       <a
                         href={`mailto:${message.email}`}
-                        className="hover:text-ice-deep"
+                        className="hover:text-link"
                       >
                         {message.email}
                       </a>
@@ -65,13 +65,13 @@ export default async function AdminMessagesPage() {
                     ) : (
                       <Badge tone="citrus">Unread</Badge>
                     )}
-                    <span className="text-xs text-ink-muted">
+                    <span className="text-xs text-fg-muted">
                       {formatDateTime(message.createdAt)}
                     </span>
                   </div>
                 </CardHeader>
                 <CardBody className="space-y-4">
-                  <p className="whitespace-pre-wrap text-sm leading-relaxed text-ink-soft">
+                  <p className="whitespace-pre-wrap text-sm leading-relaxed text-fg-soft">
                     {message.message}
                   </p>
                   <div className="flex flex-wrap gap-2 border-t border-line pt-4">

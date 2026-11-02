@@ -64,8 +64,8 @@ export function AdminNav({
                 className={cn(
                   "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                   active
-                    ? "bg-ink text-white"
-                    : "text-ink-soft hover:bg-surface-sunken hover:text-ink",
+                    ? "bg-fg text-white"
+                    : "text-fg-soft hover:bg-raised hover:text-fg",
                 )}
               >
                 <link.icon className="size-4 shrink-0" aria-hidden />
@@ -74,7 +74,7 @@ export function AdminNav({
                   <span
                     className={cn(
                       "rounded-full px-2 py-0.5 text-xs font-semibold",
-                      active ? "bg-white/20" : "bg-citrus/40 text-citrus-deep",
+                      active ? "bg-white/20" : "bg-warn/40 text-warn-strong",
                     )}
                   >
                     {badge}
@@ -91,12 +91,12 @@ export function AdminNav({
 
   const footer = (
     <div className="space-y-3 border-t border-line pt-4">
-      <p className="truncate px-3 text-xs text-ink-muted">
+      <p className="truncate px-3 text-xs text-fg-muted">
         Signed in as {adminName}
       </p>
       <Link
         href="/"
-        className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-ink-soft transition-colors hover:bg-surface-sunken hover:text-ink"
+        className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-fg-soft transition-colors hover:bg-raised hover:text-fg"
       >
         <ExternalLink className="size-4" aria-hidden />
         View the site
@@ -110,14 +110,14 @@ export function AdminNav({
   return (
     <>
       {/* Mobile bar */}
-      <div className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-line bg-frost px-4 lg:hidden">
+      <div className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-line bg-page px-4 lg:hidden">
         <Logo href="/admin" />
         <button
           type="button"
           onClick={() => setOpen((value) => !value)}
           aria-expanded={open}
           aria-controls="admin-mobile-nav"
-          className="inline-flex size-10 items-center justify-center rounded-full text-ink hover:bg-surface-sunken"
+          className="inline-flex size-10 items-center justify-center rounded-full text-fg hover:bg-raised"
         >
           {open ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}
           <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
@@ -127,7 +127,7 @@ export function AdminNav({
       {open ? (
         <div
           id="admin-mobile-nav"
-          className="fixed inset-x-0 bottom-0 top-16 z-40 flex flex-col gap-4 overflow-y-auto border-t border-line bg-frost p-4 lg:hidden"
+          className="fixed inset-x-0 bottom-0 top-16 z-40 flex flex-col gap-4 overflow-y-auto border-t border-line bg-page p-4 lg:hidden"
         >
           {nav}
           {footer}
@@ -135,10 +135,10 @@ export function AdminNav({
       ) : null}
 
       {/* Desktop sidebar */}
-      <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col gap-6 border-r border-line bg-frost p-4 lg:flex">
+      <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col gap-6 border-r border-line bg-page p-4 lg:flex">
         <div className="px-1">
           <Logo href="/admin" />
-          <p className="mt-1 px-0.5 text-xs font-medium uppercase tracking-wider text-ink-muted">
+          <p className="mt-1 px-0.5 text-xs font-medium uppercase tracking-wider text-fg-muted">
             Admin
           </p>
         </div>

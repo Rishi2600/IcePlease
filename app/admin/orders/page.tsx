@@ -150,22 +150,22 @@ export default async function AdminOrdersPage({
                   <Td>
                     <Link
                       href={`/admin/orders/${order.orderNumber}`}
-                      className="font-medium hover:text-ice-deep"
+                      className="font-medium hover:text-link"
                     >
                       {order.orderNumber}
                     </Link>
                   </Td>
                   <Td>
                     <span className="block font-medium">{order.customerName}</span>
-                    <span className="block text-xs text-ink-muted">
+                    <span className="block text-xs text-fg-muted">
                       {order.customerEmail}
                     </span>
                   </Td>
                   <Td>
-                    <span className="text-ink-soft">
+                    <span className="text-fg-soft">
                       {order.items.reduce((sum, item) => sum + item.quantity, 0)}{" "}
                       ×{" "}
-                      <span className="text-ink-muted">
+                      <span className="text-fg-muted">
                         {order.items.length === 1
                           ? order.items[0].productName
                           : `${order.items.length} products`}
@@ -180,7 +180,7 @@ export default async function AdminOrdersPage({
                     <PaymentStatusBadge status={order.paymentStatus} />
                   </Td>
                   <Td>
-                    <span className="whitespace-nowrap text-ink-muted">
+                    <span className="whitespace-nowrap text-fg-muted">
                       {formatDateTime(order.createdAt)}
                     </span>
                   </Td>
@@ -220,12 +220,12 @@ function FilterChip({
       className={cn(
         "inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-xs font-medium transition-colors",
         active
-          ? "border-ink bg-ink text-white"
-          : "border-line bg-surface text-ink-soft hover:border-line-strong hover:text-ink",
+          ? "border-fg bg-fg text-white"
+          : "border-line bg-panel text-fg-soft hover:border-line-strong hover:text-fg",
       )}
     >
       {children}
-      <span className={cn("tabular-nums", active ? "text-white/70" : "text-ink-muted")}>
+      <span className={cn("tabular-nums", active ? "text-white/70" : "text-fg-muted")}>
         {count}
       </span>
     </Link>

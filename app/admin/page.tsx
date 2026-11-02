@@ -140,12 +140,12 @@ export default async function AdminDashboardPage() {
                   ][]
                 ).map(([status, count]) => (
                   <li key={status} className="flex items-center gap-3">
-                    <span className="w-44 shrink-0 text-sm text-ink-soft">
+                    <span className="w-44 shrink-0 text-sm text-fg-soft">
                       {orderStatusLabel(status)}
                     </span>
                     <span
                       aria-hidden
-                      className="h-2 rounded-full bg-ice-deep"
+                      className="h-2 rounded-full bg-link"
                       style={{
                         width: `${
                           metrics.sales.orderCount > 0
@@ -173,20 +173,20 @@ export default async function AdminDashboardPage() {
             </CardHeader>
             <CardBody className="space-y-4">
               <div className="flex items-baseline justify-between gap-4">
-                <span className="text-sm text-ink-soft">
+                <span className="text-sm text-fg-soft">
                   Marked paid by an admin
                 </span>
                 <span className="font-display text-2xl font-semibold tabular-nums">
                   {formatMinor(metrics.sales.collectedValueMinor)}
                 </span>
               </div>
-              <p className="text-sm text-ink-muted">
+              <p className="text-sm text-fg-muted">
                 Across {metrics.sales.collectedOrderCount}{" "}
                 {metrics.sales.collectedOrderCount === 1 ? "order" : "orders"}.
               </p>
               {/* Never described as "revenue collected": no payment provider is
                   connected, so this reflects manual bookkeeping only. */}
-              <div className="flex items-start gap-2.5 rounded-xl bg-surface-sunken p-3 text-xs leading-relaxed text-ink-soft">
+              <div className="flex items-start gap-2.5 rounded-xl bg-raised p-3 text-xs leading-relaxed text-fg-soft">
                 <Info className="mt-0.5 size-3.5 shrink-0" aria-hidden />
                 <span>
                   No payment provider is connected. This figure reflects orders
@@ -233,7 +233,7 @@ export default async function AdminDashboardPage() {
           </CardHeader>
           <CardBody>
             {metrics.catalogue.topProducts.length === 0 ? (
-              <p className="text-sm text-ink-muted">
+              <p className="text-sm text-fg-muted">
                 Nothing has sold yet, so there is no ranking to show.
               </p>
             ) : (
@@ -245,7 +245,7 @@ export default async function AdminDashboardPage() {
                   >
                     <span
                       aria-hidden
-                      className="grid size-6 shrink-0 place-items-center rounded-full bg-surface-sunken text-xs font-semibold text-ink-soft"
+                      className="grid size-6 shrink-0 place-items-center rounded-full bg-raised text-xs font-semibold text-fg-soft"
                     >
                       {index + 1}
                     </span>
@@ -253,7 +253,7 @@ export default async function AdminDashboardPage() {
                       <span className="block truncate font-medium">
                         {product.name}
                       </span>
-                      <span className="text-xs text-ink-muted">
+                      <span className="text-xs text-fg-muted">
                         {product.flavor}
                       </span>
                     </span>
@@ -261,7 +261,7 @@ export default async function AdminDashboardPage() {
                       <span className="block font-semibold tabular-nums">
                         {product.units} units
                       </span>
-                      <span className="text-xs text-ink-muted tabular-nums">
+                      <span className="text-xs text-fg-muted tabular-nums">
                         {formatMinor(product.valueMinor)}
                       </span>
                     </span>
@@ -317,7 +317,7 @@ export default async function AdminDashboardPage() {
             </CardTitle>
           </CardHeader>
           <CardBody>
-            <p className="text-sm text-ink-muted">
+            <p className="text-sm text-fg-muted">
               These are deliberately blank rather than estimated. Each needs data
               the application does not hold.
             </p>
@@ -326,7 +326,7 @@ export default async function AdminDashboardPage() {
                 <li key={item.metric} className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                   <Badge tone="neutral">Unavailable</Badge>
                   <span className="font-medium">{item.metric}</span>
-                  <span className="text-sm text-ink-muted">{item.needs}</span>
+                  <span className="text-sm text-fg-muted">{item.needs}</span>
                 </li>
               ))}
             </ul>
