@@ -64,7 +64,7 @@ export function AdminNav({
                 className={cn(
                   "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                   active
-                    ? "bg-fg text-white"
+                    ? "bg-fg text-page"
                     : "text-fg-soft hover:bg-raised hover:text-fg",
                 )}
               >
@@ -74,7 +74,7 @@ export function AdminNav({
                   <span
                     className={cn(
                       "rounded-full px-2 py-0.5 text-xs font-semibold",
-                      active ? "bg-white/20" : "bg-warn/40 text-warn-strong",
+                      active ? "bg-page/20" : "bg-warn/40 text-warn-strong",
                     )}
                   >
                     {badge}
