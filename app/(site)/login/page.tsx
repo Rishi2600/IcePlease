@@ -19,12 +19,12 @@ export default async function LoginPage() {
         <div className="flex justify-center">
           <Logo />
         </div>
-        <h1 className="mt-8 text-center text-3xl font-normal">Sign in</h1>
-        <p className="mt-2 text-center text-sm text-fg-muted">
-          Track your orders and check out faster.
+        <h1 className="mt-8 text-center text-6xl font-black">Sign in</h1>
+        <p className="mt-3 text-center font-medium">
+          Your orders, your details, ready when you are.
         </p>
 
-        <div className="mt-8 rounded-card border border-line bg-panel p-6">
+        <div className="mt-8 rounded-card bg-panel p-6">
           <Suspense fallback={<div className="h-72" />}>
             <LoginForm />
           </Suspense>

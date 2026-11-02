@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { MAX_QUANTITY_PER_ITEM } from "@/lib/server/settings";
 import { CartView } from "@/components/cart/cart-view";
+import { PageTitle } from "@/components/site/page-title";
 
 export const metadata: Metadata = {
   title: "Your cart",
@@ -10,11 +11,11 @@ export const metadata: Metadata = {
 
 export default function CartPage() {
   return (
-    <div className="container-page py-12 sm:py-16">
-      <h1 className="text-4xl font-normal sm:text-5xl">Your cart</h1>
-      <div className="mt-10">
+    <>
+      <PageTitle title="Your cart" />
+      <div className="container-page py-10 sm:py-14">
         <CartView maxPerOrder={MAX_QUANTITY_PER_ITEM} />
       </div>
-    </div>
+    </>
   );
 }

@@ -18,7 +18,7 @@ export function InquiryForm() {
           className="mx-auto size-8 text-ok-strong"
           aria-hidden
         />
-        <h3 className="mt-4 text-xl font-semibold">Enquiry received</h3>
+        <h3 className="mt-4 text-3xl font-extrabold">Enquiry received</h3>
         {/* We record it. We do not claim an email went anywhere, because no
             messaging integration is configured. */}
         <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-fg-soft">

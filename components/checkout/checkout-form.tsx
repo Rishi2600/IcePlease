@@ -120,7 +120,7 @@ export function CheckoutForm({ prefill }: { prefill: Prefill }) {
         description="Your cart is empty, so there is no order to place yet."
         action={
           <Button asChild>
-            <Link href="/shop">Browse flavors</Link>
+            <Link href="/shop">Explore the collection</Link>
           </Button>
         }
       />
@@ -286,7 +286,7 @@ export function CheckoutForm({ prefill }: { prefill: Prefill }) {
 
       <div className="lg:sticky lg:top-24 lg:self-start">
         <div className="rounded-card border border-line bg-panel p-6">
-          <h2 className="text-lg font-semibold">Review</h2>
+          <h2 className="text-3xl font-extrabold">Review</h2>
           <ul className="mt-4 space-y-3 text-sm">
             {cart.lines.map((line) => (
               <li key={line.productId} className="flex justify-between gap-3">

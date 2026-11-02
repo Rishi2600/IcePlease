@@ -9,6 +9,7 @@ import { formatDateTime } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardBody, CardHeader, CardTitle } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
+import { PageTitle } from "@/components/site/page-title";
 import { SignOutButton } from "@/components/site/sign-out-button";
 import { ProfileForm } from "@/components/forms/profile-form";
 import {
@@ -41,18 +42,17 @@ export default async function AccountPage() {
   ]);
 
   return (
-    <div className="container-page py-12 sm:py-16">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h1 className="text-4xl font-normal sm:text-5xl">Your account</h1>
-          <p className="mt-2 text-fg-muted">{account.email}</p>
+    <>
+      <PageTitle title="Your account">
+        <div className="flex flex-wrap items-center gap-4">
+          <p>{account.email}</p>
+          <SignOutButton />
         </div>
-        <SignOutButton />
-      </div>
+      </PageTitle>
 
-      <div className="mt-12 grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-12">
+      <div className="container-page grid gap-10 py-12 sm:py-16 lg:grid-cols-[1.4fr_1fr] lg:gap-12">
         <section aria-labelledby="orders-heading">
-          <h2 id="orders-heading" className="text-2xl font-normal">
+          <h2 id="orders-heading" className="text-4xl font-black">
             Your orders
           </h2>
 
@@ -64,7 +64,7 @@ export default async function AccountPage() {
               description="Orders you place while signed in will appear here."
               action={
                 <Button asChild>
-                  <Link href="/shop">Browse flavors</Link>
+                  <Link href="/shop">Explore the collection</Link>
                 </Button>
               }
             />
@@ -110,7 +110,7 @@ export default async function AccountPage() {
         </section>
 
         <section aria-labelledby="details-heading">
-          <h2 id="details-heading" className="text-2xl font-normal">
+          <h2 id="details-heading" className="text-4xl font-black">
             Your details
           </h2>
           <div className="mt-6 rounded-card border border-line bg-panel p-6">
@@ -127,6 +127,6 @@ export default async function AccountPage() {
           </div>
         </section>
       </div>
-    </div>
+    </>
   );
 }

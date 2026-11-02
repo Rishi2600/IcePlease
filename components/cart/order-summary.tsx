@@ -19,7 +19,7 @@ export function OrderSummary({
 }) {
   return (
     <div className="rounded-card border border-line bg-panel p-6">
-      <h2 className="text-lg font-semibold">Order summary</h2>
+      <h2 className="text-3xl font-extrabold">Order summary</h2>
 
       <dl className="mt-5 space-y-3 text-sm">
         <div className="flex justify-between gap-4">

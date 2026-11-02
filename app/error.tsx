@@ -27,13 +27,13 @@ export default function ErrorBoundary({
       <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
         <AlertTriangle className="size-5" aria-hidden />
       </span>
-      <h1 className="mt-5 text-3xl font-normal">Something went wrong</h1>
-      <p className="mt-3 max-w-md text-fg-muted">
+      <h1 className="mt-5 text-5xl font-black">Something went wrong</h1>
+      <p className="mt-3 max-w-md font-medium">
         We hit an unexpected problem loading this page. Trying again usually
         works; if it does not, get in touch and we will sort it out.
       </p>
       {error.digest ? (
-        <p className="mt-3 text-xs text-fg-muted">
+        <p className="mt-3 text-xs">
           Reference: <span className="font-mono">{error.digest}</span>
         </p>
       ) : null}

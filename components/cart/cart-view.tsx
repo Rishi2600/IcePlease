@@ -41,10 +41,10 @@ export function CartView({ maxPerOrder }: { maxPerOrder: number }) {
         <EmptyState
           icon={ShoppingBag}
           title="Your cart is empty"
-          description="Pick a flavor and it will show up here."
+          description="Choose a flavor and it will appear here."
           action={
             <Button asChild>
-              <Link href="/shop">Browse flavors</Link>
+              <Link href="/shop">Explore the collection</Link>
             </Button>
           }
         />

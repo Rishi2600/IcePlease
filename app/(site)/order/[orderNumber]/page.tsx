@@ -53,20 +53,20 @@ export default async function OrderPage({ params, searchParams }: Params) {
   return (
     <div className="container-page max-w-3xl py-12 sm:py-16">
       {justPlaced ? (
-        <div className="mb-8 flex items-start gap-3 rounded-card border border-ok-strong/25 bg-ok/15 p-5">
+        <div className="mb-8 flex items-start gap-3 rounded-card bg-panel p-5">
           <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-ok-strong" aria-hidden />
           <div>
-            <h1 className="text-xl font-semibold text-ok-strong">
+            <h1 className="text-3xl font-extrabold text-forest">
               Order placed
             </h1>
             <p className="mt-1 text-sm text-fg-soft">
-              We have your order. Nothing has been charged yet — we will contact
+              Your order is with us. Nothing has been charged yet. We will contact
               you to confirm the details and arrange payment.
             </p>
           </div>
         </div>
       ) : (
-        <h1 className="text-3xl font-normal sm:text-4xl">Your order</h1>
+        <h1 className="text-5xl font-black sm:text-6xl">Your order</h1>
       )}
 
       <Card className="mt-2">

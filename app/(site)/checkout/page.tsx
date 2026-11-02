@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getSessionUser } from "@/lib/server/session";
 import { Button } from "@/components/ui/button";
+import { PageTitle } from "@/components/site/page-title";
 import { CheckoutForm } from "@/components/checkout/checkout-form";
 
 export const metadata: Metadata = {
@@ -32,29 +33,29 @@ export default async function CheckoutPage() {
     : null;
 
   return (
-    <div className="container-page py-8 sm:py-12">
-      <Button asChild variant="ghost" size="sm" className="-ml-3">
-        <Link href="/cart">
-          <ArrowLeft aria-hidden />
-          Back to cart
-        </Link>
-      </Button>
+    <>
+      <PageTitle title="Checkout">
+        <Button asChild variant="ghost" size="sm" className="-ml-3">
+          <Link href="/cart">
+            <ArrowLeft aria-hidden />
+            Back to cart
+          </Link>
+        </Button>
+        {!user ? (
+          <p className="mt-2">
+            Ordering as a guest.{" "}
+            <Link
+              href="/login?callbackUrl=%2Fcheckout"
+              className="font-bold underline underline-offset-2"
+            >
+              Sign in
+            </Link>{" "}
+            to keep this order in your history.
+          </p>
+        ) : null}
+      </PageTitle>
 
-      <h1 className="mt-6 text-4xl font-normal sm:text-5xl">Checkout</h1>
-      {!user ? (
-        <p className="mt-3 text-sm text-fg-muted">
-          Ordering as a guest.{" "}
-          <Link
-            href="/login?callbackUrl=%2Fcheckout"
-            className="font-medium text-link underline underline-offset-2"
-          >
-            Sign in
-          </Link>{" "}
-          to keep this order in your history.
-        </p>
-      ) : null}
-
-      <div className="mt-10">
+      <div className="container-page py-10 sm:py-14">
         <CheckoutForm
           prefill={{
             customerName: account?.name ?? "",
@@ -67,6 +68,6 @@ export default async function CheckoutPage() {
           }}
         />
       </div>
-    </div>
+    </>
   );
 }
