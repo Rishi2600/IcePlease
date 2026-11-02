@@ -6,7 +6,10 @@ export function Section({
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
   return (
-    <section className={cn("py-16 sm:py-20 lg:py-24", className)} {...props}>
+    <section
+      className={cn("relative py-20 sm:py-24 lg:py-32", className)}
+      {...props}
+    >
       {children}
     </section>
   );
@@ -14,7 +17,7 @@ export function Section({
 
 export function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-link">
+    <p className="text-xs font-medium uppercase tracking-[0.18em] text-link">
       {children}
     </p>
   );
@@ -44,14 +47,14 @@ export function SectionHeading({
       {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
       <h2
         className={cn(
-          "text-3xl font-semibold sm:text-4xl",
-          eyebrow ? "mt-3" : "",
+          "text-4xl font-light leading-[1.08] sm:text-5xl",
+          eyebrow ? "mt-4" : "",
         )}
       >
         {title}
       </h2>
       {description ? (
-        <p className="mt-4 text-base leading-relaxed text-fg-muted sm:text-lg">
+        <p className="mt-5 text-base leading-relaxed text-fg-muted sm:text-lg">
           {description}
         </p>
       ) : null}

@@ -28,7 +28,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-24 border-t border-line bg-panel">
+    <footer className="relative mt-24 rounded-t-[2rem] border-t border-line bg-panel">
       <div className="container-page py-14">
         <div className="grid gap-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div>
@@ -43,7 +43,7 @@ export function Footer() {
                 <li>
                   <a
                     href={`mailto:${CONTACT.email}`}
-                    className="inline-flex items-center gap-2 text-fg-soft hover:text-link"
+                    className="inline-flex items-center gap-2 text-fg-soft transition-colors hover:text-fg"
                   >
                     <Mail className="size-4" aria-hidden />
                     {CONTACT.email}
@@ -54,7 +54,7 @@ export function Footer() {
                 <li>
                   <a
                     href={`tel:${CONTACT.phone.replace(/\s/g, "")}`}
-                    className="inline-flex items-center gap-2 text-fg-soft hover:text-link"
+                    className="inline-flex items-center gap-2 text-fg-soft transition-colors hover:text-fg"
                   >
                     <Phone className="size-4" aria-hidden />
                     {CONTACT.phone}
@@ -67,7 +67,7 @@ export function Footer() {
                     href={whatsapp}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="inline-flex items-center gap-2 text-fg-soft hover:text-link"
+                    className="inline-flex items-center gap-2 text-fg-soft transition-colors hover:text-fg"
                   >
                     <MessageCircle className="size-4" aria-hidden />
                     WhatsApp
@@ -80,7 +80,7 @@ export function Footer() {
                     href={CONTACT.instagram}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="inline-flex items-center gap-2 text-fg-soft hover:text-link"
+                    className="inline-flex items-center gap-2 text-fg-soft transition-colors hover:text-fg"
                   >
                     <InstagramGlyph />
                     Instagram
@@ -92,13 +92,15 @@ export function Footer() {
 
           {FOOTER_NAV.map((group) => (
             <nav key={group.title} aria-label={group.title}>
-              <h2 className="text-sm font-semibold text-fg">{group.title}</h2>
+              <h2 className="font-sans text-sm font-medium tracking-normal text-fg">
+                {group.title}
+              </h2>
               <ul className="mt-4 space-y-2.5">
                 {group.links.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-fg-muted transition-colors hover:text-link"
+                      className="text-sm text-fg-muted underline-offset-4 transition-colors hover:text-fg hover:underline"
                     >
                       {link.label}
                     </Link>
@@ -111,7 +113,7 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col gap-3 border-t border-line pt-6 text-xs text-fg-muted sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {BRAND.name}.
+            © {year} <span translate="no">{BRAND.name}</span>.
             {CONTACT.serviceArea ? ` Delivering in ${CONTACT.serviceArea}.` : ""}
           </p>
           <p>{BRAND.tagline}</p>
