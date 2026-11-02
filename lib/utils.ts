@@ -14,13 +14,18 @@ export function slugify(value: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
+// Fixed so a server in UTC and a browser in India render the same time.
+const TIME_ZONE = "Asia/Kolkata";
+
 const DATE_FORMAT = new Intl.DateTimeFormat("en-IN", {
+  timeZone: TIME_ZONE,
   day: "numeric",
   month: "short",
   year: "numeric",
 });
 
 const DATE_TIME_FORMAT = new Intl.DateTimeFormat("en-IN", {
+  timeZone: TIME_ZONE,
   day: "numeric",
   month: "short",
   year: "numeric",
