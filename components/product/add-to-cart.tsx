@@ -43,7 +43,7 @@ export function AddToCart({
         <div className="rounded-xl border border-line bg-panel px-4 py-4 text-sm text-fg-soft">
           <p className="font-medium text-fg">Out of stock</p>
           <p className="mt-1">
-            This flavor is not available right now. The rest of The range is in
+            This flavor is not available right now. The rest of the range is in
             the shop.
           </p>
         </div>
