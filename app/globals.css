@@ -1,78 +1,59 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
-   IcePlease design tokens: a cold drink at night.
+   IcePlease design tokens: hand-painted signage, cold colour.
 
-   Token names predate the dark theme, and every page already uses them:
-   `frost` is the page, `surface` the panel, `ink` the text.
-
-   Electric Blue is for glow, borders and large graphics, never small text.
-   Orange is the primary action and the flavour moment, nothing else. Status
-   always carries a label, so colour is never the only signal.
+   Brand colours name themselves. Role tokens are for inner pages, where a filled
+   background sits behind white panels, so one dark text colour reads on both.
+   Status always carries a label, so colour is never the only signal.
 --------------------------------------------------------------------------- */
 
 @theme {
-  --color-page: #0a0f1e;
-  --color-panel: #121a30;
-  --color-raised: #1b2542;
+  --color-orange: #fd550a;
+  --color-forest: #015d47;
+  --color-lime: #e0f354;
+  --color-sky: #0593c6;
+  --color-pink: #d83995;
+  --color-white: #fcffff;
+  --color-ink: #01232f;
 
-  --color-fg: #f2f6ff;
-  --color-fg-soft: #cdd6ea;
-  --color-fg-muted: #a9b6d3;
+  --color-page: #e0f354;
+  --color-panel: #fcffff;
+  --color-raised: #eef5cf;
 
-  --color-electric: #2f6bff;
-  --color-tint: #1c2a52;
-  --color-link: #5c8dff;
-  --color-link-strong: #a9c2ff;
+  --color-fg: #01232f;
+  --color-fg-soft: #0b3a3f;
+  --color-fg-muted: #2f4f55;
 
-  --color-accent: #ffa45c;
-  --color-accent-soft: #ffbd87;
+  --color-tint: #d5ecf6;
+  --color-link: #015d47;
+  --color-link-strong: #01232f;
 
-  /* Status tones, kept inside the palette family. */
-  --color-ok: #5c8dff;
-  --color-ok-strong: #a9c2ff;
-  --color-warn: #a9b6d3;
-  --color-warn-strong: #f2f6ff;
-  --color-danger: #ffb3a1;
-  --color-danger-soft: #33202e;
+  --color-accent: #fd550a;
+  --color-accent-soft: #ff7a38;
 
-  --color-line: #26324f;
-  --color-line-strong: #5a6c99;
+  --color-ok: #015d47;
+  --color-ok-strong: #015d47;
+  --color-warn: #fd550a;
+  --color-warn-strong: #01232f;
+  --color-danger: #a8123c;
+  --color-danger-soft: #fde3ea;
 
-  --font-display: var(--font-fraunces), Georgia, serif;
-  --font-sans: var(--font-geist), system-ui, -apple-system, sans-serif;
+  --color-line: rgb(1 35 47 / 0.18);
+  --color-line-strong: rgb(1 35 47 / 0.6);
+
+  --font-paint: var(--font-shrikhand), Georgia, serif;
+  --font-display: var(--font-big-shoulders), Impact, sans-serif;
+  --font-sans: var(--font-hanken), system-ui, -apple-system, sans-serif;
 
   --radius-card: 1.25rem;
 
-  /* One-shot and under 5 seconds, so nothing needs a pause control. */
-  --animate-melt: melt 4.6s cubic-bezier(0.16, 0.7, 0.3, 1) both;
-  --animate-settle: settle 1.8s cubic-bezier(0.3, 0.7, 0.3, 1) both;
-  --animate-bloom: bloom 4.6s ease-out both;
+  --animate-hang: hang 0.7s cubic-bezier(0.3, 1.5, 0.5, 1) both;
 }
 
-@keyframes melt {
+@keyframes hang {
   from {
-    opacity: 0;
-    transform: scaleY(0.3);
-  }
-}
-
-@keyframes settle {
-  0% {
-    transform: translateY(-9%);
-  }
-  62% {
-    transform: translateY(0.8%);
-  }
-  100% {
-    transform: none;
-  }
-}
-
-@keyframes bloom {
-  from {
-    opacity: 0;
-    transform: scale(0.82);
+    transform: rotate(1.8deg);
   }
 }
 
@@ -82,7 +63,7 @@
   }
 
   html {
-    color-scheme: dark;
+    color-scheme: light;
     background-color: var(--color-page);
     scroll-behavior: smooth;
     /* Keeps focused elements and anchors clear of the sticky header. */
@@ -114,8 +95,8 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-variation-settings: "SOFT" 100;
-    letter-spacing: -0.02em;
+    font-weight: 800;
+    line-height: 1;
     text-wrap: balance;
     overflow-wrap: break-word;
   }
@@ -137,63 +118,125 @@
 }
 
 @layer components {
-  /* The surface of the drink: a lit line, and the water falling away below. */
-  .water {
-    background: linear-gradient(
-      to bottom,
-      rgb(47 107 255 / 0.2),
-      rgb(47 107 255 / 0.07) 52%,
-      transparent
+  /* The painted sign: a double keyline, hung slightly off true. */
+  .board {
+    transform: rotate(-1.4deg);
+    transform-origin: 50% 0;
+    border-radius: 2rem;
+    background: var(--color-lime);
+    box-shadow:
+      inset 0 0 0 10px var(--color-lime),
+      inset 0 0 0 14px var(--color-forest);
+    color: var(--color-forest);
+    animation: var(--animate-hang);
+  }
+
+  /* One colour per flavor. Buttons invert their column. */
+  .tone-ink {
+    --tone-bg: var(--color-ink);
+    --tone-fg: var(--color-white);
+    --tone-btn-bg: var(--color-white);
+    --tone-btn-fg: var(--color-ink);
+  }
+  .tone-lime {
+    --tone-bg: var(--color-lime);
+    --tone-fg: var(--color-forest);
+    --tone-btn-bg: var(--color-forest);
+    --tone-btn-fg: var(--color-lime);
+  }
+  .tone-orange {
+    --tone-bg: var(--color-orange);
+    --tone-fg: var(--color-ink);
+    --tone-btn-bg: var(--color-ink);
+    --tone-btn-fg: var(--color-white);
+  }
+  .tone-forest {
+    --tone-bg: var(--color-forest);
+    --tone-fg: var(--color-lime);
+    --tone-btn-bg: var(--color-lime);
+    --tone-btn-fg: var(--color-forest);
+  }
+  .tone-pink {
+    --tone-bg: var(--color-pink);
+    --tone-fg: #000;
+    --tone-btn-bg: #000;
+    --tone-btn-fg: var(--color-white);
+  }
+  .tone-sky {
+    --tone-bg: var(--color-sky);
+    --tone-fg: var(--color-ink);
+    --tone-btn-bg: var(--color-ink);
+    --tone-btn-fg: var(--color-white);
+  }
+  [class*="tone-"] {
+    background: var(--tone-bg);
+    color: var(--tone-fg);
+  }
+  .tone-sold {
+    --tone-fg: var(--color-ink);
+    background: repeating-linear-gradient(
+      135deg,
+      var(--color-sky) 0 14px,
+      #0a9fd4 14px 28px
     );
+    color: var(--tone-fg);
   }
 
-  .water::before {
-    content: "";
-    display: block;
-    height: 1px;
-    background: linear-gradient(
-      to right,
-      transparent,
-      var(--color-link) 22%,
-      var(--color-fg) 74%,
-      var(--color-link) 92%,
-      transparent
-    );
+  .tray {
+    display: grid;
+    grid-template-columns: repeat(var(--tray-columns, 6), minmax(0, 1fr));
   }
-
-  /* The waterline falls under the first headline line: eyebrow, gap, line. */
-  .hero {
-    --display: clamp(3.25rem, 15.4vw, 6rem);
-    --waterline: calc(3.25rem + var(--display));
+  .slot {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: clamp(26rem, 62vw, 40rem);
+    padding: 1.4rem 1.25rem;
   }
-
-  @media (min-width: 768px) {
-    .hero {
-      --display: min(11vw, 9rem);
-      --waterline: calc(5rem + var(--display));
+  .slot-name {
+    align-self: flex-start;
+    transform: rotate(180deg);
+    font-size: clamp(3.25rem, 6.6vw, 6rem);
+    white-space: nowrap;
+    writing-mode: vertical-rl;
+  }
+  @media (max-width: 62.5rem) {
+    .tray {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .slot {
+      flex-direction: row;
+      align-items: center;
+      min-height: 0;
+      padding-inline: clamp(1.25rem, 4vw, 3rem);
+    }
+    .slot-name {
+      align-self: center;
+      transform: none;
+      font-size: clamp(2.75rem, 11vw, 4.5rem);
+      line-height: 0.95;
+      white-space: normal;
+      writing-mode: horizontal-tb;
     }
   }
 
-  .hero-glow {
+  /* The glow behind the business section: orange into pink, into cold blue. */
+  .bloom {
     background:
-      radial-gradient(30% 26% at 50% 66%, rgb(255 164 92 / 0.18), transparent 72%),
       radial-gradient(
-        closest-side at 50% 58%,
-        rgb(47 107 255 / 0.4),
-        rgb(47 107 255 / 0.2) 42%,
-        rgb(47 107 255 / 0.05) 74%,
-        transparent
-      );
+        46% 78% at 84% 74%,
+        var(--color-orange) 0%,
+        var(--color-pink) 42%,
+        rgb(216 57 149 / 0) 76%
+      ),
+      var(--color-sky);
   }
 
-  /* The bottom of the glass, where the flavour ends up. */
-  .last-sip {
-    background: radial-gradient(
-      64% 72% at 50% 100%,
-      rgb(255 164 92 / 0.26),
-      rgb(47 107 255 / 0.2) 48%,
-      transparent 74%
-    );
+  /* Admin is a working tool, so its page colour is calm. */
+  .admin-surface {
+    --color-page: #eaf5fa;
+    --color-raised: #dcedf4;
   }
 }
 

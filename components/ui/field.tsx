@@ -29,7 +29,7 @@ export function Label({
 }
 
 const controlStyles =
-  "w-full rounded-xl border border-line bg-panel px-3.5 py-2.5 text-sm text-fg transition-colors placeholder:text-fg-muted/70 hover:border-line-strong focus:border-link disabled:cursor-not-allowed disabled:bg-raised aria-[invalid=true]:border-danger";
+  "w-full rounded-xl border-2 border-line-strong bg-panel px-3.5 py-2.5 text-sm text-fg transition-colors placeholder:text-fg-muted/70 hover:border-fg focus:border-forest disabled:cursor-not-allowed disabled:bg-raised aria-[invalid=true]:border-danger";
 
 export function Input({
   className,

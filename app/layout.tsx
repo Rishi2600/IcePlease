@@ -1,20 +1,25 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Geist } from "next/font/google";
+import { Big_Shoulders_Display, Hanken_Grotesk, Shrikhand } from "next/font/google";
 import { BRAND, SITE_URL } from "@/lib/brand";
 import { Providers } from "@/components/providers";
 import "./globals.css";
 
-const geist = Geist({
+const hanken = Hanken_Grotesk({
   subsets: ["latin"],
-  variable: "--font-geist",
+  variable: "--font-hanken",
   display: "swap",
 });
 
-// SOFT rounds the serifs: letterforms that have started to melt.
-const fraunces = Fraunces({
+const bigShoulders = Big_Shoulders_Display({
   subsets: ["latin"],
-  axes: ["SOFT", "opsz"],
-  variable: "--font-fraunces",
+  variable: "--font-big-shoulders",
+  display: "swap",
+});
+
+const shrikhand = Shrikhand({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-shrikhand",
   display: "swap",
 });
 
@@ -41,8 +46,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0f1e",
-  colorScheme: "dark",
+  themeColor: "#fd550a",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -52,7 +57,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${fraunces.variable}`}>
+    <html lang="en" className={`${hanken.variable} ${bigShoulders.variable} ${shrikhand.variable}`}>
       <body>
         <Providers>{children}</Providers>
       </body>

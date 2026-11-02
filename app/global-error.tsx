@@ -26,8 +26,8 @@ export default function GlobalError({
           display: "grid",
           placeItems: "center",
           padding: "2rem",
-          background: "#0a0f1e",
-          color: "#f2f6ff",
+          background: "#fd550a",
+          color: "#01232f",
           fontFamily: "system-ui, sans-serif",
           textAlign: "center",
         }}
@@ -36,7 +36,7 @@ export default function GlobalError({
           <h1 style={{ fontSize: "1.75rem", margin: 0 }}>
             IcePlease is temporarily unavailable
           </h1>
-          <p style={{ marginTop: "0.75rem", color: "#a9b6d3" }}>
+          <p style={{ marginTop: "0.75rem", color: "#01232f" }}>
             Something went wrong at the very top of the application.
           </p>
           <button
@@ -46,8 +46,8 @@ export default function GlobalError({
               marginTop: "1.5rem",
               border: 0,
               borderRadius: "999px",
-              background: "#ffa45c",
-              color: "#0a0f1e",
+              background: "#015d47",
+              color: "#e0f354",
               padding: "0.75rem 1.5rem",
               fontSize: "0.9rem",
               cursor: "pointer",

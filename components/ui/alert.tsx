@@ -3,15 +3,15 @@ import { cn } from "@/lib/utils";
 
 const TONES = {
   error: {
-    wrapper: "border-danger/30 bg-danger-soft text-danger",
+    wrapper: "border-danger bg-danger-soft text-fg",
     Icon: AlertCircle,
   },
   success: {
-    wrapper: "border-ok-strong/25 bg-ok/15 text-fg",
+    wrapper: "border-forest bg-panel text-fg",
     Icon: CheckCircle2,
   },
   info: {
-    wrapper: "border-line bg-raised text-fg-soft",
+    wrapper: "border-line bg-panel text-fg",
     Icon: Info,
   },
 } as const;
