@@ -46,3 +46,6 @@ next-env.d.ts
 # private project docs
 /docs/
 /CLAUDE.md
+
+# project-only Claude skills
+/.claude/
