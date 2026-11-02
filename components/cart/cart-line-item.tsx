@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Trash2 } from "lucide-react";
 import { formatMinor } from "@/lib/money";
 import type { PricedLine } from "@/lib/cart-types";
-import { ProductThumb } from "@/components/product/product-visual";
+import { ProductThumb } from "@/components/product/product-thumb";
 import { QuantityStepper } from "@/components/cart/quantity-stepper";
 
 export function CartLineItem({
@@ -29,7 +29,6 @@ export function CartLineItem({
         <ProductThumb
           name={line.name}
           imageUrl={line.imageUrl}
-          accentColor={line.accentColor}
           sizes="6rem"
         />
       </Link>

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
 import { Field, Input, Label, Textarea } from "@/components/ui/field";
 import { Card, CardBody, CardHeader, CardTitle } from "@/components/ui/card";
-import { ProductVisual } from "@/components/product/product-visual";
+import { ProductThumb } from "@/components/product/product-thumb";
 import { slugify } from "@/lib/utils";
 import type { ActionResult } from "@/lib/server/action-result";
 
@@ -316,12 +316,13 @@ export function ProductForm({
             <CardTitle>Preview</CardTitle>
           </CardHeader>
           <CardBody>
-            <ProductVisual
-              name={name || "Product"}
-              imageUrl={imageUrl || null}
-              accentColor={/^#[0-9a-fA-F]{6}$/.test(accentColor) ? accentColor : "#8fd8ee"}
-              sizes="18rem"
-            />
+            <div className="size-24">
+              <ProductThumb
+                name={name || "Product"}
+                imageUrl={imageUrl || null}
+                sizes="6rem"
+              />
+            </div>
             <p className="mt-3 truncate text-sm font-medium">
               {name || "Untitled product"}
             </p>

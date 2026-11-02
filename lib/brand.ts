@@ -13,7 +13,7 @@ export const BRAND = {
   name: "IcePlease",
   tagline: "Your drink. Better ice.",
   description:
-    "Flavored ice cubes you drop straight into your drink. As they melt, the flavor arrives.",
+    "Flavored ice for drinks worth lingering over. As it melts, the flavor slowly unfolds, sip after sip.",
 } as const;
 
 export const SITE_URL =
@@ -23,8 +23,7 @@ export type NavLink = { href: string; label: string };
 
 export const PRIMARY_NAV: readonly NavLink[] = [
   { href: "/shop", label: "Shop" },
-  { href: "/how-it-works", label: "How It Works" },
-  { href: "/b2b", label: "For Business" },
+  { href: "/b2b", label: "For Hospitality" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -33,13 +32,12 @@ export const FOOTER_NAV: readonly { title: string; links: NavLink[] }[] = [
   {
     title: "Shop",
     links: [
-      { href: "/shop", label: "All products" },
-      { href: "/how-it-works", label: "How it works" },
+      { href: "/shop", label: "The collection" },
       { href: "/cart", label: "Your cart" },
     ],
   },
   {
-    title: "Business",
+    title: "Hospitality",
     links: [
       { href: "/b2b", label: "Cafés & restaurants" },
       { href: "/b2b#enquiry", label: "Bulk enquiry" },
@@ -55,26 +53,6 @@ export const FOOTER_NAV: readonly { title: string; links: NavLink[] }[] = [
     ],
   },
 ];
-
-/** The four-step product idea, used wherever the experience is explained. */
-export const EXPERIENCE_STEPS = [
-  {
-    step: "Choose",
-    detail: "Pick a flavor that suits what you are pouring.",
-  },
-  {
-    step: "Drop",
-    detail: "Drop the cubes straight into the glass. No prep, no mixing.",
-  },
-  {
-    step: "Melt",
-    detail: "As the ice melts it releases flavor into the drink.",
-  },
-  {
-    step: "Enjoy",
-    detail: "The drink keeps changing as you sip. Cold the whole way down.",
-  },
-] as const;
 
 function env(value: string | undefined): string | null {
   const trimmed = value?.trim();

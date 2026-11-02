@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -9,11 +10,10 @@ import {
 } from "@/lib/server/catalogue";
 import { MAX_QUANTITY_PER_ITEM } from "@/lib/server/settings";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ProductVisual } from "@/components/product/product-visual";
-import { ProductCard } from "@/components/product/product-card";
 import { AddToCart } from "@/components/product/add-to-cart";
-import { EXPERIENCE_STEPS } from "@/lib/brand";
+import { FlavorTray } from "@/components/product/flavor-tray";
+import { toneFor, trayOrder } from "@/components/product/tones";
+import { cn } from "@/lib/utils";
 
 export const revalidate = 60;
 
@@ -40,73 +40,66 @@ export default async function ProductPage({ params }: Params) {
   const product = await getActiveProductBySlug(slug);
   if (!product) notFound();
 
-  const all = await listActiveProducts();
-  const related = all.filter((item) => item.id !== product.id).slice(0, 3);
-
+  const all = trayOrder(await listActiveProducts());
+  const others = all.filter((item) => item.id !== product.id).slice(0, 4);
+  const position = all.findIndex((item) => item.id === product.id);
   const outOfStock = product.stock <= 0;
 
   return (
-    <div className="container-page py-6 sm:py-10">
-      <Button asChild variant="ghost" size="sm" className="-ml-3">
-        <Link href="/shop">
-          <ArrowLeft aria-hidden />
-          All products
-        </Link>
-      </Button>
-
-      <div className="mt-4 grid gap-8 md:grid-cols-2 md:gap-10 lg:gap-16">
-        <div className="md:sticky md:top-22 md:self-start">
-          <ProductVisual
-            name={product.name}
-            imageUrl={product.imageUrl}
-            accentColor={product.accentColor}
-            stock={product.stock}
-            priority
-            className="aspect-square md:aspect-4/5"
-            sizes="(min-width: 768px) 46vw, 92vw"
-          />
-        </div>
-
-        <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge tone="ice">{product.flavor}</Badge>
-            {outOfStock ? (
-              <Badge tone="solid">Out of stock</Badge>
-            ) : product.stock <= 5 ? (
-              <Badge tone="citrus">Only {product.stock} left</Badge>
-            ) : (
-              <Badge tone="mint">In stock</Badge>
-            )}
-            {product.isSeedData ? (
-              <Badge tone="neutral">Demo product</Badge>
+    <>
+      <section className={toneFor(position, product.stock)}>
+        <div className="container-page grid gap-10 pb-14 pt-6 lg:grid-cols-[1.3fr_1fr] lg:items-end lg:pb-20">
+          <div>
+            <Link
+              href="/shop"
+              className="inline-flex min-h-11 items-center gap-2 font-bold underline-offset-4 hover:underline"
+            >
+              <ArrowLeft className="size-4" aria-hidden />
+              The collection
+            </Link>
+            <h1 className="mt-8 text-[clamp(4rem,12vw,11rem)] font-black leading-[0.95] lg:mt-20">
+              {product.name}
+            </h1>
+            {product.tagline ? (
+              <p className="mt-5 text-2xl font-semibold">{product.tagline}</p>
             ) : null}
           </div>
 
-          <h1 className="mt-5 text-5xl font-light leading-[1.02] tracking-[-0.03em] lg:text-7xl">
-            {product.name}
-          </h1>
-
-          {product.tagline ? (
-            <p className="mt-4 text-lg text-fg-soft sm:text-xl">
-              {product.tagline}
-            </p>
-          ) : null}
-
-          <div className="mt-7 flex flex-wrap items-baseline gap-x-4 gap-y-1 border-t border-line pt-6">
-            <p className="text-3xl font-medium tabular-nums">
+          <div className="rounded-card bg-panel p-6 text-fg sm:p-8">
+            {product.imageUrl ? (
+              <div className="relative mb-6 aspect-square overflow-hidden rounded-xl">
+                <Image
+                  src={product.imageUrl}
+                  alt={`${product.name} flavored ice`}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 28rem, 92vw"
+                  className="object-cover"
+                />
+              </div>
+            ) : null}
+            <div className="flex flex-wrap gap-2">
+              <Badge tone="ice">{product.flavor}</Badge>
+              {outOfStock ? (
+                <Badge tone="solid">Out of stock</Badge>
+              ) : product.stock <= 5 ? (
+                <Badge tone="citrus">Only {product.stock} left</Badge>
+              ) : (
+                <Badge tone="mint">In stock</Badge>
+              )}
+              {product.isSeedData ? (
+                <Badge tone="neutral">Demo product</Badge>
+              ) : null}
+            </div>
+            <p className="mt-5 font-display text-5xl font-black">
               {formatMinor(product.priceMinor)}
             </p>
-            <p className="text-sm text-fg-muted">
+            <p className="mt-1 mb-6 font-medium text-fg-muted">
               {product.packSize}
               {product.cubeCount
-                ? ` · ${formatMinor(
-                    Math.round(product.priceMinor / product.cubeCount),
-                  )} per cube`
+                ? `, ${formatMinor(Math.round(product.priceMinor / product.cubeCount))} per cube`
                 : ""}
             </p>
-          </div>
-
-          <div className="mt-6">
             <AddToCart
               productId={product.id}
               productName={product.name}
@@ -114,54 +107,38 @@ export default async function ProductPage({ params }: Params) {
               maxPerOrder={MAX_QUANTITY_PER_ITEM}
             />
           </div>
-
-          <div className="mt-8 border-t border-line pt-8">
-            <h2 className="text-2xl font-normal">About this flavor</h2>
-            <p className="mt-3 leading-relaxed text-fg-soft">
-              {product.description}
-            </p>
-          </div>
-
-          <div className="mt-8 border-t border-line pt-8">
-            <h2 className="text-2xl font-normal">Using it</h2>
-            <ol className="mt-4 space-y-3">
-              {EXPERIENCE_STEPS.map((step, index) => (
-                <li key={step.step} className="flex gap-3 text-sm leading-relaxed">
-                  <span aria-hidden className="w-3 shrink-0 tabular-nums text-fg-muted">
-                    {index + 1}
-                  </span>
-                  <p className="text-fg-soft">
-                    <span className="font-medium text-fg">{step.step}.</span>{" "}
-                    {step.detail}
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
-
-          <dl className="mt-8 grid grid-cols-2 gap-x-6 border-t border-line pt-6">
-            <div>
-              <dt className="text-xs text-fg-muted">Flavor</dt>
-              <dd className="mt-1 font-medium">{product.flavor}</dd>
-            </div>
-            <div>
-              <dt className="text-xs text-fg-muted">Pack</dt>
-              <dd className="mt-1 font-medium">{product.packSize}</dd>
-            </div>
-          </dl>
         </div>
-      </div>
+      </section>
 
-      {related.length > 0 ? (
-        <section className="mt-20 border-t border-line pt-12">
-          <h2 className="text-4xl font-light">Other flavors</h2>
-          <div className="mt-8 grid gap-x-6 gap-y-12 sm:grid-cols-2 md:grid-cols-3">
-            {related.map((item) => (
-              <ProductCard key={item.id} product={item} />
-            ))}
-          </div>
+      <section className="py-16 lg:py-24">
+        <div className="container-page">
+          <h2 className="text-5xl font-black sm:text-6xl">The experience</h2>
+          <p className="mt-5 max-w-2xl text-xl font-medium leading-relaxed">
+            {product.description}
+          </p>
+        </div>
+      </section>
+
+      {others.length > 0 ? (
+        <section className={cn("bg-sky pt-14 text-white")}>
+          <h2 className="container-page pb-10 text-5xl font-black sm:text-6xl">
+            Continue the collection
+          </h2>
+          <FlavorTray
+            products={others}
+            detail={(item) => (
+              <>
+                <span className="text-2xl font-extrabold">
+                  {formatMinor(item.priceMinor)}
+                </span>
+                <span className="mt-1 font-semibold leading-tight">
+                  {item.stock > 0 ? item.packSize : "Out of stock"}
+                </span>
+              </>
+            )}
+          />
         </section>
       ) : null}
-    </div>
+    </>
   );
 }

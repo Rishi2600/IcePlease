@@ -8,7 +8,7 @@ import { Table, TableWrap, Td, Th, Tr } from "@/components/admin/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
-import { ProductThumb } from "@/components/product/product-visual";
+import { ProductThumb } from "@/components/product/product-thumb";
 import {
   ActiveToggle,
   DeleteProductButton,
@@ -86,7 +86,6 @@ export default async function AdminProductsPage() {
                         <ProductThumb
                           name={product.name}
                           imageUrl={product.imageUrl}
-                          accentColor={product.accentColor}
                           sizes="2.5rem"
                         />
                       </div>

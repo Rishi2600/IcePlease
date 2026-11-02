@@ -54,6 +54,9 @@ if (process.env.NODE_ENV === "production" && !process.env.NEXT_PUBLIC_SKIP_ENV_C
 }
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [{ source: "/how-it-works", destination: "/about", permanent: true }];
+  },
   images: {
     // Product photography is configured per-product via Product.imageUrl, so
     // the hosts it may come from are a deployment decision rather than a code

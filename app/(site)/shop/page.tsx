@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Snowflake } from "lucide-react";
+import { formatMinor } from "@/lib/money";
 import { listActiveProducts, listActiveFlavors } from "@/lib/server/catalogue";
-import { ProductCard } from "@/components/product/product-card";
-import { EmptyState } from "@/components/ui/empty-state";
+import { FlavorTray } from "@/components/product/flavor-tray";
+import { QuickAdd } from "@/components/product/quick-add";
+import { trayOrder } from "@/components/product/tones";
+import { PageTitle } from "@/components/site/page-title";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Shop",
+  title: "The collection",
   description:
-    "Every IcePlease flavor, pack size and price. Flavored ice cubes you drop straight into your drink.",
+    "The IcePlease collection of flavored ice, for drinks worth lingering over.",
 };
 
 // The catalogue is edited from the admin screens; admin mutations revalidate
@@ -28,29 +30,19 @@ export default async function ShopPage({
     listActiveFlavors(),
   ]);
 
-  const activeFlavor =
-    flavor && flavors.includes(flavor) ? flavor : null;
-  const visible = activeFlavor
-    ? products.filter((product) => product.flavor === activeFlavor)
-    : products;
+  const activeFlavor = flavor && flavors.includes(flavor) ? flavor : null;
+  const visible = trayOrder(
+    activeFlavor
+      ? products.filter((product) => product.flavor === activeFlavor)
+      : products,
+  );
 
   return (
-    <div className="relative overflow-x-clip">
-      <div className="container-page grid gap-4 pb-8 pt-10 sm:pt-14 lg:grid-cols-2 lg:items-end lg:gap-20">
-        <h1 className="text-6xl font-light leading-none tracking-[-0.03em] sm:text-7xl lg:text-8xl">
-          Shop
-        </h1>
-        <p className="max-w-xl text-lg leading-relaxed text-fg-soft">
-          Each flavor is built around one kind of drink it makes better. Pick
-          the one that matches what you actually pour.
-        </p>
-      </div>
-
-      <div aria-hidden className="water pointer-events-none absolute inset-x-0 h-96" />
-
-      <div className="container-page relative pb-8">
+    <>
+      <PageTitle title="The collection">
+        <p>Each flavor is composed for one kind of drink. Choose by what you are pouring tonight.</p>
         {flavors.length > 1 ? (
-          <nav aria-label="Filter by flavor" className="pt-6">
+          <nav aria-label="Filter by flavor" className="mt-6">
             <ul className="flex flex-wrap gap-2">
               <li>
                 <FilterLink href="/shop" active={!activeFlavor}>
@@ -70,45 +62,46 @@ export default async function ShopPage({
             </ul>
           </nav>
         ) : null}
+      </PageTitle>
 
-        <h2 className="sr-only">Products</h2>
-        {visible.length > 0 ? (
-          <div className="mt-8 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-            {visible.map((product, index) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                priority={index < 3}
-              />
-            ))}
-          </div>
-        ) : products.length > 0 ? (
-          <EmptyState
-            className="mt-10"
-            icon={Snowflake}
-            title={`Nothing in ${activeFlavor} right now`}
-            description="That flavor is not currently on sale. The rest of the range is."
-            action={
-              <Button asChild variant="outline">
-                <Link href="/shop">Show everything</Link>
-              </Button>
-            }
-          />
-        ) : (
-          <EmptyState
-            className="mt-10"
-            icon={Snowflake}
-            title="The shop is not open yet"
-            description="No products have been published. Check back shortly, or get in touch if you want to be told when they are."
-            action={
-              <Button asChild variant="outline">
-                <Link href="/contact">Contact us</Link>
-              </Button>
-            }
-          />
-        )}
-      </div>
-    </div>
+      <h2 className="sr-only">Products</h2>
+      {visible.length > 0 ? (
+        <FlavorTray
+          products={visible}
+          detail={(product) => (
+            <div className="flex flex-col lg:min-h-44">
+              <span className="text-2xl font-extrabold">
+                {formatMinor(product.priceMinor)}
+              </span>
+              <span className="mb-3 mt-1 font-semibold leading-tight">
+                {product.tagline ?? product.packSize}
+              </span>
+              {product.stock > 0 ? (
+                <QuickAdd productId={product.id} productName={product.name} />
+              ) : (
+                <span className="mt-auto font-semibold">Out of stock</span>
+              )}
+            </div>
+          )}
+        />
+      ) : (
+        <div className="container-page py-20">
+          <h2 className="text-5xl font-black">
+            {products.length > 0 ? `No ${activeFlavor} right now` : "The first flavors are on their way"}
+          </h2>
+          <p className="mt-4 max-w-xl text-lg font-medium">
+            {products.length > 0
+              ? "That flavor is resting for the moment. The rest of the collection is ready for you."
+              : "Tell us what you would love to pour, and we will let you know when they arrive."}
+          </p>
+          <Button asChild variant="outline" className="mt-6">
+            <Link href={products.length > 0 ? "/shop" : "/contact"}>
+              {products.length > 0 ? "See the collection" : "Talk to us"}
+            </Link>
+          </Button>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -126,10 +119,8 @@ function FilterLink({
       href={href}
       aria-current={active ? "true" : undefined}
       className={cn(
-        "inline-flex h-9 items-center rounded-full border px-4 text-sm font-medium transition-colors",
-        active
-          ? "border-fg bg-fg text-page"
-          : "border-line-strong text-fg-soft hover:border-fg hover:text-fg",
+        "inline-flex h-11 items-center rounded-full px-4 text-base font-bold shadow-[inset_0_0_0_2px_var(--color-ink)]",
+        active ? "bg-ink text-white" : "hover:bg-ink/10",
       )}
     >
       {children}
