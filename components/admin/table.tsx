@@ -17,6 +17,10 @@ export function TableWrap({
 }) {
   return (
     <div
+      // Focusable so keyboard users can scroll a table with no links in it.
+      tabIndex={0}
+      role="region"
+      aria-label="Scrollable table"
       className={cn(
         "relative overflow-x-auto rounded-card border border-line bg-panel",
         className,
