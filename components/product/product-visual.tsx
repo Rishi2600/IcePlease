@@ -1,13 +1,18 @@
+"use client";
+
+// A client boundary on purpose: as a server component every SVG here ships
+// twice, as HTML and again in the RSC payload. This way only the props do.
+import * as React from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 /**
  * The product image slot.
  *
- * Real photography does not exist yet. Rather than borrowing stock imagery
- * that misrepresents the product, an untinted-photo product renders a
- * generated ice treatment: a translucent cube tinted with the product's accent
- * colour. It is obviously a graphic, not a photograph pretending to be one.
+ * Real photography does not exist yet, so a product without `imageUrl` renders
+ * a generated scene: a cube floating in a dark drink, with flavor melting out
+ * of it. It is obviously a graphic, not a photograph pretending to be one. A
+ * sold-out product shows the outline of the cube that is missing.
  *
  * When `imageUrl` is set the photograph takes over at the same aspect ratio,
  * so dropping real assets in requires no layout change.
@@ -16,6 +21,7 @@ export function ProductVisual({
   name,
   imageUrl,
   accentColor,
+  stock,
   className,
   priority = false,
   sizes = "(min-width: 1024px) 24rem, (min-width: 640px) 50vw, 100vw",
@@ -23,6 +29,7 @@ export function ProductVisual({
   name: string;
   imageUrl?: string | null;
   accentColor: string;
+  stock?: number;
   className?: string;
   priority?: boolean;
   sizes?: string;
@@ -30,12 +37,9 @@ export function ProductVisual({
   return (
     <div
       className={cn(
-        "relative aspect-square w-full max-w-full overflow-hidden rounded-card bg-raised",
+        "relative aspect-4/5 w-full max-w-full overflow-hidden rounded-card border border-line bg-panel transition-colors group-focus-within:border-line-strong group-hover:border-line-strong",
         className,
       )}
-      style={{
-        backgroundImage: `radial-gradient(120% 90% at 30% 15%, ${accentColor}38, transparent 60%)`,
-      }}
     >
       {imageUrl ? (
         <Image
