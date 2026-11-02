@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Big_Shoulders_Display, Hanken_Grotesk, Shrikhand } from "next/font/google";
+import { Big_Shoulders, Hanken_Grotesk, Shrikhand } from "next/font/google";
 import { BRAND, SITE_URL } from "@/lib/brand";
 import { Providers } from "@/components/providers";
 import "./globals.css";
@@ -10,7 +10,7 @@ const hanken = Hanken_Grotesk({
   display: "swap",
 });
 
-const bigShoulders = Big_Shoulders_Display({
+const bigShoulders = Big_Shoulders({
   subsets: ["latin"],
   variable: "--font-big-shoulders",
   display: "swap",
