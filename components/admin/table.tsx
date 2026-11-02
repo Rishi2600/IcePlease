@@ -18,7 +18,7 @@ export function TableWrap({
   return (
     <div
       className={cn(
-        "overflow-x-auto rounded-card border border-line bg-panel",
+        "relative overflow-x-auto rounded-card border border-line bg-panel",
         className,
       )}
     >
