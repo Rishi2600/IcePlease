@@ -83,7 +83,7 @@ app/
   api/               auth, registration, cart pricing
 components/
   ui/                primitives: button, field, card, badge, alert
-  site/              navbar, footer, section, status badges
+  site/              navbar, footer, page sign, status badges
   product/ cart/ checkout/ forms/ admin/
 lib/
   server/            server-only: pricing, orders, catalogue, analytics,
