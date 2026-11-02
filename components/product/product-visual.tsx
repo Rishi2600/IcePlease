@@ -90,7 +90,10 @@ export function ProductThumb({
           className="object-cover"
         />
       ) : (
-        <IceCube accentColor={accentColor} />
+        // The canvas is tall with the cube near the top, so centre and enlarge it.
+        <div className="absolute inset-0 translate-y-[19%] scale-[1.8]">
+          <IceCube accentColor={accentColor} />
+        </div>
       )}
     </div>
   );
