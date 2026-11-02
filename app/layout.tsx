@@ -1,18 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Bricolage_Grotesque } from "next/font/google";
+import { Fraunces, Geist } from "next/font/google";
 import { BRAND, SITE_URL } from "@/lib/brand";
 import { Providers } from "@/components/providers";
 import "./globals.css";
 
-const inter = Inter({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-geist",
   display: "swap",
 });
 
-const bricolage = Bricolage_Grotesque({
+// SOFT rounds the serifs: letterforms that have started to melt.
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-bricolage",
+  axes: ["SOFT", "opsz"],
+  variable: "--font-fraunces",
   display: "swap",
 });
 
@@ -39,16 +41,18 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f2f8fb",
+  themeColor: "#0a0f1e",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${bricolage.variable}`}>
+    <html lang="en" className={`${geist.variable} ${fraunces.variable}`}>
       <body>
         <Providers>{children}</Providers>
       </body>
