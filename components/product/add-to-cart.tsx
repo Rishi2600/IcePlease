@@ -39,12 +39,17 @@ export function AddToCart({
 
   if (stock <= 0) {
     return (
-      <div className="rounded-xl border border-line bg-raised px-4 py-4 text-sm text-fg-soft">
-        <p className="font-medium text-fg">Out of stock</p>
-        <p className="mt-1">
-          This flavor is not available right now. Everything else in the shop
-          is ready to ship.
-        </p>
+      <div className="space-y-3">
+        <div className="rounded-xl border border-line bg-panel px-4 py-4 text-sm text-fg-soft">
+          <p className="font-medium text-fg">Out of stock</p>
+          <p className="mt-1">
+            This flavor is not available right now. The rest of The range is in
+            the shop.
+          </p>
+        </div>
+        <Button asChild size="lg" variant="outline" className="w-full">
+          <Link href="/shop">See other flavors</Link>
+        </Button>
       </div>
     );
   }
@@ -52,7 +57,7 @@ export function AddToCart({
   if (hydrated && limit <= 0) {
     return (
       <div className="space-y-3">
-        <div className="rounded-xl border border-line bg-raised px-4 py-4 text-sm text-fg-soft">
+        <div className="rounded-xl border border-line bg-panel px-4 py-4 text-sm text-fg-soft">
           <p className="font-medium text-fg">
             All {inCart} available in your cart
           </p>
@@ -94,10 +99,13 @@ export function AddToCart({
 
       <p aria-live="polite" className="min-h-6 text-sm">
         {justAdded ? (
-          <span className="inline-flex items-center gap-1.5 text-ok-strong">
+          <span className="inline-flex items-center gap-1.5 text-fg">
             <Check className="size-4" aria-hidden />
             Added.{" "}
-            <Link href="/cart" className="underline underline-offset-2">
+            <Link
+              href="/cart"
+              className="text-link underline underline-offset-2 hover:text-link-strong"
+            >
               View cart
             </Link>
           </span>

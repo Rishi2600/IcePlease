@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Check, Snowflake } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { formatMinor } from "@/lib/money";
 import {
   getActiveProductBySlug,
@@ -46,7 +46,7 @@ export default async function ProductPage({ params }: Params) {
   const outOfStock = product.stock <= 0;
 
   return (
-    <div className="container-page py-8 sm:py-12">
+    <div className="container-page py-6 sm:py-10">
       <Button asChild variant="ghost" size="sm" className="-ml-3">
         <Link href="/shop">
           <ArrowLeft aria-hidden />
@@ -54,18 +54,20 @@ export default async function ProductPage({ params }: Params) {
         </Link>
       </Button>
 
-      <div className="mt-6 grid gap-10 lg:grid-cols-2 lg:gap-16">
-        <div className="lg:sticky lg:top-24 lg:self-start">
+      <div className="mt-4 grid gap-8 md:grid-cols-2 md:gap-10 lg:gap-16">
+        <div className="md:sticky md:top-22 md:self-start">
           <ProductVisual
             name={product.name}
             imageUrl={product.imageUrl}
             accentColor={product.accentColor}
+            stock={product.stock}
             priority
-            sizes="(min-width: 1024px) 34rem, 92vw"
+            className="aspect-square md:aspect-4/5"
+            sizes="(min-width: 768px) 46vw, 92vw"
           />
         </div>
 
-        <div>
+        <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <Badge tone="ice">{product.flavor}</Badge>
             {outOfStock ? (
@@ -80,27 +82,31 @@ export default async function ProductPage({ params }: Params) {
             ) : null}
           </div>
 
-          <h1 className="mt-4 text-4xl font-semibold sm:text-5xl">
+          <h1 className="mt-5 text-5xl font-light leading-[1.02] tracking-[-0.03em] lg:text-7xl">
             {product.name}
           </h1>
 
           {product.tagline ? (
-            <p className="mt-3 text-lg text-fg-soft">{product.tagline}</p>
+            <p className="mt-4 text-lg text-fg-soft sm:text-xl">
+              {product.tagline}
+            </p>
           ) : null}
 
-          <p className="mt-6 font-display text-3xl font-semibold">
-            {formatMinor(product.priceMinor)}
-          </p>
-          <p className="mt-1 text-sm text-fg-muted">
-            {product.packSize}
-            {product.cubeCount
-              ? ` · ${formatMinor(
-                  Math.round(product.priceMinor / product.cubeCount),
-                )} per cube`
-              : ""}
-          </p>
+          <div className="mt-7 flex flex-wrap items-baseline gap-x-4 gap-y-1 border-t border-line pt-6">
+            <p className="text-3xl font-medium tabular-nums">
+              {formatMinor(product.priceMinor)}
+            </p>
+            <p className="text-sm text-fg-muted">
+              {product.packSize}
+              {product.cubeCount
+                ? ` · ${formatMinor(
+                    Math.round(product.priceMinor / product.cubeCount),
+                  )} per cube`
+                : ""}
+            </p>
+          </div>
 
-          <div className="mt-8">
+          <div className="mt-6">
             <AddToCart
               productId={product.id}
               productName={product.name}
@@ -109,23 +115,22 @@ export default async function ProductPage({ params }: Params) {
             />
           </div>
 
-          <div className="mt-10 border-t border-line pt-8">
-            <h2 className="text-lg font-semibold">About this flavor</h2>
+          <div className="mt-8 border-t border-line pt-8">
+            <h2 className="text-2xl font-normal">About this flavor</h2>
             <p className="mt-3 leading-relaxed text-fg-soft">
               {product.description}
             </p>
           </div>
 
           <div className="mt-8 border-t border-line pt-8">
-            <h2 className="text-lg font-semibold">Using it</h2>
+            <h2 className="text-2xl font-normal">Using it</h2>
             <ol className="mt-4 space-y-3">
-              {EXPERIENCE_STEPS.map((step) => (
-                <li key={step.step} className="flex gap-3">
-                  <Check
-                    className="mt-0.5 size-4 shrink-0 text-link"
-                    aria-hidden
-                  />
-                  <p className="text-sm leading-relaxed text-fg-soft">
+              {EXPERIENCE_STEPS.map((step, index) => (
+                <li key={step.step} className="flex gap-3 text-sm leading-relaxed">
+                  <span aria-hidden className="w-3 shrink-0 tabular-nums text-fg-muted">
+                    {index + 1}
+                  </span>
+                  <p className="text-fg-soft">
                     <span className="font-medium text-fg">{step.step}.</span>{" "}
                     {step.detail}
                   </p>
@@ -134,17 +139,13 @@ export default async function ProductPage({ params }: Params) {
             </ol>
           </div>
 
-          <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-card border border-line bg-line">
-            <div className="bg-panel p-5">
-              <dt className="text-xs uppercase tracking-wider text-fg-muted">
-                Flavor
-              </dt>
+          <dl className="mt-8 grid grid-cols-2 gap-x-6 border-t border-line pt-6">
+            <div>
+              <dt className="text-xs text-fg-muted">Flavor</dt>
               <dd className="mt-1 font-medium">{product.flavor}</dd>
             </div>
-            <div className="bg-panel p-5">
-              <dt className="text-xs uppercase tracking-wider text-fg-muted">
-                Pack
-              </dt>
+            <div>
+              <dt className="text-xs text-fg-muted">Pack</dt>
               <dd className="mt-1 font-medium">{product.packSize}</dd>
             </div>
           </dl>
@@ -153,11 +154,8 @@ export default async function ProductPage({ params }: Params) {
 
       {related.length > 0 ? (
         <section className="mt-20 border-t border-line pt-12">
-          <div className="flex items-center gap-2">
-            <Snowflake className="size-4 text-link" aria-hidden />
-            <h2 className="text-2xl font-semibold">Other flavors</h2>
-          </div>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <h2 className="text-4xl font-light">Other flavors</h2>
+          <div className="mt-8 grid gap-x-6 gap-y-12 sm:grid-cols-2 md:grid-cols-3">
             {related.map((item) => (
               <ProductCard key={item.id} product={item} />
             ))}
