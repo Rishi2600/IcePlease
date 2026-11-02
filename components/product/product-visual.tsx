@@ -37,7 +37,7 @@ export function ProductVisual({
   return (
     <div
       className={cn(
-        "relative aspect-4/5 w-full max-w-full overflow-hidden rounded-card border border-line bg-panel transition-colors group-focus-within:border-line-strong group-hover:border-line-strong",
+        "relative aspect-4/5 w-full max-w-full overflow-hidden rounded-card border border-line bg-panel transition-colors [content-visibility:auto] group-focus-within:border-line-strong group-hover:border-line-strong",
         className,
       )}
     >
@@ -62,6 +62,35 @@ export function ProductVisual({
         </>
       ) : (
         <EmptyCube />
+      )}
+    </div>
+  );
+}
+
+/** For small slots: the cube alone, since a plume is unreadable and costly here. */
+export function ProductThumb({
+  name,
+  imageUrl,
+  accentColor,
+  sizes,
+}: {
+  name: string;
+  imageUrl?: string | null;
+  accentColor: string;
+  sizes: string;
+}) {
+  return (
+    <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-line bg-panel">
+      {imageUrl ? (
+        <Image
+          src={imageUrl}
+          alt={`${name} flavored ice`}
+          fill
+          sizes={sizes}
+          className="object-cover"
+        />
+      ) : (
+        <IceCube accentColor={accentColor} />
       )}
     </div>
   );

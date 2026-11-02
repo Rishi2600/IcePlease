@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Trash2 } from "lucide-react";
 import { formatMinor } from "@/lib/money";
 import type { PricedLine } from "@/lib/cart-types";
-import { ProductVisual } from "@/components/product/product-visual";
+import { ProductThumb } from "@/components/product/product-visual";
 import { QuantityStepper } from "@/components/cart/quantity-stepper";
 
 export function CartLineItem({
@@ -26,7 +26,7 @@ export function CartLineItem({
         tabIndex={-1}
         aria-hidden
       >
-        <ProductVisual
+        <ProductThumb
           name={line.name}
           imageUrl={line.imageUrl}
           accentColor={line.accentColor}
