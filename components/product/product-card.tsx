@@ -4,6 +4,7 @@ import type { PublicProduct } from "@/lib/server/catalogue";
 import { Badge } from "@/components/ui/badge";
 import { ProductVisual } from "@/components/product/product-visual";
 
+/** Set like a line on a bar menu: name, dotted leader, price. */
 export function ProductCard({
   product,
   priority = false,
