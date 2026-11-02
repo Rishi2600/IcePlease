@@ -1,66 +1,78 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
-   IcePlease design tokens.
+   IcePlease design tokens: a cold drink at night.
 
-   The palette is cold and restrained: a near-white frost ground, deep cold ink
-   for type, one saturated ice blue that carries every primary action, and mint
-   and citrus used sparingly as flavor accents. Colour is never the only signal
-   for state — status always carries a label as well.
+   Token names predate the dark theme, and every page already uses them:
+   `frost` is the page, `surface` the panel, `ink` the text.
+
+   Electric Blue is for glow, borders and large graphics, never small text.
+   Orange is the primary action and the flavour moment, nothing else. Status
+   always carries a label, so colour is never the only signal.
 --------------------------------------------------------------------------- */
 
 @theme {
-  --color-page: #f2f8fb;
-  --color-panel: #ffffff;
-  --color-raised: #e8f2f7;
+  --color-page: #0a0f1e;
+  --color-panel: #121a30;
+  --color-raised: #1b2542;
 
-  --color-fg: #06202b;
-  --color-fg-soft: #2c4b58;
-  --color-fg-muted: #5d7a86;
+  --color-fg: #f2f6ff;
+  --color-fg-soft: #cdd6ea;
+  --color-fg-muted: #a9b6d3;
 
-  --color-tint: #d6eef8;
-  --color-link: #0b7ea3;
-  --color-link-strong: #075d79;
+  --color-electric: #2f6bff;
+  --color-tint: #1c2a52;
+  --color-link: #5c8dff;
+  --color-link-strong: #a9c2ff;
 
-  --color-ok: #6fe0be;
-  --color-ok-strong: #0d8f6d;
-  --color-warn: #f3d74c;
-  --color-warn-strong: #9a7c05;
-  --color-berry: #e4739b;
+  --color-accent: #ffa45c;
+  --color-accent-soft: #ffbd87;
 
-  --color-line: #d7e6ed;
-  --color-line-strong: #b6d0da;
+  /* Status tones, kept inside the palette family. */
+  --color-ok: #5c8dff;
+  --color-ok-strong: #a9c2ff;
+  --color-warn: #a9b6d3;
+  --color-warn-strong: #f2f6ff;
+  --color-danger: #ffb3a1;
+  --color-danger-soft: #33202e;
 
-  --color-danger: #c03a3a;
-  --color-danger-soft: #fdecec;
+  --color-line: #26324f;
+  --color-line-strong: #5a6c99;
 
-  --font-display: var(--font-bricolage), "Segoe UI", system-ui, sans-serif;
-  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-geist), system-ui, -apple-system, sans-serif;
 
   --radius-card: 1.25rem;
 
-  --animate-rise: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-  --animate-drift: drift 9s ease-in-out infinite;
+  /* One-shot and under 5 seconds, so nothing needs a pause control. */
+  --animate-melt: melt 4.6s cubic-bezier(0.16, 0.7, 0.3, 1) both;
+  --animate-settle: settle 1.8s cubic-bezier(0.3, 0.7, 0.3, 1) both;
+  --animate-bloom: bloom 4.6s ease-out both;
 }
 
-@keyframes rise {
+@keyframes melt {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: scaleY(0.3);
   }
-  to {
-    opacity: 1;
+}
+
+@keyframes settle {
+  0% {
+    transform: translateY(-9%);
+  }
+  62% {
+    transform: translateY(0.8%);
+  }
+  100% {
     transform: none;
   }
 }
 
-@keyframes drift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(0, -10px, 0) rotate(2deg);
+@keyframes bloom {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
   }
 }
 
@@ -70,8 +82,18 @@
   }
 
   html {
+    color-scheme: dark;
+    background-color: var(--color-page);
     scroll-behavior: smooth;
+    /* Keeps focused elements and anchors clear of the sticky header. */
+    scroll-padding-block: 5.5rem 1.5rem;
     -webkit-text-size-adjust: 100%;
+  }
+
+  @media (pointer: fine) {
+    html {
+      overscroll-behavior: none;
+    }
   }
 
   body {
