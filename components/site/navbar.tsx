@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Menu, X, LayoutDashboard, User } from "lucide-react";
-import { BRAND, PRIMARY_NAV } from "@/lib/brand";
+import { PRIMARY_NAV } from "@/lib/brand";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/site/logo";
 import { CartBadge } from "@/components/site/cart-badge";
@@ -40,7 +40,7 @@ export function Navbar() {
   // Solid on purpose: backdrop-filter would trap the fixed panel in the header.
   return (
     <header
-      className="sticky top-0 z-50 border-b border-line bg-page"
+      className="sticky top-0 z-50 bg-orange text-ink"
       onKeyDown={(event) => {
         if (event.key === "Escape" && open) {
           setOpen(false);
@@ -48,7 +48,7 @@ export function Navbar() {
         }
       }}
     >
-      <div className="container-page flex h-16 items-center justify-between gap-4">
+      <div className="container-page flex h-20 items-center justify-between gap-4">
         <Logo />
 
         <nav
@@ -64,10 +64,8 @@ export function Navbar() {
                 href={link.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "rounded-full px-3.5 py-2 text-sm transition-colors",
-                  active
-                    ? "bg-raised text-fg"
-                    : "text-fg-muted hover:text-fg",
+                  "rounded-full px-3.5 py-2 text-base font-semibold underline-offset-[6px] hover:underline",
+                  active && "underline",
                 )}
               >
                 {link.label}
@@ -89,7 +87,7 @@ export function Navbar() {
           <Link
             href={session ? "/account" : "/login"}
             aria-label={session ? "Your account" : "Sign in"}
-            className="hidden size-10 items-center justify-center rounded-full text-fg transition-colors hover:bg-raised sm:inline-flex"
+            className="hidden size-10 items-center justify-center rounded-full transition-colors hover:bg-ink/10 sm:inline-flex"
           >
             <User className="size-5" aria-hidden />
           </Link>
@@ -103,7 +101,7 @@ export function Navbar() {
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="inline-flex size-10 items-center justify-center rounded-full text-fg transition-colors hover:bg-raised lg:hidden"
+            className="inline-flex size-10 items-center justify-center rounded-full transition-colors hover:bg-ink/10 lg:hidden"
           >
             {open ? (
               <X className="size-5" aria-hidden />
@@ -117,7 +115,7 @@ export function Navbar() {
       {open ? (
         <div
           id="mobile-nav"
-          className="fixed inset-x-0 bottom-0 top-16 z-50 overflow-y-auto overscroll-contain border-t border-line bg-page lg:hidden"
+          className="fixed inset-x-0 bottom-0 top-20 z-50 overflow-y-auto overscroll-contain bg-orange lg:hidden"
         >
           <nav aria-label="Main" className="container-page py-6">
             <ul className="space-y-1">
@@ -130,10 +128,8 @@ export function Navbar() {
                       href={link.href}
                       aria-current={active ? "page" : undefined}
                       className={cn(
-                        "block rounded-xl px-4 py-3 font-display text-3xl font-light transition-colors",
-                        active
-                          ? "bg-panel text-fg"
-                          : "text-fg-soft hover:bg-panel hover:text-fg",
+                        "block py-2 font-display text-5xl font-black underline-offset-8 hover:underline",
+                        active && "underline",
                       )}
                     >
                       {link.label}
@@ -143,13 +139,9 @@ export function Navbar() {
               })}
             </ul>
 
-            <div className="mt-6 space-y-3 border-t border-line pt-6">
+            <div className="mt-8 space-y-3">
               <Button asChild size="lg" className="w-full">
-                <Link href="/shop">
-                  <span>
-                    Shop <span translate="no">{BRAND.name}</span>
-                  </span>
-                </Link>
+                <Link href="/shop">Explore the collection</Link>
               </Button>
               {isAdmin ? (
                 <Button asChild variant="outline" size="lg" className="w-full">

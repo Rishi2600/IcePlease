@@ -27,7 +27,7 @@ export default async function AdminLayout({
   ]);
 
   return (
-    <div className="flex min-h-dvh flex-col lg:flex-row">
+    <div className="admin-surface flex min-h-dvh flex-col bg-page lg:flex-row">
       <AdminNav
         counts={{ orders, inquiries, messages }}
         adminName={admin.name ?? admin.email}

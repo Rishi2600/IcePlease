@@ -28,12 +28,12 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative mt-24 rounded-t-[2rem] border-t border-line bg-panel">
+    <footer className="bg-ink text-white">
       <div className="container-page py-14">
         <div className="grid gap-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div>
-            <Logo />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-fg-muted">
+            <Logo className="text-lime" />
+            <p className="mt-4 max-w-xs text-sm leading-relaxed">
               {BRAND.description}
             </p>
 
@@ -43,7 +43,7 @@ export function Footer() {
                 <li>
                   <a
                     href={`mailto:${CONTACT.email}`}
-                    className="inline-flex items-center gap-2 text-fg-soft transition-colors hover:text-fg"
+                    className="inline-flex items-center gap-2 underline-offset-4 hover:underline"
                   >
                     <Mail className="size-4" aria-hidden />
                     {CONTACT.email}
@@ -54,7 +54,7 @@ export function Footer() {
                 <li>
                   <a
                     href={`tel:${CONTACT.phone.replace(/\s/g, "")}`}
-                    className="inline-flex items-center gap-2 text-fg-soft transition-colors hover:text-fg"
+                    className="inline-flex items-center gap-2 underline-offset-4 hover:underline"
                   >
                     <Phone className="size-4" aria-hidden />
                     {CONTACT.phone}
@@ -67,7 +67,7 @@ export function Footer() {
                     href={whatsapp}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="inline-flex items-center gap-2 text-fg-soft transition-colors hover:text-fg"
+                    className="inline-flex items-center gap-2 underline-offset-4 hover:underline"
                   >
                     <MessageCircle className="size-4" aria-hidden />
                     WhatsApp
@@ -80,7 +80,7 @@ export function Footer() {
                     href={CONTACT.instagram}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="inline-flex items-center gap-2 text-fg-soft transition-colors hover:text-fg"
+                    className="inline-flex items-center gap-2 underline-offset-4 hover:underline"
                   >
                     <InstagramGlyph />
                     Instagram
@@ -92,7 +92,7 @@ export function Footer() {
 
           {FOOTER_NAV.map((group) => (
             <nav key={group.title} aria-label={group.title}>
-              <h2 className="font-sans text-sm font-medium tracking-normal text-fg">
+              <h2 className="font-display text-2xl font-extrabold text-lime">
                 {group.title}
               </h2>
               <ul className="mt-4 space-y-2.5">
@@ -100,7 +100,7 @@ export function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-fg-muted underline-offset-4 transition-colors hover:text-fg hover:underline"
+                      className="text-sm underline-offset-4 hover:underline"
                     >
                       {link.label}
                     </Link>
@@ -111,7 +111,7 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-line pt-6 text-xs text-fg-muted sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-3 border-t border-white/25 pt-6 text-xs sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} <span translate="no">{BRAND.name}</span>.
             {CONTACT.serviceArea ? ` Delivering in ${CONTACT.serviceArea}.` : ""}
