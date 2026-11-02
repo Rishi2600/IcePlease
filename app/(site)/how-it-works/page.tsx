@@ -19,7 +19,7 @@ export default function HowItWorksPage() {
         <div className="container-page grid items-center gap-12 py-14 lg:grid-cols-2 lg:py-20">
           <div>
             <Eyebrow>How it works</Eyebrow>
-            <h1 className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl">
+            <h1 className="mt-4 text-4xl font-normal leading-tight sm:text-5xl">
               It is ice. That is the whole trick.
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-fg-soft">
@@ -51,7 +51,7 @@ export default function HowItWorksPage() {
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold">{step.step}</h2>
+                  <h2 className="text-2xl font-normal">{step.step}</h2>
                   <p className="mt-2 max-w-xl leading-relaxed text-fg-muted">
                     {step.detail}
                   </p>

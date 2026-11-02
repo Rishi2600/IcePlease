@@ -44,7 +44,7 @@ export default async function AccountPage() {
     <div className="container-page py-12 sm:py-16">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-4xl font-semibold sm:text-5xl">Your account</h1>
+          <h1 className="text-4xl font-normal sm:text-5xl">Your account</h1>
           <p className="mt-2 text-fg-muted">{account.email}</p>
         </div>
         <SignOutButton />
@@ -52,7 +52,7 @@ export default async function AccountPage() {
 
       <div className="mt-12 grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-12">
         <section aria-labelledby="orders-heading">
-          <h2 id="orders-heading" className="text-2xl font-semibold">
+          <h2 id="orders-heading" className="text-2xl font-normal">
             Your orders
           </h2>
 
@@ -110,7 +110,7 @@ export default async function AccountPage() {
         </section>
 
         <section aria-labelledby="details-heading">
-          <h2 id="details-heading" className="text-2xl font-semibold">
+          <h2 id="details-heading" className="text-2xl font-normal">
             Your details
           </h2>
           <div className="mt-6 rounded-card border border-line bg-panel p-6">

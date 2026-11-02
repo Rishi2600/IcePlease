@@ -16,7 +16,7 @@ export default function AboutPage() {
         <div className="container-page py-16 sm:py-20">
           <div className="max-w-3xl">
             <Eyebrow>About</Eyebrow>
-            <h1 className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+            <h1 className="mt-4 text-4xl font-normal leading-tight sm:text-5xl lg:text-6xl">
               We started with a small complaint about ice.
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-fg-soft">
@@ -64,7 +64,7 @@ export default function AboutPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-link">
               Where we are
             </p>
-            <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
+            <h2 className="mt-3 text-3xl font-normal sm:text-4xl">
               Early, and saying so.
             </h2>
             <div className="mt-6 space-y-4 text-lg leading-relaxed text-fg-soft">
@@ -115,7 +115,7 @@ export default function AboutPage() {
       <Section className="pt-0">
         <div className="container-page">
           <div className="rounded-card border border-line bg-panel px-8 py-12 text-center sm:px-12">
-            <h2 className="mx-auto max-w-xl text-3xl font-semibold sm:text-4xl">
+            <h2 className="mx-auto max-w-xl text-3xl font-normal sm:text-4xl">
               Try it, or tell us what would make you try it.
             </h2>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">

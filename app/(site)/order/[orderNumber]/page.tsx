@@ -66,7 +66,7 @@ export default async function OrderPage({ params, searchParams }: Params) {
           </div>
         </div>
       ) : (
-        <h1 className="text-3xl font-semibold sm:text-4xl">Your order</h1>
+        <h1 className="text-3xl font-normal sm:text-4xl">Your order</h1>
       )}
 
       <Card className="mt-2">

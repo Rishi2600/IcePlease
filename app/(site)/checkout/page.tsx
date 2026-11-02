@@ -40,7 +40,7 @@ export default async function CheckoutPage() {
         </Link>
       </Button>
 
-      <h1 className="mt-6 text-4xl font-semibold sm:text-5xl">Checkout</h1>
+      <h1 className="mt-6 text-4xl font-normal sm:text-5xl">Checkout</h1>
       {!user ? (
         <p className="mt-3 text-sm text-fg-muted">
           Ordering as a guest.{" "}

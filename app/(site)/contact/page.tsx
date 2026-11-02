@@ -17,7 +17,7 @@ export default function ContactPage() {
   return (
     <div className="container-page py-12 sm:py-16">
       <header className="max-w-2xl">
-        <h1 className="text-4xl font-semibold sm:text-5xl">Contact</h1>
+        <h1 className="text-4xl font-normal sm:text-5xl">Contact</h1>
         <p className="mt-4 text-lg leading-relaxed text-fg-muted">
           Questions about an order, a flavor, or supplying your business — this
           reaches us either way.

@@ -61,7 +61,7 @@ export default function B2BPage() {
         <div className="container-page relative py-16 sm:py-20">
           <div className="max-w-3xl">
             <Eyebrow>IcePlease for business</Eyebrow>
-            <h1 className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+            <h1 className="mt-4 text-4xl font-normal leading-tight sm:text-5xl lg:text-6xl">
               A different drink without a different workflow.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-fg-soft">

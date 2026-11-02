@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function CartPage() {
   return (
     <div className="container-page py-12 sm:py-16">
-      <h1 className="text-4xl font-semibold sm:text-5xl">Your cart</h1>
+      <h1 className="text-4xl font-normal sm:text-5xl">Your cart</h1>
       <div className="mt-10">
         <CartView maxPerOrder={MAX_QUANTITY_PER_ITEM} />
       </div>

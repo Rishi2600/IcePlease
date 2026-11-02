@@ -9,7 +9,7 @@ export default function NotFound() {
       <Navbar />
       <main className="container-page flex flex-1 flex-col items-center justify-center py-24 text-center">
         <p className="font-display text-7xl font-semibold text-link">404</p>
-        <h1 className="mt-4 text-3xl font-semibold sm:text-4xl">
+        <h1 className="mt-4 text-3xl font-normal sm:text-4xl">
           This page has melted.
         </h1>
         <p className="mt-4 max-w-md text-fg-muted">
