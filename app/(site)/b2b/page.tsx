@@ -72,7 +72,7 @@ export default function B2BPage() {
             <div className="mt-8">
               <a
                 href="#enquiry"
-                className="inline-flex h-13 items-center rounded-full bg-link px-7 text-base font-medium text-white transition-colors hover:bg-link-strong"
+                className="inline-flex h-13 items-center rounded-full bg-accent px-7 text-base font-medium text-page transition-colors hover:bg-accent-soft"
               >
                 Start a bulk enquiry
               </a>

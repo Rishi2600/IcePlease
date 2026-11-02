@@ -58,7 +58,7 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section className="bg-fg text-white">
+      <Section className="bg-panel">
         <div className="container-page">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-link">
@@ -67,7 +67,7 @@ export default function AboutPage() {
             <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
               Early, and saying so.
             </h2>
-            <div className="mt-6 space-y-4 text-lg leading-relaxed text-tint/80">
+            <div className="mt-6 space-y-4 text-lg leading-relaxed text-fg-soft">
               <p>
                 IcePlease is at the beginning. We are working out which flavors
                 earn a place in someone&apos;s freezer, what a pack should

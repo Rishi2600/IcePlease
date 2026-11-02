@@ -46,7 +46,7 @@ export default function HowItWorksPage() {
               >
                 <span
                   aria-hidden
-                  className="font-display text-5xl font-semibold text-tint"
+                  className="font-display text-5xl font-semibold text-link"
                 >
                   {String(index + 1).padStart(2, "0")}
                 </span>
