@@ -16,57 +16,56 @@ export function ProductCard({
   const lowStock = !outOfStock && product.stock <= 5;
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-card border border-line bg-panel transition-colors hover:border-line-strong">
-      <div className="relative p-3 pb-0">
+    <article className="group relative flex min-w-0 flex-col">
+      <div className="relative">
         <ProductVisual
           name={product.name}
           imageUrl={product.imageUrl}
           accentColor={product.accentColor}
+          stock={product.stock}
           priority={priority}
-          sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 90vw"
+          sizes="(min-width: 1024px) 24rem, (min-width: 640px) 45vw, 90vw"
         />
         {outOfStock ? (
-          <Badge tone="solid" className="absolute left-5 top-5">
+          <Badge tone="solid" className="absolute left-3 top-3">
             Out of stock
           </Badge>
         ) : lowStock ? (
-          <Badge tone="citrus" className="absolute left-5 top-5">
+          <Badge tone="neutral" className="absolute left-3 top-3">
             Only {product.stock} left
           </Badge>
         ) : null}
       </div>
 
-      <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-start justify-between gap-3">
-          <h3 className="text-lg font-semibold leading-tight">
-            {/* The whole card is the link target; the overlay below does that
-                without nesting interactive elements. */}
-            <Link href={`/shop/${product.slug}`} className="after:absolute after:inset-0">
-              {product.name}
-            </Link>
-          </h3>
-          <p className="shrink-0 text-lg font-semibold">
-            {formatMinor(product.priceMinor)}
-          </p>
-        </div>
-
-        <p className="mt-1 text-sm text-fg-muted">
-          {product.flavor} · {product.packSize}
-        </p>
-
-        {product.tagline ? (
-          <p className="mt-3 text-sm leading-relaxed text-fg-soft">
-            {product.tagline}
-          </p>
-        ) : null}
-
-        <p className="mt-auto pt-4 text-sm font-medium text-link">
-          View flavor
-          <span aria-hidden className="ml-1 inline-block transition-transform group-hover:translate-x-0.5">
-            →
-          </span>
+      <div className="mt-4 flex items-baseline gap-2.5">
+        <h3 className="min-w-0 text-2xl font-normal leading-tight md:max-lg:text-xl">
+          {/* The whole card is the link target; the overlay below does that
+              without nesting interactive elements. */}
+          <Link
+            href={`/shop/${product.slug}`}
+            className="underline-offset-4 after:absolute after:inset-0 after:rounded-card group-hover:underline"
+          >
+            {product.name}
+          </Link>
+        </h3>
+        <span
+          aria-hidden
+          className="min-w-4 flex-1 self-end border-b border-dotted border-line-strong pb-1.5"
+        />
+        <p className="shrink-0 text-lg font-medium tabular-nums">
+          {formatMinor(product.priceMinor)}
         </p>
       </div>
+
+      <p className="mt-1 text-sm text-fg-muted">
+        {product.flavor} · {product.packSize}
+      </p>
+
+      {product.tagline ? (
+        <p className="mt-2 text-sm leading-relaxed text-fg-soft">
+          {product.tagline}
+        </p>
+      ) : null}
     </article>
   );
 }
